@@ -1,3 +1,16 @@
-<p>
-  course-detail works!
-</p>
+<div class="course">
+  <div class="course__info-panel">
+      <div class="course__info">
+          <div class="course__info__item"> {{course.title}}</div>
+          <div class="course__info__item">{{course.duration |date:'shortTime'}}</div>
+          <div class="course__info__item">{{course.creationDate |date:'mediumDate'}}</div>
+      </div>
+      <div class="course__description">
+          {{course.description}}
+      </div>
+  </div>
+  <div class="course__actions">
+      <input type="button" value="Edit Course" class="courses__edit-button">
+      <input type="button" value="Delete" class="courses__delete-button">
+  </div>
+</div>

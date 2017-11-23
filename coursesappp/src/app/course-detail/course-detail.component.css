@@ -1,0 +1,87 @@
+.course {
+    /* align-items: center; */
+    justify-content: space-around;
+    flex-direction: row;
+    display: flex;
+    /* height: 5rem; */
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border: 1px solid rgb(67, 67, 85);
+    border-radius: 5px;
+}
+
+.course__info {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.course__info-panel {
+    padding: 20px;
+    /* margin: 20px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.course__actions {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.course__description {
+    padding: 20px;
+    color: #A5A6A6;
+    font-family: cursive;
+}
+
+.courses__edit-button {
+    -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    box-shadow: 0px 1px 0px 0px #f0f7fa;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
+    background-color: #33bdef;
+    border-radius: 6px;
+    border: 1px solid #057fd0;
+    /* display: inline-block; */
+    cursor: pointer;
+    color: #ffffff;
+    /* font-family: Arial; */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 6px;
+    text-decoration: none;
+    text-shadow: 0px -1px 0px #5b6178;
+}
+
+.courses__edit-button:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
+    background-color: #019ad2;
+}
+
+.courses__delete-button {
+    -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+    box-shadow: 0px 1px 0px 0px #f0f7fa;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
+    background-color: #33bdef;
+    border-radius: 6px;
+    border: 1px solid #057fd0;
+    /* display: inline-block; */
+    cursor: pointer;
+    color: #ffffff;
+    /* font-family: Arial; */
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 6px;
+    text-decoration: none;
+    text-shadow: 0px -1px 0px #5b6178;
+}
+
+.courses__delete-button:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
+    background-color: #019ad2;
+}

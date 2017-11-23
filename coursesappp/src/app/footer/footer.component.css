@@ -1,0 +1,22 @@
+.page__footer {
+    background: #535455;
+}
+
+.footer {
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    display: flex;
+    height: 2rem;
+    /* border: 1px solid rgb(67, 67, 85);
+    border-radius: 5px; */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.footer__text {
+    height: 1.6rem;
+    width: 11.6rem;
+    line-height: 1.6rem;
+    color: #FFFFFF;
+}
