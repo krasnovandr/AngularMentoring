@@ -1,0 +1,22 @@
+<app-wizard>
+  <app-wizard-step [title]="'Step1'" (onNext)="onStep1Next($event)">
+    <span>Step1</span>
+    <input type="text">
+  </app-wizard-step>
+  <app-wizard-step [title]="'Step2'" (onNext)="onStep2Next($event)">
+    <span>Step2</span>
+  </app-wizard-step>
+  <app-wizard-step [title]="'Step3'" (onNext)="onStep3Next($event)">
+    <span>Step3</span>
+  </app-wizard-step>
+  <app-wizard-step [title]="'Step4'" (onComplete)="onComplete($event)">
+    <div [ngSwitch]="isCompleted">
+      <div *ngSwitchDefault>
+        <span>Step4</span>
+      </div>
+      <div *ngSwitchCase="true">
+        <h4>Thank you! You have completed all the steps.</h4>
+      </div>
+    </div>
+  </app-wizard-step>
+</app-wizard>

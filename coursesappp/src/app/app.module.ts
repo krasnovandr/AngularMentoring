@@ -19,7 +19,7 @@ import { CoursesService } from './courses.service';
     CourseDetailComponent,
     HeaderComponent,
     FooterComponent,
-    ToolboxComponent
+    ToolboxComponent,
   ],
   imports: [
     BrowserModule,

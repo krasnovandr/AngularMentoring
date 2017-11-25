@@ -1,0 +1,10 @@
+<div class="wizard">
+  <div class="wizard__body">
+    <ng-content></ng-content>
+  </div>
+  <div class="wizard__actions" [hidden]="isCompleted">
+    <input type="button" class="wizard__action-button" (click)="previous()" [hidden]="!hasPrevStep || !activeStep.showPrev" value="Previous"/>
+    <input type="button" class="wizard__action-button" (click)="next()" [disabled]="!activeStep.isValid" [hidden]="!hasNextStep || !activeStep.showNext" value="Next"/>
+    <input type="button" class="wizard__action-button" (click)="complete()" [disabled]="!activeStep.isValid" [hidden]="hasNextStep" value="Done"/>
+  </div>
+</div>

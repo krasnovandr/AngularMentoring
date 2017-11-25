@@ -15,6 +15,9 @@ import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { WizardComponent } from './wizard/wizard.component';
+import { WizardStepComponent } from './wizard-step/wizard-step.component';
+import { TakeActionWizardComponent } from './take-action-wizard/take-action-wizard.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    WizardComponent,
+    WizardStepComponent,
+    TakeActionWizardComponent
   ],
   imports: [
     BrowserModule,

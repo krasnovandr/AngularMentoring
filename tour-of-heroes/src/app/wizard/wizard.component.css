@@ -1,0 +1,47 @@
+.wizard {
+    height: 533px;
+    width: 692px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    display: flex;
+    /* align-items: top; */
+    /* justify-content: center; */
+    flex-direction: column;
+}
+
+.wizard__body {
+    padding-top: 32px;
+    padding-left:36px;
+    height: 453px;
+}
+
+.wizard__header {
+    height: 19px;
+    width: 52px;
+    color: #000000;
+    font-family: Roboto;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.wizard__actions {
+    display: flex;
+    /* align-items: top; */
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 16px;
+}
+
+.wizard__action-button {
+    height: 32px;
+    width: 88px;
+    border-radius: 2px;
+    background-color: #01529D;
+    border: 1px solid #01529D;
+    color: #FFFFFF;
+    font-family: Roboto;
+    font-size: 14px;
+    line-height: 16px;
+}
+
