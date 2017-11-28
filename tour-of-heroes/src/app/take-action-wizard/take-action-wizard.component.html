@@ -9,7 +9,7 @@
   <app-wizard-step [title]="'Step3'" (onNext)="onStep3Next($event)">
     <span>Step3</span>
   </app-wizard-step>
-  <app-wizard-step [title]="'Step4'" (onComplete)="onComplete($event)">
+  <app-wizard-step [title]="'Step4'" (onComplete)="onComplete($event)" >
     <div [ngSwitch]="isCompleted">
       <div *ngSwitchDefault>
         <span>Step4</span>

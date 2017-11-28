@@ -3,10 +3,11 @@
     justify-content: space-around;
     flex-direction: row;
     display: flex;
-    height: 4rem;
+    /* height: 4rem; */
     margin-bottom: 20px;
     border: 1px solid rgb(67, 67, 85);
     border-radius: 5px;
+    flex-wrap: wrap;
 }
 
 .toolbox__search {
@@ -14,6 +15,7 @@
     justify-content: space-around;
     flex-direction: row;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .toolbox__search-button {
@@ -49,7 +51,9 @@
     padding: 20px;
 }
 
-.toolbox__add-course-button {}
+.toolbox__add-course-button {
+    padding: 20px;
+}
 
 .toolbox__input {
     font-size: 16px;
