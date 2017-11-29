@@ -6,3 +6,5 @@ body {
     background: #f2f4f5;
     font: 1.1rem Roboto, sans-serif;
 }
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";

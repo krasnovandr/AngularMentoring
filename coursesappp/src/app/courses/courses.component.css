@@ -1,5 +1,5 @@
 .courses{
     margin-left: 30px;
     margin-right: 30px;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
 }
