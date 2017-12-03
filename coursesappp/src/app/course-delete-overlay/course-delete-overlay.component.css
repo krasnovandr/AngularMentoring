@@ -1,0 +1,23 @@
+.delete-dialog {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    background: white;
+    border: 1px solid rgb(67, 67, 85);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.delete-dialog__header{
+    min-height: 10px;
+}
+.delete-dialog__body{
+    min-height: 40px;
+}
+
+.delete-dialog__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}

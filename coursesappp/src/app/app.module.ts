@@ -6,12 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { ToolboxComponent } from './toolbox/toolbox.component';
 import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses/courses.component';
-import { CourseDetailComponent, RotiniPanel, SpagettiPanel, KeyboardTrackingPanel } from './course-detail/course-detail.component';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { CoursesService } from './courses.service';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
+import { CourseDeleteOverlayComponent } from './course-delete-overlay/course-delete-overlay.component';
+import { CourseDeleteOverlayService } from './course-delete-overlay/course-delete-overlay.service';
 
 
 @NgModule({
@@ -22,8 +24,7 @@ import { PortalModule } from '@angular/cdk/portal';
     HeaderComponent,
     FooterComponent,
     ToolboxComponent,
-    RotiniPanel,
-    SpagettiPanel, KeyboardTrackingPanel
+    CourseDeleteOverlayComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,8 +32,10 @@ import { PortalModule } from '@angular/cdk/portal';
     OverlayModule,
     PortalModule
   ],
-  providers: [CoursesService],
+  providers: [
+    CoursesService,
+    CourseDeleteOverlayService],
   bootstrap: [AppComponent],
-  entryComponents: [RotiniPanel, SpagettiPanel,KeyboardTrackingPanel]
+  entryComponents: [CourseDeleteOverlayComponent]
 })
 export class AppModule { }

@@ -17,6 +17,7 @@ export class CoursesComponent implements OnInit {
   }
 
   onDelete(course: Course) {
+    this.coursesService.removeCourse(course.id);
     console.log(`course ${course.id} with name ${course.title} marked as deleted`);
   }
 

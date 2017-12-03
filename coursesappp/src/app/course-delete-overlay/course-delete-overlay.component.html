@@ -1,0 +1,12 @@
+<div class="delete-dialog">
+  <div class="delete-dialog__header">
+    {{course.title}}
+  </div>
+  <div class="delete-dialog__body">
+    Do you really want to delete this course?
+  </div>
+  <div class="delete-dialog__footer">
+    <input class="button" type="button" value="Yes" (click)="yesClick()" >
+    <input class="button" type="button" value="No" (click)="noClick()" >
+  </div>
+</div>
