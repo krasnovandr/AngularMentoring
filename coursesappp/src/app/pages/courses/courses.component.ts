@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../courses';
-import { CoursesService } from '../courses.service';
+import { Course } from '../../courses';
+import { CoursesService } from '../../services/courses.service';
 
 
 @Component({
@@ -20,5 +20,4 @@ export class CoursesComponent implements OnInit {
     this.coursesService.removeCourse(course.id);
     console.log(`course ${course.id} with name ${course.title} marked as deleted`);
   }
-
 }

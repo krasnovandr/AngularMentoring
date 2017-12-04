@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Course } from '../courses';
-import { CourseDeleteOverlayService } from '../course-delete-overlay/course-delete-overlay.service';
-
-
+import { Course } from '../../courses';
+import { CourseDeleteOverlayService } from '../../services/course-delete-overlay.service';
 
 @Component({
   selector: 'app-course-detail',

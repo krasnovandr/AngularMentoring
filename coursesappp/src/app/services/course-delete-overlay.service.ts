@@ -3,11 +3,11 @@ import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { InjectionToken } from '@angular/core';
 
-import { CourseDeleteOverlayComponent } from './course-delete-overlay.component';
-import { CourseDetailOverlayRef } from './course-delete-overlayref';
 import { Course } from '../courses';
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Course_Detail_Data } from './course-delete-overlay-data';
+import { CourseDetailOverlayRef } from '../components/course-delete-overlay/course-delete-overlayref';
+import { CourseDeleteOverlayComponent } from '../components/course-delete-overlay/course-delete-overlay.component';
+import { Course_Detail_Data } from '../components/course-delete-overlay/course-delete-overlay-data';
 
 
 interface CourseDeleteOverlayConfig {
