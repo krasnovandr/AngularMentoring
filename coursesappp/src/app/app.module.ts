@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-
 import { AppComponent } from './app.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
@@ -14,6 +13,9 @@ import { CourseDeleteOverlayComponent } from './components/course-delete-overlay
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
+import { AuthorizationService } from './services/authorization.service';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './pages/login/login.component';
 
 
 @NgModule({
@@ -25,16 +27,19 @@ import { ToolboxComponent } from './components/toolbox/toolbox.component';
     FooterComponent,
     ToolboxComponent,
     CourseDeleteOverlayComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     OverlayModule,
-    PortalModule
+    PortalModule,
+    AppRoutingModule
   ],
   providers: [
     CoursesService,
-    CourseDeleteOverlayService],
+    CourseDeleteOverlayService,
+    AuthorizationService],
   bootstrap: [AppComponent],
   entryComponents: [CourseDeleteOverlayComponent]
 })

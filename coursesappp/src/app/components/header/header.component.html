@@ -7,8 +7,9 @@
     <div class="header__breadcrump">Courses BreadCrump</div>
 
     <div class="header__userpanel">
-      <div>user login</div>
-      <a href="http://htmlbook.ru" class="header__userpanel_logoff-link">
+      <div *ngIf="authService.isAuthenticated()">{{currentUser}}</div>
+      <a *ngIf="!authService.isAuthenticated()" class="header__userpanel_logoff-link" routerLink="/login">Login</a>
+      <a *ngIf="authService.isAuthenticated()" class="header__userpanel_logoff-link" (click)="authService.Logout()">
         LogOff
       </a>
     </div>

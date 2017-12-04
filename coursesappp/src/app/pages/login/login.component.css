@@ -1,0 +1,57 @@
+.login {
+    display: flex;
+    min-height: 200px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login__form-row {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
+}
+
+.login__form-row>label {
+    padding: .5em 1em .5em 0;
+    flex: 1;
+}
+
+.login__form-row>input {
+    flex: 2;
+}
+
+.login__form-row>input,
+.login__form-row>button {
+    padding: .5em;
+}
+
+.login__form-row>button {
+    background: gray;
+    color: white;
+    border: 0;
+}
+
+
+/* .login__form {
+    display: flex;
+    align-items: center;
+} */
+
+
+/* .login__form-field {
+    order: 2;
+    flex: 1 1 auto;
+} */
+
+
+/* .login__form-label {
+    order: 1;
+    width: 10em;
+    padding-right: 0.5em;
+}
+
+.login__form-input {
+    order: 2;
+    flex: 1 1 auto;
+} */
