@@ -1,15 +1,15 @@
 <header class="page__header">
   <div class="header">
     <div class="header__logo">
-      <img src="assets/newlogo.png" alt="Logo" /> Logo Sample
+      <img src="assets/newlogo.png" alt="Logo" />
     </div>
 
     <div class="header__breadcrump">Courses BreadCrump</div>
 
     <div class="header__userpanel">
-      <div *ngIf="authService.isAuthenticated()">{{currentUser}}</div>
+      <div *ngIf="authService.isAuthenticated()">{{ this.authService.getUserInfo().login}}</div>
       <a *ngIf="!authService.isAuthenticated()" class="header__userpanel_logoff-link" routerLink="/login">Login</a>
-      <a *ngIf="authService.isAuthenticated()" class="header__userpanel_logoff-link" (click)="authService.Logout()">
+      <a *ngIf="authService.isAuthenticated()" class="header__userpanel_logoff-link" (click)="signOut()">
         LogOff
       </a>
     </div>

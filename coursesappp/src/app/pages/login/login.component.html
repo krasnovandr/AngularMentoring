@@ -1,13 +1,7 @@
-<form>
-  <ul class="login">
-    <li class="login__form-row">
-      <label for="login">Login:</label>
-      <input type="text" id="login">
-    </li>
-    <li class="login__form-row">
-      <label for="password">Password:</label>
-      <input type="password" id="password">
-    </li>
-    <button type="submit" class="button">Submit</button>
-  </ul>
-</form>
+<div class="login">
+  <form>
+    <input type="text" class="login__form-input" placeholder="login" #login>
+    <input type="password" class="login__form-input" placeholder="password" #password>
+    <button type="submit" class="login__form-submit" (click)="onLogin(login.value,password.value)" >Submit</button>
+  </form>
+</div>

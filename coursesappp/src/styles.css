@@ -9,22 +9,13 @@ body {
 }
 
 .button {
-    -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
-    -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
-    box-shadow: 0px 1px 0px 0px #f0f7fa;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
-    background-color: #33bdef;
-    border-radius: 6px;
-    border: 1px solid #057fd0;
-    /* display: inline-block; */
+    background-color: #019ad2;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    color: #ffffff;
-    /* font-family: Arial; */
-    font-size: 16px;
-    font-weight: bold;
-    padding: 6px 6px;
-    text-decoration: none;
-    text-shadow: 0px -1px 0px #5b6178;
 }
 
 .button:hover {

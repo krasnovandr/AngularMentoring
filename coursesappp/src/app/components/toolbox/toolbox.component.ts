@@ -6,13 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbox.component.css']
 })
 export class ToolboxComponent implements OnInit {
-  courseName: string;
   constructor() { }
 
   ngOnInit() {
   }
-  search() {
-    alert(`Search By ${this.courseName}`);
+  search(courseName: string) {
+    alert(`Search By ${courseName}`);
   }
 
 }

@@ -1,5 +1,7 @@
-.courses{
-    margin-left: 30px;
-    margin-right: 30px;
+.courses {
+    /* margin-left: 30px; */
+    /* margin-right: 30px; */
     flex-wrap: wrap;
+    max-width: 950px;
+    margin: 0 auto;
 }

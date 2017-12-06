@@ -1,11 +1,11 @@
 <div class="toolbox">
   <div class="toolbox__search">
     <div class="toolbox__search-button-box">
-      <input type="text" [(ngModel)]="courseName" class="toolbox__input">
+      <input type="text" #courseName class="toolbox__input" (keyup.enter)="onEnter(courseName.value)">
     </div>
-    <input type="button" value="Find" (click)="search()" class="toolbox__search-button">
+    <input type="button" value="Find" (click)="search(courseName.value)" class="button">
   </div>
   <div class="toolbox__add-course-button">
-    <input type="button" value="Add Course" class="toolbox__search-button">
+    <input type="button" value="Add Course" class="button">
   </div>
 </div>
