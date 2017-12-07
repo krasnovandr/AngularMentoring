@@ -1,9 +1,7 @@
 .course {
-    /* align-items: center; */
     justify-content: space-around;
     flex-direction: row;
     display: flex;
-    /* height: 5rem; */
     margin-bottom: 20px;
     margin-top: 20px;
     border: 1px solid rgb(67, 67, 85);
@@ -20,7 +18,6 @@
 
 .course__info-panel {
     padding: 20px;
-    /* margin: 20px; */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
