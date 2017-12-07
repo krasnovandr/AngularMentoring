@@ -22,6 +22,7 @@
     border-radius: 4px;
     box-sizing: border-box;
 }
+
 .login__form-input::placeholder {
     color: #A5A6A6;
     font-family: cursive;
@@ -29,7 +30,6 @@
 
 .login__form-submit {
     width: 100%;
-    /* background-color: #4CAF50; */
     background-color: #019ad2;
     color: white;
     padding: 14px 20px;
@@ -38,4 +38,3 @@
     border-radius: 4px;
     cursor: pointer;
 }
-

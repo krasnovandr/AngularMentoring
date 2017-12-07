@@ -3,7 +3,6 @@
     justify-content: space-around;
     flex-direction: row;
     display: flex;
-    /* height: 4rem; */
     margin-bottom: 20px;
     border: 1px solid rgb(67, 67, 85);
     border-radius: 1px;
@@ -18,7 +17,6 @@
     flex-wrap: wrap;
     width: 50%;
 }
-
 
 .toolbox__search-button-box {
     width: 75%;

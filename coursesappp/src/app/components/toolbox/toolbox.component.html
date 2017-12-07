@@ -1,7 +1,7 @@
 <div class="toolbox">
   <div class="toolbox__search">
     <div class="toolbox__search-button-box">
-      <input type="text" #courseName class="toolbox__input" (keyup.enter)="onEnter(courseName.value)">
+      <input type="text" #courseName class="toolbox__input" (keyup.enter)="search(courseName.value)">
     </div>
     <input type="button" value="Find" (click)="search(courseName.value)" class="button">
   </div>
