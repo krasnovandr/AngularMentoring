@@ -8,14 +8,15 @@ import { PortalModule } from '@angular/cdk/portal';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { CoursesService } from './services/courses.service';
 import { CourseDeleteOverlayService } from './services/course-delete-overlay.service';
-import { CourseDetailComponent } from './components/course-detail/course-detail.component';
-import { CourseDeleteOverlayComponent } from './components/course-delete-overlay/course-delete-overlay.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
-import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { AuthorizationService } from './services/authorization.service';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './pages/login/login.component';
+import { ColoredborderDirective } from './directives/coloredborder.directive';
+import { CourseDetailComponent } from './pages/courses/components/course-detail/course-detail.component';
+import { HeaderComponent } from './shared-components/header/header.component';
+import { FooterComponent } from './shared-components/footer/footer.component';
+import { ToolboxComponent } from './pages/courses/components/toolbox/toolbox.component';
+import { CourseDeleteOverlayComponent } from './pages/courses/components/course-delete-overlay/course-delete-overlay.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { LoginComponent } from './pages/login/login.component';
     FooterComponent,
     ToolboxComponent,
     CourseDeleteOverlayComponent,
-    LoginComponent
+    LoginComponent,
+    ColoredborderDirective
   ],
   imports: [
     BrowserModule,

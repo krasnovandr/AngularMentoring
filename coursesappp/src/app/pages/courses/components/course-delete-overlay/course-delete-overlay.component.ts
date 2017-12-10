@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { CourseDetailOverlayRef } from './course-delete-overlayref';
 import { Course_Detail_Data } from './course-delete-overlay-data';
-import { Course } from '../../courses';
+import { Course } from '../../../../models/courses';
 
 @Component({
   selector: 'app-course-delete-overlay',
