@@ -1,9 +1,10 @@
-<div class="course">
+<div class="course" appColoredborder [courseCreatedDate]="course.creationDate" [ngClass]="[course.topRated ? 'course__top-rated':'']">
     <div class="course__info-panel">
         <div class="course__info">
-            <div class="course__info__item"> {{course.title}}</div>
-            <div class="course__info__item">{{course.duration |date:'shortTime'}}</div>
-            <div class="course__info__item">{{course.creationDate |date:'mediumDate'}}</div>
+            <span> {{course.title | uppercase}}</span>
+            <span>{{course.duration | duration}}</span>
+            <img [hidden]="!course.topRated" src="assets/star.png" alt="Star" />
+            <span>{{course.creationDate |date:'mediumDate'}}</span>
         </div>
         <div class="course__description">
             {{course.description}}

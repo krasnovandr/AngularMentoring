@@ -17,7 +17,9 @@ import { HeaderComponent } from './shared-components/header/header.component';
 import { FooterComponent } from './shared-components/footer/footer.component';
 import { ToolboxComponent } from './pages/courses/components/toolbox/toolbox.component';
 import { CourseDeleteOverlayComponent } from './pages/courses/components/course-delete-overlay/course-delete-overlay.component';
-
+import { DurationPipe } from './pipes/duration.pipe';
+import { OrderbyPipe } from './pipes/orderby.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,10 @@ import { CourseDeleteOverlayComponent } from './pages/courses/components/course-
     ToolboxComponent,
     CourseDeleteOverlayComponent,
     LoginComponent,
-    ColoredborderDirective
+    ColoredborderDirective,
+    DurationPipe,
+    OrderbyPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,8 @@ import { CourseDeleteOverlayComponent } from './pages/courses/components/course-
   providers: [
     CoursesService,
     CourseDeleteOverlayService,
-    AuthorizationService],
+    AuthorizationService,
+    FilterPipe],
   bootstrap: [AppComponent],
   entryComponents: [CourseDeleteOverlayComponent]
 })

@@ -4,34 +4,38 @@
     display: flex;
     margin-bottom: 20px;
     margin-top: 20px;
-    border: 1px solid rgb(67, 67, 85);
+    border: 2px solid rgb(67, 67, 85);
     border-radius: 1px;
     flex-wrap: wrap;
 }
 
 .course__info {
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .course__info-panel {
-    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    width: 70%;
 }
 
 .course__actions {
-    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
 .course__description {
-    padding: 20px;
+    padding-bottom: 20px;
     color: #A5A6A6;
     font-family: cursive;
+}
+
+.course__top-rated {
+    background-color: beige;
 }
