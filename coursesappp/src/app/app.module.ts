@@ -20,6 +20,8 @@ import { CourseDeleteOverlayComponent } from './pages/courses/components/course-
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderbyPipe } from './pipes/orderby.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { SpinnerComponent } from './shared-components/spinner/spinner.component';
+import { SpinnerService } from './services/spinner.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     ColoredborderDirective,
     DurationPipe,
     OrderbyPipe,
-    FilterPipe
+    FilterPipe,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +50,9 @@ import { FilterPipe } from './pipes/filter.pipe';
     CoursesService,
     CourseDeleteOverlayService,
     AuthorizationService,
-    FilterPipe],
+    FilterPipe,
+    SpinnerService],
   bootstrap: [AppComponent],
-  entryComponents: [CourseDeleteOverlayComponent]
+  entryComponents: [CourseDeleteOverlayComponent, SpinnerComponent]
 })
 export class AppModule { }

@@ -1,12 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Course } from '../../../../models/courses';
 import { CourseDeleteOverlayService } from '../../../../services/course-delete-overlay.service';
+import { SpinnerService } from '../../../../services/spinner.service';
 
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
-  styleUrls: ['./course-detail.component.css']
+  styleUrls: ['./course-detail.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseDetailComponent implements OnInit, OnChanges {
 
@@ -14,7 +16,8 @@ export class CourseDetailComponent implements OnInit, OnChanges {
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
   nextPosition = 0;
 
-  constructor(private deleteDialog: CourseDeleteOverlayService) { }
+  constructor(private deleteDialog: CourseDeleteOverlayService,
+    private spinner: SpinnerService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
@@ -22,7 +25,7 @@ export class CourseDetailComponent implements OnInit, OnChanges {
         const chng = changes[propName];
         const cur = JSON.stringify(chng.currentValue);
         const prev = JSON.stringify(chng.previousValue);
-        console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+        // console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
       }
     }
   }
@@ -33,8 +36,16 @@ export class CourseDetailComponent implements OnInit, OnChanges {
   deleteCourse(course: Course) {
     const dialogRef = this.deleteDialog.open({ data: course });
     dialogRef.onDelete.subscribe(() => {
-      this.onDelete.emit(course);
+      const spinnerRef = this.spinner.start();
+      setTimeout(() => {
+        this.onDelete.emit(course);
+        spinnerRef.close();
+      }, 2000);
     });
+  }
+
+  editCourse(course: Course) {
+    this.course.title = 'New Test Course Name';
   }
 }
 

@@ -11,7 +11,7 @@ export class OrderbyPipe implements PipeTransform {
       courses.sort((course1, course2) => {
         return order === 'asc' ?
           +new Date(course1.creationDate) - +new Date(course2.creationDate)
-          : + new Date(course2.creationDate) - +new Date(course1.creationDate);
+          : +new Date(course2.creationDate) - +new Date(course1.creationDate);
       });
     }
 

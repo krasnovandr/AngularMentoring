@@ -26,6 +26,5 @@ export class ColoredborderDirective implements OnInit {
 
   private setBorderColor(color: string) {
     this.renderer.setElementStyle(this.el.nativeElement, 'border-color', color);
-
   }
 }
