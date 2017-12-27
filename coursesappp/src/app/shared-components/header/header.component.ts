@@ -26,4 +26,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
+  }
+
 }

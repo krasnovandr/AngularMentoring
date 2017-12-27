@@ -7,9 +7,9 @@
     <!-- <div class="header__breadcrump">Courses BreadCrump</div> -->
 
     <div class="header__userpanel">
-      <div *ngIf="authService.isAuthenticated()">{{ userName}}</div>
-      <a *ngIf="!authService.isAuthenticated()" class="header__userpanel_logoff-link" routerLink="/login">Login</a>
-      <a *ngIf="authService.isAuthenticated()" class="header__userpanel_logoff-link" (click)="signOut()">
+      <div *ngIf="isAuthenticated()">{{ userName}}</div>
+      <a *ngIf="!isAuthenticated()" class="header__userpanel_logoff-link" routerLink="/login">Login</a>
+      <a *ngIf="isAuthenticated()" class="header__userpanel_logoff-link" (click)="signOut()">
         LogOff
       </a>
     </div>
