@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Course } from '../models/courses';
-
+import { Course, CourseBackendModel } from '../models/courses';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
+import { Subject, BehaviorSubject } from 'rxjs';
 @Injectable()
 export class CoursesService {
   private commonDescription = `Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -10,56 +12,59 @@ export class CoursesService {
   It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
    and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`;
 
-  courses: Course[] = [
+
+  private courses: CourseBackendModel[] = [
     {
-      id: 11,
-      title: 'Course 1',
-      description: this.commonDescription,
-      duration: 201,
-      creationDate: this.getDate(-20),
-      topRated: false
+      courseId: 11,
+      courseTitle: 'Course 1',
+      courseDescription: this.commonDescription,
+      courseDuration: 201,
+      courseCreationDate: this.getDate(-20),
+      courseTopRated: false
     },
     {
-      id: 12,
-      title: 'Course 32',
-      description: this.commonDescription,
-      duration: 32,
-      creationDate: this.getDate(0),
-      topRated: true
+      courseId: 12,
+      courseTitle: 'Course 32',
+      courseDescription: this.commonDescription,
+      courseDuration: 32,
+      courseCreationDate: this.getDate(0),
+      courseTopRated: true
     },
     {
-      id: 13,
-      title: 'Course 3',
-      description: this.commonDescription,
-      duration: 1233,
-      creationDate: this.getDate(-4),
-      topRated: true
+      courseId: 13,
+      courseTitle: 'Course 3',
+      courseDescription: this.commonDescription,
+      courseDuration: 1233,
+      courseCreationDate: this.getDate(-4),
+      courseTopRated: true
     },
     {
-      id: 14,
-      title: 'Test Course',
-      description: this.commonDescription,
-      duration: 23,
-      creationDate: this.getDate(10),
-      topRated: false
+      courseId: 14,
+      courseTitle: 'Test Course',
+      courseDescription: this.commonDescription,
+      courseDuration: 1233,
+      courseCreationDate: this.getDate(10),
+      courseTopRated: false
     },
     {
-      id: 15,
-      title: 'Super Course',
-      description: this.commonDescription,
-      duration: 123,
-      creationDate: this.getDate(12),
-      topRated: false
+      courseId: 15,
+      courseTitle: 'Super Course',
+      courseDescription: this.commonDescription,
+      courseDuration: 123,
+      courseCreationDate: this.getDate(12),
+      courseTopRated: false
     },
     {
-      id: 15,
-      title: 'Mega Course',
-      description: this.commonDescription,
-      duration: 223333,
-      creationDate: this.getDate(-123),
-      topRated: false
+      courseId: 15,
+      courseTitle: 'Mega Course',
+      courseDescription: this.commonDescription,
+      courseDuration: 223333,
+      courseCreationDate: this.getDate(-123),
+      courseTopRated: false
     }
   ];
+
+  public coursesObservable = new BehaviorSubject<CourseBackendModel[]>(this.courses);
   constructor() {
   }
 
@@ -70,29 +75,33 @@ export class CoursesService {
     return date;
   }
 
-  getList(): Course[] {
-    return this.courses;
+  public getList(): Observable<CourseBackendModel[]> {
+    return this.coursesObservable;
   }
 
-  createCourse(newCourse: Course): void {
+  public createCourse(newCourse: CourseBackendModel): void {
     this.courses.push(newCourse);
+    this.coursesObservable.next(this.courses);
   }
 
-  getById(id: number): Course {
-    return this.courses.find(item => item.id === id);
+  public getById(id: number): Observable<CourseBackendModel> {
+    return Observable.of(this.courses.find(item => item.courseId === id));
   }
 
-  updateCourse(course: Course): void {
-    const elementIndex = this.courses.findIndex(item => item.id === course.id);
+  public updateCourse(course: CourseBackendModel): void {
+    const elementIndex = this.courses.findIndex(item => item.courseId === course.courseId);
     if (elementIndex > -1) {
       this.courses[elementIndex] = course;
+      this.coursesObservable.next(this.courses);
     }
+
   }
 
-  removeCourse(id: number): void {
-    const elementIndex = this.courses.findIndex(item => item.id === id);
+  public removeCourse(id: number): void {
+    const elementIndex = this.courses.findIndex(item => item.courseId === id);
     if (elementIndex > -1) {
       this.courses.splice(elementIndex, 1);
+      this.coursesObservable.next(this.courses);
     }
   }
 }

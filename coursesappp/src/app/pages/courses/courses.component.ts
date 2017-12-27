@@ -1,9 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
-import { Course } from '../../models/courses';
+import { Course, CourseBackendModel } from '../../models/courses';
 import { FilterPipe } from '../../pipes/filter.pipe';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/flatMap';
+// import 'rxjs/add/observable/map';
 
-
+// import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -16,8 +21,27 @@ export class CoursesComponent implements OnInit {
   constructor(private coursesService: CoursesService, private filterPipe: FilterPipe) { }
 
   ngOnInit() {
-    this.courses = this.coursesService.getList();
-    this.initialCourses = this.courses.concat();
+    this.coursesService.getList().map((courses) => {
+      return courses.map((backendCourse) => {
+        const result = new Course();
+        result.id = backendCourse.courseId;
+        result.creationDate = backendCourse.courseCreationDate;
+        result.description = backendCourse.courseDescription;
+        result.duration = backendCourse.courseDuration;
+        result.title = backendCourse.courseTitle;
+        result.topRated = backendCourse.courseTopRated;
+
+        return result;
+      });
+    }).subscribe((x) => {
+      this.courses = x;
+      this.initialCourses = this.courses.concat();
+      console.log('Next: ' + x);
+    },
+      (err) => console.log('Error: ' + err),
+      () => {
+        console.log('Completed');
+      });
   }
 
   onDelete(course: Course) {

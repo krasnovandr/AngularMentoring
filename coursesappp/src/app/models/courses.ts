@@ -13,3 +13,13 @@ export class Course implements ICourse {
     duration: number;
     topRated: boolean;
 }
+
+export class CourseBackendModel {
+    courseId: number;
+    courseTitle: string;
+    courseCreationDate: Date;
+    courseDescription: string;
+    courseDuration: number;
+    courseTopRated: boolean;
+}
+

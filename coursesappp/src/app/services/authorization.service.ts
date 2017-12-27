@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-
 @Injectable()
 export class AuthorizationService {
     private storageKey = 'currentUser';
