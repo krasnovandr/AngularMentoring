@@ -1,0 +1,24 @@
+<div class="course">
+  <!-- <form> -->
+  <div class="course__form-row">
+    <label>Title</label>
+    <input type="text" class="course__form-input" #title>
+  </div>
+  <div class="course__form-row">
+    <label>Date</label>
+    <input type="date" class="course__form-input" #date>
+  </div>
+  <div class="course__form-row">
+    <label>Description</label>
+    <textarea class="course__form-input course__form-input-textarea" #description rows="8" cols="50"></textarea>
+  </div>
+  <div class="course__form-row">
+    <label>Duration</label>
+    <input type="number" class="course__form-input" #duration>
+  </div>
+  <div class="course__form-actions">
+    <input type="button" class="button" (click)="onCancel()" value="Cancel">
+    <input type="button" class="button" (click)="onSave(title.value,date.value,description.value,duration.value)" value="Save"
+    />
+  </div>
+</div>

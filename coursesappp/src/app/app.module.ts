@@ -22,6 +22,7 @@ import { OrderbyPipe } from './pipes/orderby.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SpinnerComponent } from './shared-components/spinner/spinner.component';
 import { SpinnerService } from './services/spinner.service';
+import { CourseComponent } from './pages/course/course.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SpinnerService } from './services/spinner.service';
     DurationPipe,
     OrderbyPipe,
     FilterPipe,
-    SpinnerComponent
+    SpinnerComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,

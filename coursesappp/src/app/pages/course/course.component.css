@@ -1,0 +1,48 @@
+.course {
+    flex-wrap: wrap;
+    max-width: 950px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.course__form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* flex: 1; */
+    /* width: 100%; */
+    margin-bottom: 10px;
+    width: 60%;
+}
+
+.course__form-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+}
+
+.course__form-row label {
+    display: block;
+    width: 125px;
+    font-weight: bold;
+    font-size: 1em; 
+}
+
+.course__form-row .course__form-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+}
+
+.course__form-row .course__form-input-textarea {
+    border: none;
+    resize: both;
+}

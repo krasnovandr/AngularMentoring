@@ -7,12 +7,6 @@
     min-height: 250px;
 }
 
-.login__form-row {
-    display: flex;
-    justify-content: flex-end;
-    padding: .5em;
-}
-
 .login__form-input {
     width: 100%;
     padding: 12px 20px;

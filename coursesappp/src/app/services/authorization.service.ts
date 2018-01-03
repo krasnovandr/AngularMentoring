@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class AuthorizationService {
     private storageKey = 'currentUser';
-    public userInfo: Subject<User> = new Subject<User>();
+    public userInfo: BehaviorSubject<User> = new BehaviorSubject<User>(this.getUserInfo());
     constructor() {
     }
 
@@ -17,7 +18,7 @@ export class AuthorizationService {
 
     logout() {
         localStorage.removeItem(this.storageKey);
-        this.userInfo.next();
+        this.userInfo.next(null);
     }
 
     isAuthenticated(): boolean {
