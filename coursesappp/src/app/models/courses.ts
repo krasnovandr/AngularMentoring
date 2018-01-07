@@ -14,12 +14,28 @@ export class Course implements ICourse {
     topRated: boolean;
 }
 
-export class CourseBackendModel {
-    courseId: number;
-    courseTitle: string;
-    courseCreationDate: Date;
-    courseDescription: string;
-    courseDuration: number;
-    courseTopRated: boolean;
+export class CourseResponse {
+    data: CourseBackendModel[];
+    totalCount: number;
 }
 
+export class CourseBackendModel {
+    id: number;
+    name: string;
+    date: Date;
+    description: string;
+    courseDuration: number;
+    isTopRated: boolean;
+    authors: CourseAuthor[];
+}
+
+export class CourseAuthor {
+    id: number;
+    firstName: string;
+    lastName: string;
+}
+
+export class PagerOptions {
+    pageIndex: number;
+    itemsPerPage: number;
+}

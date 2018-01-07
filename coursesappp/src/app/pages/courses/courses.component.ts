@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
-import { Course, CourseBackendModel } from '../../models/courses';
+import { Course, CourseBackendModel, PagerOptions } from '../../models/courses';
 import { FilterPipe } from '../../pipes/filter.pipe';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -21,19 +21,24 @@ export class CoursesComponent implements OnInit {
   constructor(private coursesService: CoursesService, private filterPipe: FilterPipe) { }
 
   ngOnInit() {
-    this.coursesService.getList().map((courses) => {
-      return courses.map((backendCourse) => {
+    let options: PagerOptions = new PagerOptions();
+    options.pageIndex = 1;
+    options.itemsPerPage = 20;
+
+    this.coursesService.getList(options).map((courses) => {
+      return courses.data.map((backendCourse) => {
         const result = new Course();
-        result.id = backendCourse.courseId;
-        result.creationDate = backendCourse.courseCreationDate;
-        result.description = backendCourse.courseDescription;
+        result.id = backendCourse.id;
+        result.creationDate = backendCourse.date;
+        result.description = backendCourse.description;
         result.duration = backendCourse.courseDuration;
-        result.title = backendCourse.courseTitle;
-        result.topRated = backendCourse.courseTopRated;
+        result.title = backendCourse.name;
+        result.topRated = backendCourse.isTopRated;
 
         return result;
       });
     }).subscribe((x) => {
+      debugger;
       this.courses = x;
       this.initialCourses = this.courses.concat();
       console.log('Next: ' + x);

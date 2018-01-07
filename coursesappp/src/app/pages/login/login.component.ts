@@ -1,7 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { AuthorizationService } from '../../services/authorization.service';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../services/spinner.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { map } from 'rxjs/operators/map';
+import { AuthorizationTokenService } from '../../services/authToken.service';
 
 @Component({
   selector: 'app-login',
@@ -10,23 +13,29 @@ import { SpinnerService } from '../../services/spinner.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
+  private loginResult: string;
 
   constructor(private authService: AuthorizationService,
+    private tokenService: AuthorizationTokenService,
     private router: Router,
-    private spinner: SpinnerService) { }
-
+    private spinner: SpinnerService,
+    private cd: ChangeDetectorRef) { }
   ngOnInit() {
   }
 
   onLogin(login: string, password: string) {
     const spinnerRef = this.spinner.start();
+    this.loginResult = '';
 
-    setTimeout(() => {
-      this.authService.login(login, password);
-      spinnerRef.close();
-    }, 2000);
-
-    this.router.navigate(['courses']);
+    this.authService.login(login, password)
+      .map(response => response.token).subscribe(token => {
+        this.tokenService.setAuthorizationToken(token);
+        spinnerRef.close();
+        this.router.navigate(['courses']);
+      }, (error: HttpErrorResponse) => {
+        this.loginResult = error.error;
+        spinnerRef.close();
+        this.cd.markForCheck();
+      });
   }
-
 }

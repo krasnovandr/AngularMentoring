@@ -1,33 +1,29 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { UserLogin, UserInfo, SignInResponse } from '../models/user';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { AuthorizationTokenService } from './authToken.service';
+
 @Injectable()
 export class AuthorizationService {
-    private storageKey = 'currentUser';
-    public userInfo: BehaviorSubject<User> = new BehaviorSubject<User>(this.getUserInfo());
-    constructor() {
+    constructor(private http: HttpClient, private tokenService: AuthorizationTokenService) {
     }
 
     login(login: string, password: string) {
-        const user = new User(login, password);
-        localStorage.setItem(this.storageKey, JSON.stringify(user));
-        this.userInfo.next(user);
+        const user = new UserLogin(login, password);
+        const loginUrl = 'auth/login';
+        return this.http.post<SignInResponse>(`${environment.apiEndpoints.apiUrl}/${loginUrl}`, user);
     }
 
     logout() {
-        localStorage.removeItem(this.storageKey);
-        this.userInfo.next(null);
+        this.tokenService.removeAuthorizationToken();
     }
 
-    isAuthenticated(): boolean {
-        const reuslt = localStorage.getItem(this.storageKey);
-
-        return reuslt !== null ? true : false;
-    }
-
-    private getUserInfo(): User {
-        return JSON.parse(localStorage.getItem(this.storageKey));
+    public getUserInfo(): Observable<UserInfo> {
+        const userInfoUrl = 'auth/userInfo';
+        return this.http.get<UserInfo>(`${environment.apiEndpoints.apiUrl}/${userInfoUrl}`);
     }
 }

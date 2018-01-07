@@ -12,7 +12,6 @@ walk('./services', function (err, results) {
 		console.log(err);
 	} else {
 		ang = init(results);
-		debugger;
 		server.use(cors);
 		
 		server.use(jsonServer.bodyParser);

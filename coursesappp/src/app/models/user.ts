@@ -4,12 +4,28 @@ export interface IUser {
 }
 
 
-export class User implements IUser {
+export class UserLogin implements IUser {
     login: string;
     password: string;
 
-    constructor(login: string, paswword: string) {
+    constructor(login: string, password: string) {
         this.login = login;
-        this.password = paswword;
+        this.password = password;
     }
+}
+
+export class SignInResponse {
+    token: string;
+}
+
+export class UserName {
+    first: string;
+    last: string;
+}
+export class UserInfo implements IUser {
+    login: string;
+    password: string;
+    fakeToken: string;
+    id: number;
+    name: UserName;
 }

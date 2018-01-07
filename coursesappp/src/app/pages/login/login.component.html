@@ -1,7 +1,8 @@
 <div class="login">
-  <form>
-    <input type="text" class="login__form-input" placeholder="login" #login>
+  <form autocomplete="on">
+    <div class="login__error" *ngIf="loginResult !==''">{{loginResult}}</div>
+    <input type="text" class="login__form-input" placeholder="login" #login >
     <input type="password" class="login__form-input" placeholder="password" #password>
-    <button type="submit" class="login__form-submit" (click)="onLogin(login.value,password.value)" >Submit</button>
+    <button type="submit" class="login__form-submit" (click)="onLogin(login.value,password.value)">Submit</button>
   </form>
 </div>

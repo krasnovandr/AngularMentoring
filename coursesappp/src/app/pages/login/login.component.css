@@ -32,3 +32,9 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+.login__error{
+    color: red;
+    border-radius: 4px;
+    border: red;
+}

@@ -23,6 +23,9 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { SpinnerComponent } from './shared-components/spinner/spinner.component';
 import { SpinnerService } from './services/spinner.service';
 import { CourseComponent } from './pages/course/course.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './common/authInterceptor';
+import { AuthorizationTokenService } from './services/authToken.service';
 
 @NgModule({
   declarations: [
@@ -46,14 +49,22 @@ import { CourseComponent } from './pages/course/course.component';
     FormsModule,
     OverlayModule,
     PortalModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     CoursesService,
     CourseDeleteOverlayService,
     AuthorizationService,
     FilterPipe,
-    SpinnerService],
+    SpinnerService,
+    AuthorizationTokenService
+    ],
   bootstrap: [AppComponent],
   entryComponents: [CourseDeleteOverlayComponent, SpinnerComponent]
 })
