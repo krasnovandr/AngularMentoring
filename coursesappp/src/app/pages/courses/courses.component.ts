@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
 import { Course, CourseBackendModel, PagerOptions } from '../../models/courses';
 import { FilterPipe } from '../../pipes/filter.pipe';
@@ -18,10 +18,13 @@ import 'rxjs/add/observable/of';
 export class CoursesComponent implements OnInit {
   public courses: Course[] = [];
   public initialCourses: Course[] = [];
-  constructor(private coursesService: CoursesService, private filterPipe: FilterPipe) { }
+  constructor(
+    private coursesService: CoursesService,
+    private filterPipe: FilterPipe,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    let options: PagerOptions = new PagerOptions();
+    const options: PagerOptions = new PagerOptions();
     options.pageIndex = 1;
     options.itemsPerPage = 20;
 
@@ -38,9 +41,9 @@ export class CoursesComponent implements OnInit {
         return result;
       });
     }).subscribe((x) => {
-      debugger;
       this.courses = x;
       this.initialCourses = this.courses.concat();
+      this.cd.markForCheck();
       console.log('Next: ' + x);
     },
       (err) => console.log('Error: ' + err),
