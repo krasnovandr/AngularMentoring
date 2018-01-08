@@ -17,7 +17,7 @@ export class CourseDetailComponent implements OnInit, OnChanges {
   nextPosition = 0;
 
   constructor(private deleteDialog: CourseDeleteOverlayService,
-    private spinner: SpinnerService) { }
+    ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
@@ -36,11 +36,8 @@ export class CourseDetailComponent implements OnInit, OnChanges {
   deleteCourse(course: Course) {
     const dialogRef = this.deleteDialog.open({ data: course });
     dialogRef.onDelete.subscribe(() => {
-      const spinnerRef = this.spinner.start();
-      setTimeout(() => {
-        this.onDelete.emit(course);
-        spinnerRef.close();
-      }, 2000);
+      this.onDelete.emit(course);
+   
     });
   }
 

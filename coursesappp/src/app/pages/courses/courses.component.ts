@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 
 // import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { SpinnerService } from '../../services/spinner.service';
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -21,20 +22,21 @@ export class CoursesComponent implements OnInit {
   constructor(
     private coursesService: CoursesService,
     private filterPipe: FilterPipe,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private spinner: SpinnerService) { }
 
   ngOnInit() {
     const options: PagerOptions = new PagerOptions();
     options.pageIndex = 1;
     options.itemsPerPage = 20;
 
-    this.coursesService.getList(options).map((courses) => {
+    this.coursesService.coursesObservable.map((courses) => {
       return courses.data.map((backendCourse) => {
         const result = new Course();
         result.id = backendCourse.id;
         result.creationDate = backendCourse.date;
         result.description = backendCourse.description;
-        result.duration = backendCourse.courseDuration;
+        result.duration = backendCourse.duration;
         result.title = backendCourse.name;
         result.topRated = backendCourse.isTopRated;
 
@@ -53,15 +55,17 @@ export class CoursesComponent implements OnInit {
   }
 
   onDelete(course: Course) {
-    this.coursesService.removeCourse(course.id);
-    console.log(`course ${course.id} with name ${course.title} marked as deleted`);
-  }
+    const spinnerRef = this.spinner.start();
 
-  onSearch(name: string) {
-    if (!name || name === '') {
-      this.courses = this.initialCourses;
-      return;
-    }
-    this.courses = this.filterPipe.transform(this.initialCourses, name);
+    this.coursesService.removeCourse(course.id).subscribe((res) => {
+      this.coursesService.getList();
+      spinnerRef.close();
+      this.cd.markForCheck();
+    },
+      (err) => {
+        console.log(err);
+        spinnerRef.close();
+      });
+    console.log(`course ${course.id} with name ${course.title} marked as deleted`);
   }
 }

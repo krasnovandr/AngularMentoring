@@ -24,7 +24,7 @@ export class CourseBackendModel {
     name: string;
     date: Date;
     description: string;
-    courseDuration: number;
+    duration: number;
     isTopRated: boolean;
     authors: CourseAuthor[];
 }
@@ -38,4 +38,8 @@ export class CourseAuthor {
 export class PagerOptions {
     pageIndex: number;
     itemsPerPage: number;
+}
+
+export class FilterOptions {
+    courseName: string;
 }
