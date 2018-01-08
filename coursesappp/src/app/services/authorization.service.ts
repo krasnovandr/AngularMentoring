@@ -12,7 +12,7 @@ export class AuthorizationService {
     constructor(private http: HttpClient, private tokenService: AuthorizationTokenService) {
     }
 
-    login(login: string, password: string) {
+    login(login: string, password: string): Observable<SignInResponse> {
         const user = new UserLogin(login, password);
         const loginUrl = 'auth/login';
         return this.http.post<SignInResponse>(`${environment.apiEndpoints.apiUrl}/${loginUrl}`, user);

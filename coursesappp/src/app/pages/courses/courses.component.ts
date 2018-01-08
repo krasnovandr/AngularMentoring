@@ -4,10 +4,6 @@ import { Course, CourseBackendModel, PagerOptions } from '../../models/courses';
 import { FilterPipe } from '../../pipes/filter.pipe';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/flatMap';
-// import 'rxjs/add/observable/map';
-
-// import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { SpinnerService } from '../../services/spinner.service';
 @Component({
@@ -26,22 +22,10 @@ export class CoursesComponent implements OnInit {
     private spinner: SpinnerService) { }
 
   ngOnInit() {
-    const options: PagerOptions = new PagerOptions();
-    options.pageIndex = 1;
-    options.itemsPerPage = 20;
-
     this.coursesService.coursesObservable.map((courses) => {
-      return courses.data.map((backendCourse) => {
-        const result = new Course();
-        result.id = backendCourse.id;
-        result.creationDate = backendCourse.date;
-        result.description = backendCourse.description;
-        result.duration = backendCourse.duration;
-        result.title = backendCourse.name;
-        result.topRated = backendCourse.isTopRated;
-
-        return result;
-      });
+      return courses.data.map((backendCourse) =>
+        this.mapCourseEntity(backendCourse)
+      );
     }).subscribe((x) => {
       this.courses = x;
       this.initialCourses = this.courses.concat();
@@ -52,6 +36,17 @@ export class CoursesComponent implements OnInit {
       () => {
         console.log('Completed');
       });
+  }
+
+  private mapCourseEntity(backendCourse: CourseBackendModel) {
+    const result = new Course();
+    result.id = backendCourse.id;
+    result.creationDate = backendCourse.date;
+    result.description = backendCourse.description;
+    result.duration = backendCourse.duration;
+    result.title = backendCourse.name;
+    result.topRated = backendCourse.isTopRated;
+    return result;
   }
 
   onDelete(course: Course) {
