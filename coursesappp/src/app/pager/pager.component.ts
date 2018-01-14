@@ -1,193 +1,95 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { PagerOptions } from '../models/courses';
 
 @Component({
   selector: 'app-pager',
   templateUrl: './pager.component.html',
   styleUrls: ['./pager.component.css']
 })
-export class PagerComponent implements OnInit {
+export class PagerComponent implements OnInit, OnChanges {
+  @Input() public totalRecords: number;
+  @Input() public recordsPerPage: number;
+  @Output() onPageChanged: EventEmitter<any> = new EventEmitter<any>();
 
+  public recordsPerPageVariants: number[] = [5, 10, 15, 20];
+  currentPage = 1;
+  currentPageInput = this.currentPage;
   constructor() { }
 
   ngOnInit() {
   }
 
-  // const unwrappedVariants: number[] = ko.unwrap(params.recordsPerPageVariants);
-  // if (unwrappedVariants && unwrappedVariants.length) {
-  //     // only overwrite if supplied
-  //     this.recordsPerPageVariants(unwrappedVariants);
-  // }
+  ngOnChanges() {
+  }
 
-  // this.currentPage : number = 1;
-// this.currentPageInput = ko.observable('1');
-// this.pageInputIsInError = ko.observable(false);
-// this.recordsPerPageSubscription = null;
+  public nextPage(): void {
+    if (this.isNextAvailable()) {
+      this.setCurrentPage(this.currentPage + 1);
+    }
+  }
 
-// this.totalRecords = ko.observable(ko.unwrap(params.totalRecords));
-// this.recordsPerPage = ko.observable(ko.unwrap(params.recordsPerPage));
-// this.pageSizeDropPosition = params.pageSizeVariantsDropdownPosition;
-// this.setCurrentPage(ko.unwrap(params.currentPage));
+  public isNextAvailable(): boolean {
+    return this.currentPage < this.totalPages;
+  }
 
-//   this.recordsPerPageSubscription = this.recordsPerPage.subscribe(this.recordsPerPageSubscriptionFunction);
+  public previousPage(): void {
+    if (this.isPreviousAvailable()) {
+      this.setCurrentPage(this.currentPage - 1);
+    }
+  }
 
-//   // these are callbacks from the container that hosts the pager component
-//   this.paginationEventCallback = params.paginationEventCallback;
+  public isPreviousAvailable(): boolean {
+    return this.currentPage > 1;
+  }
 
-//   if (params.paginationSettingsChangedEvent) {
-//       params.paginationSettingsChangedEvent.on(this.onPaginationSettingsChanged);
-//   }
+  public firstPage(): void {
+    this.setCurrentPage(1);
+  }
 
-//   this.totalPages = ko.computed(() => {
-//       const rows: number = this.totalRecords();
-//       const pageSize: number = this.recordsPerPage();
-//       const totalPages: number = Math.floor(rows / pageSize);
+  public isFirstOrLastAvailable(): boolean {
+    return this.totalPages > 1;
+  }
 
-//       return (rows % pageSize === 0 && rows !== 0) ? totalPages : (totalPages + 1);
-//   });
+  public lastPage(): void {
+    this.setCurrentPage(this.totalPages);
+  }
 
-//   this.rowDisplayProperty = ko.computed(() => {
-//       let end: number = this.recordsPerPage() * this.currentPage();
-//       const totalRecords: number = this.totalRecords();
-//       const start: number = (totalRecords !== 0) ? end - this.recordsPerPage() + 1 : 0;
-//       if (end > totalRecords) {
-//           end = totalRecords;
-//       }
+  private setCurrentPage(page: number): void {
+    this.currentPage = page;
+    this.currentPageInput = page;
+    this.onPageChanged.emit(new PagerOptions(this.currentPage, this.recordsPerPage));
+  }
 
-//       return `${start} - ${end} of ${totalRecords}`;
-//   });
-// }
+  get totalPages() {
+    const pages: number = Math.floor(this.totalRecords / this.recordsPerPage);
+    return this.totalRecords % this.recordsPerPage === 0 ? pages : (pages + 1);
+  }
 
-// // provide a mechanism for the host container to notify the component that it should reinitialize
-// // its internal state
-// public onPaginationSettingsChanged = (settings: IPaginationSettings): void => {
-//   this.disableCallbacks();
-//   if (settings.currentPage) {
-//       this.setCurrentPage(settings.currentPage);
-//   } else {
-//       this.setCurrentPage(1);
-//   }
+  get rowDisplayProperty() {
+    let end: number = this.recordsPerPage * this.currentPage;
+    const totalRecords: number = this.totalRecords;
+    const start: number = (totalRecords !== 0) ? end - this.recordsPerPage + 1 : 0;
+    if (end > totalRecords) {
+      end = totalRecords;
+    }
 
-//   this.totalRecords(ko.unwrap(settings.totalRecords));
+    return `${start} - ${end} of ${totalRecords}`;
+  }
 
-//   this.recordsPerPage(settings.recordsPerPage);
-//   this.enableCallbacks();
-// }
+  updateRecordPerPage() {
+    this.setCurrentPage(1);
+    this.onPageChanged.emit(new PagerOptions(this.currentPage, this.recordsPerPage));
+  }
+  cuurentPageChanged() {
+    if (this.currentPageInput < 1) {
+      this.setCurrentPage(1);
+      return;
+    } else if (this.currentPageInput > this.totalPages) {
+      this.setCurrentPage(this.totalPages);
+      return;
+    }
 
-// public nextPage(): void {
-//   if (this.isNextAvailable()) {
-//       this.setCurrentPage(this.currentPage() + 1);
-//   }
-// }
-
-// public isNextAvailable(): boolean {
-//   return this.currentPage() < this.totalPages();
-// }
-
-// public previousPage(): void {
-//   if (this.isPreviousAvailable()) {
-//       this.setCurrentPage(this.currentPage() - 1);
-//   }
-// }
-
-// public isPreviousAvailable(): boolean {
-//   return this.currentPage() > 1;
-// }
-
-// public firstPage(): void {
-//   this.setCurrentPage(1);
-// }
-
-// public isFirstOrLastAvailable(): boolean {
-//   return this.totalPages() > 1;
-// }
-
-// public lastPage(): void {
-//   this.setCurrentPage(this.totalPages());
-// }
-
-// public setRecordsPerPage(pageSize: number): void {
-//   this.recordsPerPage(pageSize);
-// }
-
-// public currentPageInputChanged(): void {
-//   const newPage: number = parseInt(this.currentPageInput(), 10);
-//   if (isNaN(newPage)) {
-//       this.pageInputIsInError(true);
-
-//       return;
-//   } else if (newPage < 1) {
-//       this.setCurrentPage(1);
-
-//       return;
-//   } else if (newPage > this.totalPages()) {
-//       this.setCurrentPage(this.totalPages());
-
-//       return;
-//   }
-//   this.setCurrentPage(newPage);
-// }
-
-// private throwOnInvalidParams(params: IPagerParam): void {
-//   const totalRecords: number = ko.unwrap(params.totalRecords);
-//   if (isNaN(totalRecords)) {
-//       throw new TypeError('totalRecords must be a number');
-//   } else if (totalRecords < 0) {
-//       throw new RangeError('totalRecords must be >= 0');
-//   }
-
-//   const currentPage: number = ko.unwrap(params.currentPage);
-//   if (currentPage) {
-//       if (isNaN(totalRecords)) {
-//           throw new TypeError('currentPage must be a number');
-//       } else if (currentPage <= 0) {
-//           throw new RangeError('currentPage must be > 0');
-//       }
-//   }
-
-//   const recordsPerPage: number = ko.unwrap(params.recordsPerPage);
-//   if (isNaN(recordsPerPage)) {
-//       throw new TypeError('recordsPerPage must be a number');
-//   } else if (recordsPerPage < 0) {
-//       throw new RangeError('recordsPerPage must be >= 0');
-//   }
-
-//   if (params.pageSizeVariantsDropdownPosition !== DropdownPosition.Down &&
-//       params.pageSizeVariantsDropdownPosition !== DropdownPosition.Up) {
-//       throw new RangeError('pageSizeVariantsDropdownDirection must be a valid DropdownPosition value.');
-//   }
-// }
-
-// private setCurrentPage(page: string | number): void {
-//   this.pageInputIsInError(false);
-//   this.currentPage(<number>page);
-//   this.currentPageInput(<string>page);
-//   this.onPaginationDataChanged();
-// }
-
-// private recordsPerPageSubscriptionFunction = (): void => {
-//   this.setCurrentPage(1);
-//   this.onPaginationDataChanged();
-// }
-
-// private disableCallbacks(): void {
-//   this.callbacksEnabled = false;
-//   if (this.recordsPerPageSubscription) {
-//       this.recordsPerPageSubscription.dispose();
-//   }
-// }
-
-// private enableCallbacks(): void {
-//   this.callbacksEnabled = true;
-//   this.recordsPerPageSubscription = this.recordsPerPage.subscribe(this.recordsPerPageSubscriptionFunction);
-// }
-
-// private onPaginationDataChanged(): void {
-//   if (this.paginationEventCallback && this.callbacksEnabled) {
-//       this.paginationEventCallback({
-//           requestedPage: this.currentPage(),
-//           recordsPerPage: this.recordsPerPage()
-//       });
-//   }
-// }
-
+    this.setCurrentPage(this.currentPageInput);
+    this.onPageChanged.emit(new PagerOptions(this.currentPage, this.recordsPerPage));
+  }
 }

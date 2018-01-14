@@ -22,7 +22,7 @@ module.exports = (server) => {
 			courses = courses.filter(c => c.name.indexOf(filterBy) >= 0);
 		}
 
-		let from = +query.pageIndex == 1 ? 0 : +query.pageIndex;
+		let from = (+query.pageIndex - 1);
 		let start = from * +query.itemsPerPage;
 		let to = start + +query.itemsPerPage;
 

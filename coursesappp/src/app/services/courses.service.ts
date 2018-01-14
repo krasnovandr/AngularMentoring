@@ -17,12 +17,7 @@ export class CoursesService {
     const coursesUrl = 'courses';
     const params = this.buildParams(pagerOptions, filterOptions);
 
-    return this.http.get<CourseResponse>(`${environment.apiEndpoints.apiUrl}/${coursesUrl}`, { params: params })
-      .map((courses) => {
-        return courses.data.map((backendCourse) =>
-          this.mapCourseEntity(backendCourse)
-        );
-      });
+    return this.http.get<CourseResponse>(`${environment.apiEndpoints.apiUrl}/${coursesUrl}`, { params: params });
   }
 
   private buildParams(pagerOptions?: PagerOptions, filterOptions?: FilterOptions) {
@@ -42,10 +37,7 @@ export class CoursesService {
 
 
   getDefaultPageOptions(): PagerOptions {
-    const options = new PagerOptions();
-
-    options.itemsPerPage = 25;
-    options.pageIndex = 1;
+    const options = new PagerOptions(1, 25);
 
     return options;
   }
@@ -73,14 +65,5 @@ export class CoursesService {
     return this.http.delete(`${environment.apiEndpoints.apiUrl}/${coursesUrl}/${id}`);
   }
 
-  private mapCourseEntity(backendCourse: CourseBackendModel): Course {
-    const result = new Course();
-    result.id = backendCourse.id;
-    result.creationDate = backendCourse.date;
-    result.description = backendCourse.description;
-    result.duration = backendCourse.duration;
-    result.title = backendCourse.name;
-    result.topRated = backendCourse.isTopRated;
-    return result;
-  }
+
 }

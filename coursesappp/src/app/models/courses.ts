@@ -38,6 +38,11 @@ export class CourseAuthor {
 export class PagerOptions {
     pageIndex: number;
     itemsPerPage: number;
+
+    constructor(pageIndex, itemsPerPage) {
+        this.itemsPerPage = itemsPerPage;
+        this.pageIndex = pageIndex;
+    }
 }
 
 export class FilterOptions {

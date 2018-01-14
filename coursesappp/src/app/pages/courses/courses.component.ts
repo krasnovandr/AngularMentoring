@@ -15,7 +15,10 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class CoursesComponent implements OnInit {
   public courses: Course[] = [];
+  public defaulPagerOptions = this.getDefaultPageOptions();
+
   private subscription: Subscription;
+  private totalItems: number;
 
   constructor(
     private coursesService: CoursesService,
@@ -26,11 +29,11 @@ export class CoursesComponent implements OnInit {
     this.getData();
   }
 
-  onDelete(course: Course) {
+  onDeleteEvent(course: Course) {
     const spinnerRef = this.spinner.start();
 
     this.coursesService.removeCourse(course.id).subscribe((res) => {
-      this.coursesService.getList();
+      this.getData();
       spinnerRef.close();
       this.cd.markForCheck();
     },
@@ -44,14 +47,21 @@ export class CoursesComponent implements OnInit {
   onSearch(courseName: string) {
     this.getData(null, this.getFilterOptions(courseName));
   }
+  onPageChanged(newPageOptions: PagerOptions) {
+    this.getData(newPageOptions, null);
+  }
 
   private getData(pagerOptions?: PagerOptions, filterOptions?: FilterOptions) {
     if (!pagerOptions) {
       pagerOptions = this.getDefaultPageOptions();
     }
-
     this.coursesService.getList(pagerOptions, filterOptions)
-      .subscribe((coursesFromBackend) => {
+      .map((response) => {
+        return response.data.map((backendCourse) => {
+          this.totalItems = response.totalCount;
+          return this.mapCourseEntity(backendCourse);
+        });
+      }).subscribe((coursesFromBackend) => {
         this.courses = coursesFromBackend;
         this.cd.markForCheck();
         console.log('Next: ' + coursesFromBackend);
@@ -60,10 +70,19 @@ export class CoursesComponent implements OnInit {
       });
   }
 
+  private mapCourseEntity(backendCourse: CourseBackendModel): Course {
+    const result = new Course();
+    result.id = backendCourse.id;
+    result.creationDate = backendCourse.date;
+    result.description = backendCourse.description;
+    result.duration = backendCourse.duration;
+    result.title = backendCourse.name;
+    result.topRated = backendCourse.isTopRated;
+    return result;
+  }
+
   private getDefaultPageOptions(): PagerOptions {
-    const pagingOption = new PagerOptions();
-    pagingOption.pageIndex = 1;
-    pagingOption.itemsPerPage = 5;
+    const pagingOption = new PagerOptions(1, 5);
 
     return pagingOption;
   }
