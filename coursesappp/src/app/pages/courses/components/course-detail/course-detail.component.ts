@@ -37,7 +37,6 @@ export class CourseDetailComponent implements OnInit, OnChanges {
     const dialogRef = this.deleteDialog.open({ data: course });
     dialogRef.onDelete.subscribe(() => {
       this.onDelete.emit(course);
-   
     });
   }
 

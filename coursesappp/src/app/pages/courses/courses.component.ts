@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
-import { Course, CourseBackendModel, PagerOptions } from '../../models/courses';
-import { FilterPipe } from '../../pipes/filter.pipe';
-import { Observable } from 'rxjs/Rx';
+import { Course, CourseBackendModel, PagerOptions, FilterOptions } from '../../models/courses';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import { SpinnerService } from '../../services/spinner.service';
+import { Subscription } from 'rxjs/Subscription';
+
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -14,39 +15,15 @@ import { SpinnerService } from '../../services/spinner.service';
 })
 export class CoursesComponent implements OnInit {
   public courses: Course[] = [];
-  public initialCourses: Course[] = [];
+  private subscription: Subscription;
+
   constructor(
     private coursesService: CoursesService,
-    private filterPipe: FilterPipe,
     private cd: ChangeDetectorRef,
     private spinner: SpinnerService) { }
 
   ngOnInit() {
-    this.coursesService.coursesObservable.map((courses) => {
-      return courses.data.map((backendCourse) =>
-        this.mapCourseEntity(backendCourse)
-      );
-    }).subscribe((x) => {
-      this.courses = x;
-      this.initialCourses = this.courses.concat();
-      this.cd.markForCheck();
-      console.log('Next: ' + x);
-    },
-      (err) => console.log('Error: ' + err),
-      () => {
-        console.log('Completed');
-      });
-  }
-
-  private mapCourseEntity(backendCourse: CourseBackendModel) {
-    const result = new Course();
-    result.id = backendCourse.id;
-    result.creationDate = backendCourse.date;
-    result.description = backendCourse.description;
-    result.duration = backendCourse.duration;
-    result.title = backendCourse.name;
-    result.topRated = backendCourse.isTopRated;
-    return result;
+    this.getData();
   }
 
   onDelete(course: Course) {
@@ -62,5 +39,39 @@ export class CoursesComponent implements OnInit {
         spinnerRef.close();
       });
     console.log(`course ${course.id} with name ${course.title} marked as deleted`);
+  }
+
+  onSearch(courseName: string) {
+    this.getData(null, this.getFilterOptions(courseName));
+  }
+
+  private getData(pagerOptions?: PagerOptions, filterOptions?: FilterOptions) {
+    if (!pagerOptions) {
+      pagerOptions = this.getDefaultPageOptions();
+    }
+
+    this.coursesService.getList(pagerOptions, filterOptions)
+      .subscribe((coursesFromBackend) => {
+        this.courses = coursesFromBackend;
+        this.cd.markForCheck();
+        console.log('Next: ' + coursesFromBackend);
+      }, (err) => console.log('Error: ' + err), () => {
+        console.log('Completed');
+      });
+  }
+
+  private getDefaultPageOptions(): PagerOptions {
+    const pagingOption = new PagerOptions();
+    pagingOption.pageIndex = 1;
+    pagingOption.itemsPerPage = 5;
+
+    return pagingOption;
+  }
+
+  private getFilterOptions(query?: string): FilterOptions {
+    const filetrOption = new FilterOptions();
+    filetrOption.courseName = query;
+
+    return filetrOption;
   }
 }

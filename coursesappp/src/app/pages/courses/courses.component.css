@@ -3,13 +3,3 @@
     max-width: 950px;
     margin: 0 auto;
 }
-.courses__nodata{
-    padding: 20px;
-    justify-content: space-around;
-    flex-direction: row;
-    display: flex;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    border: 1px solid rgb(67, 67, 85);
-    border-radius: 1px;
-}

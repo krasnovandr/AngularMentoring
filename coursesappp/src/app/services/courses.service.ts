@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Course, CourseBackendModel, PagerOptions, CourseResponse, FilterOptions } from '../models/courses';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import { HttpClient } from '@angular/common/http';
 import { RequestOptions, RequestMethod } from '@angular/http';
 import { environment } from '../../environments/environment';
@@ -10,24 +10,19 @@ import { Request } from '@angular/http/src/static_request';
 import { HttpParams } from '@angular/common/http';
 @Injectable()
 export class CoursesService {
-
-  public coursesObservable = new Subject<CourseResponse>();
   constructor(private http: HttpClient) {
-  }
-
-
-  private getDate(days: number = 0): Date {
-    const date = new Date();
-    date.setDate(date.getDate() + days);
-    return date;
   }
 
   public getList(pagerOptions?: PagerOptions, filterOptions?: FilterOptions) {
     const coursesUrl = 'courses';
     const params = this.buildParams(pagerOptions, filterOptions);
 
-    this.http.get<CourseResponse>(`${environment.apiEndpoints.apiUrl}/${coursesUrl}`, { params: params })
-      .subscribe(result => this.coursesObservable.next(result));
+    return this.http.get<CourseResponse>(`${environment.apiEndpoints.apiUrl}/${coursesUrl}`, { params: params })
+      .map((courses) => {
+        return courses.data.map((backendCourse) =>
+          this.mapCourseEntity(backendCourse)
+        );
+      });
   }
 
   private buildParams(pagerOptions?: PagerOptions, filterOptions?: FilterOptions) {
@@ -76,5 +71,16 @@ export class CoursesService {
   public removeCourse(id: number): Observable<Object> {
     const coursesUrl = 'courses';
     return this.http.delete(`${environment.apiEndpoints.apiUrl}/${coursesUrl}/${id}`);
+  }
+
+  private mapCourseEntity(backendCourse: CourseBackendModel): Course {
+    const result = new Course();
+    result.id = backendCourse.id;
+    result.creationDate = backendCourse.date;
+    result.description = backendCourse.description;
+    result.duration = backendCourse.duration;
+    result.title = backendCourse.name;
+    result.topRated = backendCourse.isTopRated;
+    return result;
   }
 }

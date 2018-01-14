@@ -26,6 +26,8 @@ import { CourseComponent } from './pages/course/course.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './common/authInterceptor';
 import { AuthorizationTokenService } from './services/authToken.service';
+import { CoursesListComponent } from './pages/courses/components/courses-list/courses-list.component';
+import { PagerComponent } from './pager/pager.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { AuthorizationTokenService } from './services/authToken.service';
     OrderbyPipe,
     FilterPipe,
     SpinnerComponent,
-    CourseComponent
+    CourseComponent,
+    CoursesListComponent,
+    PagerComponent
   ],
   imports: [
     BrowserModule,

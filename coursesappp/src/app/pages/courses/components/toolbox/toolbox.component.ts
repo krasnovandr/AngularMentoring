@@ -28,28 +28,11 @@ export class ToolboxComponent implements OnInit {
     //   .map((query: string) => {
     //     this.coursesService.getList(this.getCurrentPageOptions(), this.getFilterOptions(query));
     //   });
-
-    this.coursesService.getList(this.getCurrentPageOptions(), this.getFilterOptions(''));
   }
 
-  private getCurrentPageOptions(): PagerOptions {
-    const pagingOption = new PagerOptions();
-    pagingOption.pageIndex = 1;
-    pagingOption.itemsPerPage = 30;
 
-    return pagingOption;
-  }
-
-  private getFilterOptions(query: string): FilterOptions {
-    const filetrOption = new FilterOptions();
-    filetrOption.courseName = query;
-
-    return filetrOption;
-  }
 
   search(courseName: string) {
-    this.coursesService.getList(
-      this.getCurrentPageOptions(),
-      this.getFilterOptions(courseName.trim().toLocaleLowerCase()));
+    this.onSearch.emit(courseName.toLocaleLowerCase());
   }
 }
