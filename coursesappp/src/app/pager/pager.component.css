@@ -63,10 +63,13 @@
     }
 }
 
-.pager__current {
+
+/* .pager__current {
     font-size: 1.4rem;
     line-height: 1.7rem;
-}
+    margin: 0;
+    padding: 0;
+} */
 
 .pager__total {
     margin-left: 0.6rem;
@@ -77,27 +80,24 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
 }
 
 .pager__page {
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
     flex-direction: row;
     font: 1.2rem/1.4rem Roboto, sans-serif;
     margin: 0 1rem;
 }
 
 .pager__current {
-    font: 1.4rem/1.6rem Roboto, sans-serif;
-    height: 2.2rem;
-    width: 3.2rem;
+    font: 1.2rem/1.6rem Roboto, sans-serif;
+    height: 1.6rem;
+    width: 2.5rem;
     border: 0.1rem solid #999999;
     border-radius: 0.2rem;
     text-align: center;

@@ -1,42 +1,36 @@
 <div class="pager">
-  <div class="pager__nav">
-    <button class="button button_icon pager__button" (click)="firstPage()" [disabled]="!isFirstOrLastAvailable">
+    <div class="pager__nav">
+        <button class="button button_icon pager__button" (click)="firstPage()" [disabled]="!isFirstOrLastAvailable">
       <span class="icon-chevron-double-left"></span>
     </button>
-    <button class="button button_icon pager__button" (click)="previousPage()" [disabled]="!isPreviousAvailable">
+        <button class="button button_icon pager__button" (click)="previousPage()" [disabled]="!isPreviousAvailable">
       <span class="icon-chevron-left"></span>
     </button>
 
-    <div class="pager__page">
-      <span>Page</span>
-      <input type="number" 
-            class="pager__current" 
-            [(ngModel)]="currentPageInput" 
-            (keyup.enter)="cuurentPageChanged()"
-            minlength="1" 
-            minlength="6" 
-      />
-      <span>of</span>
-      <span class="pager__total">{{totalPages}}</span>
-    </div>
+        <div class="pager__page">
+            <span>Page</span>
+            <input type="number" class="pager__current" [(ngModel)]="currentPageInput" (keyup.enter)="cuurentPageChanged()" />
+            <span>of</span>
+            <span class="pager__total">{{totalPages}}</span>
+        </div>
 
-    <button class="button button_icon pager__button" (click)="nextPage()" [disabled]="!isNextAvailable">
+        <button class="button button_icon pager__button" (click)="nextPage()" [disabled]="!isNextAvailable">
       <span class="icon-chevron-right"></span>
     </button>
-    <button class="button button_icon pager__button" (click)="lastPage()" [disabled]="!isFirstOrLastAvailable">
+        <button class="button button_icon pager__button" (click)="lastPage()" [disabled]="!isFirstOrLastAvailable">
       <span class="icon-chevron-double-right"></span>
     </button>
-  </div>
+    </div>
 
-  <div class="pager__info">
-    <div class="pager__view">
-      <span>View:</span>
-      <select [(ngModel)]="recordsPerPage" (ngModelChange)="updateRecordPerPage($event)">
+    <div class="pager__info">
+        <div class="pager__view">
+            <span>View:</span>
+            <select [(ngModel)]="recordsPerPage" (ngModelChange)="updateRecordPerPage($event)">
         <option *ngFor="let record of recordsPerPageVariants" [value]="record">{{record}}</option>
       </select>
+        </div>
+        <div class="pager__counter">
+            <span>{{rowDisplayProperty}}</span>
+        </div>
     </div>
-    <div class="pager__counter">
-      <span>{{rowDisplayProperty}}</span>
-    </div>
-  </div>
 </div>
