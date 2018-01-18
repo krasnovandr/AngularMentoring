@@ -67,3 +67,23 @@ body {
 .icon-chevron-right:before {
     content: "\e941";
 }
+
+
+/* .ng-valid[required],
+.ng-valid.required {
+    border: 1px solid #a94442;
+} */
+
+
+/* .ng-invalid:not(form) {
+    border: 1px solid #a94442;
+}
+
+.ng-dirty .ng-invalid {
+    border: 1px solid #a94442;
+} */
+
+.ng-invalid:not(form).ng-dirty {
+    border: 2px solid #a94442;
+    /* red */
+}
