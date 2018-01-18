@@ -56,13 +56,9 @@ export class CoursesComponent implements OnInit {
       pagerOptions = this.getDefaultPageOptions();
     }
     this.coursesService.getList(pagerOptions, filterOptions)
-      .map((response) => {
-        return response.data.map((backendCourse) => {
-          this.totalItems = response.totalCount;
-          return this.mapCourseEntity(backendCourse);
-        });
-      }).subscribe((coursesFromBackend) => {
-        this.courses = coursesFromBackend;
+      .subscribe((coursesFromBackend) => {
+        this.courses = coursesFromBackend.data;
+        this.totalItems = coursesFromBackend.totalCount;
         this.cd.markForCheck();
         console.log('Next: ' + coursesFromBackend);
       }, (err) => console.log('Error: ' + err), () => {
@@ -70,16 +66,7 @@ export class CoursesComponent implements OnInit {
       });
   }
 
-  private mapCourseEntity(backendCourse: CourseBackendModel): Course {
-    const result = new Course();
-    result.id = backendCourse.id;
-    result.creationDate = backendCourse.date;
-    result.description = backendCourse.description;
-    result.duration = backendCourse.duration;
-    result.title = backendCourse.name;
-    result.topRated = backendCourse.isTopRated;
-    return result;
-  }
+
 
   private getDefaultPageOptions(): PagerOptions {
     const pagingOption = new PagerOptions(1, 5);

@@ -1,11 +1,11 @@
 <div class="toolbox">
-  <div class="toolbox__search">
-    <div class="toolbox__search-button-box">
-      <input type="text" [formControl]="searchBar" class="toolbox__input" (keyup.enter)="search(searchBar.value)" placeholder="Course Name">
+    <div class="toolbox__search">
+        <div class="toolbox__search-button-box">
+            <input type="text" [formControl]="searchBar" class="toolbox__input" (keyup.enter)="search(searchBar.value)" placeholder="Course Name">
+        </div>
+        <input type="button" value="Find" (click)="search(searchBar.value)" class="button">
     </div>
-    <input type="button" value="Find" (click)="search(searchBar.value)" class="button">
-  </div>
-  <div class="toolbox__add-course-button">
-    <input type="button" value="Add Course" class="button" routerLink="/courses/create">
-  </div>
+    <div class="toolbox__add-course-button">
+        <input type="button" value="Add Course" class="button" routerLink="/courses/create">
+    </div>
 </div>

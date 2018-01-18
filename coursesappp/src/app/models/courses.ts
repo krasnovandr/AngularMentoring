@@ -19,6 +19,12 @@ export class CourseResponse {
     totalCount: number;
 }
 
+export class CourseListModel {
+    data: Course[];
+    totalCount: number;
+}
+
+
 export class CourseBackendModel {
     id: number;
     name: string;

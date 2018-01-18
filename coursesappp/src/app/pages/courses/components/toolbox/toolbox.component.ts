@@ -22,12 +22,6 @@ export class ToolboxComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.searchBar.valueChanges.map((query: string) => query.trim())
-    //   .filter((query: string) => query && query.length >= 3)
-    //   .debounce(() => Observable.timer(250))
-    //   .map((query: string) => {
-    //     this.coursesService.getList(this.getCurrentPageOptions(), this.getFilterOptions(query));
-    //   });
   }
 
 
