@@ -1,28 +1,59 @@
-<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit(courseForm)">
     <div class="course">
-        <div class="course__form-row">
-            <label>Title</label>
-            <input type="text" class="course__form-input" formControlName="title">
+        <div class="course__form-element">
+            <div class="course__form-control control-required">
+                <label class="required">Title</label>
+                <input type="text" class="course__form-input" formControlName="title">
+            </div>
+            <span class="course__form-control-error" *ngIf="courseForm.controls.title.invalid && courseForm.controls.title.dirty"> 
+                {{courseForm.controls.title.errors | json}}
+              </span>
         </div>
-        <div class="course__form-row">
-            <label>Description</label>
-            <textarea class="course__form-input course__form-input-textarea" rows="8" cols="50" formControlName="description"></textarea>
+        <div class="course__form-element">
+            <div class="course__form-control">
+                <label class="required">Description</label>
+                <textarea class="course__form-input course__form-input-textarea" rows="8" cols="50" formControlName="description"></textarea>
+            </div>
+            <span class="course__form-control-error" *ngIf="courseForm.controls.description.invalid && courseForm.controls.description.dirty"> 
+                {{courseForm.controls.description.errors | json}}
+              </span>
         </div>
-        <div class="course__form-row">
-            <label>Date</label>
-            <input type="text" class="course__form-input" formControlName="date">
+        <div class="course__form-element">
+            <div class="course__form-control">
+                <label class="required">Date</label>
+                <input type="text" class="course__form-input" formControlName="date">
+            </div>
+            <span class="course__form-control-error" *ngIf="courseForm.controls.date.invalid && courseForm.controls.date.dirty"> 
+               {{courseForm.controls.date.errors | json}}
+          </span>
         </div>
-        <div class="course__form-row">
-            <label>Duration</label>
-            <input type="text" class="course__form-input" formControlName="duration">
+        <div class="course__form-element">
+            <div class="course__form-control">
+                <label class="required">Duration</label>
+                <input type="text" class="course__form-input" formControlName="duration">
+            </div>
+            <span class="course__form-control-error" *ngIf="courseForm.controls.duration.invalid && courseForm.controls.duration.dirty"> 
+                {{courseForm.controls.duration.errors | json}}
+           </span>
+        </div>
+        <div class="course__form-element">
+            <div class="course__form-control">
+                <label class="required">Authors</label>
+                <app-authors-control class="course__element" formControlName="authors" [authors]="authors" ngDefaultControl></app-authors-control>
+            </div>
+            <!-- <span class="course__form-control-error" *ngIf="courseForm.controls.duration.invalid && courseForm.controls.duration.dirty"> 
+                {{courseForm.controls.duration.errors | json}}
+           </span> -->
         </div>
         <div class="course__form-actions">
             <input type="button" class="button" (click)="onCancel()" value="Cancel">
-            <input type="submit" class="button" value="Save" />
+            <input type="submit" class="button" value="Save" [disabled]="!courseForm.valid" [class.button-disabled]="!courseForm.valid" />
         </div>
         <p>Form status: {{ courseForm.value | json }}</p>
         <p>Form status: {{ courseForm.status | json }}</p>
         <p>Touched: {{ courseForm.touched | json }}</p>
         <p>Dirty: {{ courseForm.dirty | json }}</p>
+        <p>Valid: {{ courseForm.valid | json }}</p>
+        <!-- <p>Valid: {{ courseForm.controls | json }}</p> -->
     </div>
 </form>

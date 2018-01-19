@@ -1,0 +1,153 @@
+{
+    "authors": [{
+            "id": 9101,
+            "firstName": "Finley",
+            "lastName": "Greene"
+        },
+        {
+            "id": 3519,
+            "firstName": "Sheppard",
+            "lastName": "Greer"
+        },
+        {
+            "id": 1821,
+            "firstName": "Catherine",
+            "lastName": "Stein"
+        },
+        {
+            "id": 9619,
+            "firstName": "Pace",
+            "lastName": "Michael"
+        },
+        {
+            "id": 3756,
+            "firstName": "Miriam",
+            "lastName": "Ingram"
+        },
+        {
+            "id": 1732,
+            "firstName": "Hampton",
+            "lastName": "Bartlett"
+        },
+        {
+            "id": 8903,
+            "firstName": "Jamie",
+            "lastName": "Harding"
+        },
+        {
+            "id": 4516,
+            "firstName": "Washington",
+            "lastName": "Owens"
+        },
+        {
+            "id": 9829,
+            "firstName": "Lea",
+            "lastName": "Stewart"
+        },
+        {
+            "id": 1559,
+            "firstName": "Franks",
+            "lastName": "Gamble"
+        },
+        {
+            "id": 5851,
+            "firstName": "Brittany",
+            "lastName": "Townsend"
+        },
+        {
+            "id": 2148,
+            "firstName": "Talley",
+            "lastName": "Thompson"
+        },
+        {
+            "id": 543,
+            "firstName": "Cardenas",
+            "lastName": "Gibson"
+        },
+        {
+            "id": 7405,
+            "firstName": "Hubbard",
+            "lastName": "Oneil"
+        },
+        {
+            "id": 4878,
+            "firstName": "Lorene",
+            "lastName": "Pickett"
+        },
+        {
+            "id": 6237,
+            "firstName": "Reynolds",
+            "lastName": "Trevino"
+        },
+        {
+            "id": 4689,
+            "firstName": "Ginger",
+            "lastName": "James"
+        },
+        {
+            "id": 978,
+            "firstName": "Duncan",
+            "lastName": "Moore"
+        },
+        {
+            "id": 440,
+            "firstName": "Dyer",
+            "lastName": "Mcfadden"
+        },
+        {
+            "id": 7990,
+            "firstName": "Catalina",
+            "lastName": "Mueller"
+        },
+        {
+            "id": 9643,
+            "firstName": "Kaye",
+            "lastName": "Curtis"
+        },
+        {
+            "id": 700,
+            "firstName": "Bridgett",
+            "lastName": "Mccoy"
+        },
+        {
+            "id": 9313,
+            "firstName": "Joyce",
+            "lastName": "Crane"
+        },
+        {
+            "id": 5327,
+            "firstName": "Alvarez",
+            "lastName": "Hurst"
+        },
+        {
+            "id": 8547,
+            "firstName": "Cornelia",
+            "lastName": "Fields"
+        },
+        {
+            "id": 3911,
+            "firstName": "Glass",
+            "lastName": "Bowman"
+        },
+        {
+            "id": 7643,
+            "firstName": "Benton",
+            "lastName": "Bentley"
+        },
+        {
+            "id": 2356,
+            "firstName": "Moon",
+            "lastName": "Stephens"
+        },
+        {
+            "id": 6110,
+            "firstName": "Mcgee",
+            "lastName": "Rosales"
+        },
+        {
+            "id": 9957,
+            "firstName": "Young",
+            "lastName": "Barron"
+        }
+    ]
+}

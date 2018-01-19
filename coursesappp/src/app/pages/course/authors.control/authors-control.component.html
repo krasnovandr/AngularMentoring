@@ -1,0 +1,17 @@
+<!-- <div class="authors_search">
+    <input type="text" value="search" [formControl]="searchBar" />
+</div> -->
+<div *ngIf="authors && authors.length > 0 else nodata" class="authors">
+    <div *ngFor="let author of authors">
+        <div class="authors__content ">
+            <input [attr.id]="'item_'+ author.id" class="authors__checkbox" type="checkbox" (change)="update(author.id)">
+            <label [attr.for]="'item_' + author.id" class="authors__info">{{author.name}}</label>
+        </div>
+        <hr>
+    </div>
+</div>
+<ng-template #nodata>
+    <div class="author__nodata">
+        No data.
+    </div>
+</ng-template>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
-import { Course, CourseBackendModel, PagerOptions, FilterOptions } from '../../models/courses';
+import { Course, CourseDto, PagerOptions, FilterOptions } from '../../models/courses';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';

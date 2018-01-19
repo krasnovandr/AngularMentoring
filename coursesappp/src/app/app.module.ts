@@ -28,6 +28,8 @@ import { AuthInterceptor } from './common/authInterceptor';
 import { AuthorizationTokenService } from './services/authToken.service';
 import { CoursesListComponent } from './pages/courses/components/courses-list/courses-list.component';
 import { PagerComponent } from './pager/pager.component';
+import { AuthorsControlComponent } from './pages/course/authors.control/authors-control.component';
+import { AuthorsService } from './services/authors.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { PagerComponent } from './pager/pager.component';
     SpinnerComponent,
     CourseComponent,
     CoursesListComponent,
-    PagerComponent
+    PagerComponent,
+    AuthorsControlComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,7 @@ import { PagerComponent } from './pager/pager.component';
     PortalModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule
   ],
   providers: [
     {
@@ -68,8 +71,9 @@ import { PagerComponent } from './pager/pager.component';
     AuthorizationService,
     FilterPipe,
     SpinnerService,
-    AuthorizationTokenService
-    ],
+    AuthorizationTokenService,
+    AuthorsService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [CourseDeleteOverlayComponent, SpinnerComponent]
 })

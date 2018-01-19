@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Course, CourseBackendModel, PagerOptions, CourseResponse, FilterOptions, CourseListModel } from '../models/courses';
+import { Course, CourseDto, PagerOptions, CourseResponseDto, FilterOptions, CourseListModel } from '../models/courses';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import { Subject } from 'rxjs/Subject';
@@ -17,7 +17,7 @@ export class CoursesService {
     const coursesUrl = 'courses';
     const params = this.buildParams(pagerOptions, filterOptions);
 
-    return this.http.get<CourseResponse>(`${environment.apiEndpoints.apiUrl}/${coursesUrl}`, { params: params })
+    return this.http.get<CourseResponseDto>(`${environment.apiEndpoints.apiUrl}/${coursesUrl}`, { params: params })
       .map((response) => {
         const result = new CourseListModel();
         result.totalCount = response.totalCount;
@@ -58,7 +58,7 @@ export class CoursesService {
   //   // return Observable.of(this.courses.find(item => item.courseId === id));
   // }
 
-  public updateCourse(course: CourseBackendModel): void {
+  public updateCourse(course: CourseDto): void {
     // const elementIndex = this.courses.findIndex(item => item.courseId === course.courseId);
     // if (elementIndex > -1) {
     //   this.courses[elementIndex] = course;
@@ -72,7 +72,7 @@ export class CoursesService {
     return this.http.delete(`${environment.apiEndpoints.apiUrl}/${coursesUrl}/${id}`);
   }
 
-  private mapCourseEntity(backendCourse: CourseBackendModel): Course {
+  private mapCourseEntity(backendCourse: CourseDto): Course {
     const result = new Course();
     result.id = backendCourse.id;
     result.creationDate = backendCourse.date;

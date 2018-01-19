@@ -8,30 +8,38 @@
     flex-direction: column;
 }
 
-.course__form-row {
+.course__form-element {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
     width: 60%;
 }
 
+.course__form-control {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
 .course__form-actions {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 60%;
+    width: 65%;
 }
 
-.course__form-row label {
+.course__form-control label {
     display: block;
     width: 125px;
     font-weight: bold;
     font-size: 1em;
+    width: 25%;
 }
 
-.course__form-row .course__form-input {
+.course__form-control .course__form-input {
     /* border: 1px solid #ccc; */
     /* border-radius: 4px; */
     box-sizing: border-box;
@@ -40,7 +48,23 @@
     margin: 8px 0;
 }
 
-.course__form-row .course__form-input-textarea {
+.course__form-control .course__element {
+    width: 100%;
+}
+
+.course__form-control .course__form-input-textarea {
     /* border: none; */
     resize: both;
+}
+
+.course__form-control-error {
+    display: flex;
+    font-size: 12px;
+    color: red;
+    /* align-self: */
+}
+
+label.required:after {
+    content: " *";
+    color: red;
 }

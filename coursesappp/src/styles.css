@@ -18,7 +18,11 @@ body {
     cursor: pointer;
 }
 
-.button:hover {
+.button-disabled {
+    background-color: #acdcee;
+}
+
+.button:hover:enabled {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
     background-color: #019ad2;
 }

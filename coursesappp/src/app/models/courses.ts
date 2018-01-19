@@ -1,3 +1,5 @@
+import { AuthorDto } from './author';
+
 export interface ICourse {
     id: number;
     title: string;
@@ -14,31 +16,10 @@ export class Course implements ICourse {
     topRated: boolean;
 }
 
-export class CourseResponse {
-    data: CourseBackendModel[];
-    totalCount: number;
-}
 
 export class CourseListModel {
     data: Course[];
     totalCount: number;
-}
-
-
-export class CourseBackendModel {
-    id: number;
-    name: string;
-    date: Date;
-    description: string;
-    duration: number;
-    isTopRated: boolean;
-    authors: CourseAuthor[];
-}
-
-export class CourseAuthor {
-    id: number;
-    firstName: string;
-    lastName: string;
 }
 
 export class PagerOptions {
@@ -53,4 +34,19 @@ export class PagerOptions {
 
 export class FilterOptions {
     courseName: string;
+}
+
+export class CourseDto {
+    id: number;
+    name: string;
+    date: Date;
+    description: string;
+    duration: number;
+    isTopRated: boolean;
+    authors: AuthorDto[];
+}
+
+export class CourseResponseDto {
+    data: CourseDto[];
+    totalCount: number;
 }
