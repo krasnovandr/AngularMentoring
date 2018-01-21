@@ -16,6 +16,7 @@ import { customRequiredValidator } from '../../validators/customrequired-validat
 export class CourseComponent implements OnInit {
   courseForm: FormGroup;
   private initialAuthors: MultiselectModel[];
+  private authors: MultiselectModel[];
 
   constructor(private location: Location,
     private formBuilder: FormBuilder,
@@ -39,7 +40,7 @@ export class CourseComponent implements OnInit {
 
   onCancel() {
     this.courseForm.reset();
-    this.courseForm.controls['authors'].patchValue(this.initialAuthors);
+    this.courseForm.controls['authors'].patchValue(JSON.parse(JSON.stringify(this.initialAuthors)));
   }
 
   onSubmit(): void {
