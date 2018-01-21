@@ -10,7 +10,6 @@ import { AuthorizationTokenService } from '../../services/authToken.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
   private loginResult: string;
@@ -23,11 +22,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLogin(login: string, password: string) {
+
+  onLogin(loginForm: any) {
     const spinnerRef = this.spinner.start();
     this.loginResult = '';
-
-    this.authService.login(login, password)
+    this.authService.login(loginForm.login, loginForm.password)
       .map(response => response.token).subscribe(token => {
         this.tokenService.setAuthorizationToken(token);
         spinnerRef.close();

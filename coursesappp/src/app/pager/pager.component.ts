@@ -61,11 +61,17 @@ export class PagerComponent implements OnInit, OnChanges {
   }
 
   get totalPages() {
+    if (!this.totalRecords) {
+      return 1;
+    }
     const pages: number = Math.floor(this.totalRecords / this.recordsPerPage);
     return this.totalRecords % this.recordsPerPage === 0 ? pages : (pages + 1);
   }
 
   get rowDisplayProperty() {
+    if (!this.totalRecords) {
+      this.totalRecords = 0;
+    }
     let end: number = this.recordsPerPage * this.currentPage;
     const totalRecords: number = this.totalRecords;
     const start: number = (totalRecords !== 0) ? end - this.recordsPerPage + 1 : 0;

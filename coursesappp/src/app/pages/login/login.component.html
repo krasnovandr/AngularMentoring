@@ -1,8 +1,14 @@
 <div class="login">
-  <form autocomplete="on">
+  <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)">
     <div class="login__error" *ngIf="loginResult !==''">{{loginResult}}</div>
-    <input type="text" class="login__form-input" placeholder="login" #login >
-    <input type="password" class="login__form-input" placeholder="password" #password>
-    <button type="submit" class="login__form-submit" (click)="onLogin(login.value,password.value)">Submit</button>
+    <input type="text" class="login__form-input" name="login" ngModel required #login="ngModel" placeholder="login">
+    <div *ngIf="login.errors?.required && login.dirty" class="login__error">
+      Login is required
+    </div>
+    <input type="password" class="login__form-input" name="password" ngModel required #password="ngModel" placeholder="password">
+    <div *ngIf="password.errors?.required && password.dirty" class="login__error">
+      Password is required
+    </div>
+    <button type="submit" class="button login__form-submit" [disabled]="loginForm.invalid" [class.button-disabled]="loginForm.invalid">Submit</button>
   </form>
 </div>
