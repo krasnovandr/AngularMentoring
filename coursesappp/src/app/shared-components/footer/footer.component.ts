@@ -13,4 +13,7 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
   }
 
+  get currentDate(){
+    return new Date();
+  }
 }

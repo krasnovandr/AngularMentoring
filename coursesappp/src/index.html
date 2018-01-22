@@ -1,14 +1,41 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Coursesappp</title>
-  <base href="/">
+<html lang="en" class="site__html">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<head>
+    <meta charset="utf-8">
+    <title>Coursesappp</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body>
-  <app-root></app-root>
+<style>
+    .site__html {
+        font-size: 14px;
+        font-family: Roboto, sans-serif;
+        height: 100%;
+        margin: 0;
+    }
+    
+    .site__body {
+        margin: 0;
+        height: 100%;
+        background: #f2f7fa;
+    }
+    
+    .page {
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        z-index: 1;
+    }
+</style>
+
+<body class="site__body">
+    <app-root class="page"></app-root>
 </body>
+
 </html>

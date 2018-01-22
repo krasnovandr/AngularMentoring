@@ -1,10 +1,10 @@
 .page__footer {
     background: #535455;
     max-width: 950px;
-    margin: 0 auto;    
+    margin: 0 auto;
 }
 
-.footer {
+.footer__content {
     align-items: center;
     justify-content: center;
     flex-direction: row;
