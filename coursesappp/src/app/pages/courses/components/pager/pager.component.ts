@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
-import { PagerOptions } from '../models/courses';
+import { PagerOptions } from '../../../../models/courses';
 
 @Component({
   selector: 'app-pager',

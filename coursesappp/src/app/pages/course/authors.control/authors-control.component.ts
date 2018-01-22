@@ -1,15 +1,17 @@
-import { Component, OnInit, Input, forwardRef, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { AuthorsService } from '../../../services/authors.service';
-import { AuthorDto } from '../../../models/author';
+import { AuthorReadItemDto } from '../../../models/author';
 import { MultiselectModel } from '../../../models/multiselect';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { customRequiredValidator } from '../../../validators/customrequired-validator';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-authors-control',
   templateUrl: './authors-control.component.html',
   styleUrls: ['./authors-control.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => AuthorsControlComponent),
@@ -30,6 +32,7 @@ export class AuthorsControlComponent implements  ControlValueAccessor {
   writeValue(authors: any): void {
     if (authors) {
       this.authors = authors;
+      this.cd.markForCheck();
     }
   }
 
@@ -40,7 +43,9 @@ export class AuthorsControlComponent implements  ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void { }
 
 
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) { 
+    
+  }
 
   // ngOnChanges(inputs) {
   //   if (inputs.authors) {

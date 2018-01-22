@@ -27,9 +27,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './common/authInterceptor';
 import { AuthorizationTokenService } from './services/authToken.service';
 import { CoursesListComponent } from './pages/courses/components/courses-list/courses-list.component';
-import { PagerComponent } from './pager/pager.component';
 import { AuthorsControlComponent } from './pages/course/authors.control/authors-control.component';
 import { AuthorsService } from './services/authors.service';
+import { PagerComponent } from './pages/courses/components/pager/pager.component';
+import { PageNotFoundComponent } from './pages/notfound/page-not-found.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { AuthorsService } from './services/authors.service';
     CourseComponent,
     CoursesListComponent,
     PagerComponent,
-    AuthorsControlComponent
+    AuthorsControlComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,8 @@ import { AuthorsService } from './services/authors.service';
     FilterPipe,
     SpinnerService,
     AuthorizationTokenService,
-    AuthorsService
+    AuthorsService,
+    DatePipe
   ],
   bootstrap: [AppComponent],
   entryComponents: [CourseDeleteOverlayComponent, SpinnerComponent]

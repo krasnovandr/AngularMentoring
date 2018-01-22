@@ -1,21 +1,14 @@
-import { AuthorDto } from './author';
+import { AuthorReadItemDto } from './author';
 
-export interface ICourse {
-    id: number;
-    title: string;
-    creationDate: Date;
-    description: string;
-    duration: number;
-}
-export class Course implements ICourse {
+export class Course {
     id: number;
     title: string;
     creationDate: Date;
     description: string;
     duration: number;
     topRated: boolean;
+    authors: AuthorReadItemDto[];
 }
-
 
 export class CourseListModel {
     data: Course[];
@@ -37,13 +30,13 @@ export class FilterOptions {
 }
 
 export class CourseDto {
-    id: number;
+    id?: number;
     name: string;
     date: Date;
     description: string;
     duration: number;
     isTopRated: boolean;
-    authors: AuthorDto[];
+    authors: AuthorReadItemDto[];
 }
 
 export class CourseResponseDto {

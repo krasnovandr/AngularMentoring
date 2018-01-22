@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing.dark-backdrop {
+    background: #000;
+    opacity: 0.85 !important;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -25,12 +31,6 @@ body {
 .button:hover:enabled {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
     background-color: #019ad2;
-}
-
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-.cdk-overlay-backdrop.cdk-overlay-backdrop-showing.dark-backdrop {
-    background: #000;
-    opacity: 0.85 !important;
 }
 
 @font-face {

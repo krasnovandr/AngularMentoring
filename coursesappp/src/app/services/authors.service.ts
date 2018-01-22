@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthorDto } from '../models/author';
+import { AuthorReadItemDto } from '../models/author';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { MultiselectModel } from '../models/multiselect';
@@ -12,12 +12,12 @@ export class AuthorsService {
 
   getAuthors() {
     const authorsUrl = 'authors';
-    return this.http.get<AuthorDto[]>(`${environment.apiEndpoints.apiUrl}/${authorsUrl}`)
+    return this.http.get<AuthorReadItemDto[]>(`${environment.apiEndpoints.apiUrl}/${authorsUrl}`)
       .map(authors => authors.map((authorDto) => this.mapFromDto(authorDto)));
   }
 
 
-  mapFromDto(author: AuthorDto): MultiselectModel {
+  mapFromDto(author: AuthorReadItemDto): MultiselectModel {
     const result = new MultiselectModel();
     result.id = author.id;
     result.name = `${author.firstName} ${author.lastName}`;
