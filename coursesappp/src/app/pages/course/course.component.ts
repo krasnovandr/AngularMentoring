@@ -1,9 +1,9 @@
 import { DatePipe, Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthorReadItemDto } from '../../models/author';
+import { AuthorDto } from '../../models/author';
 import { Course, CourseDto } from '../../models/courses';
 import { MultiselectModel } from '../../models/multiselect';
 import { AuthorsService } from '../../services/authors.service';
@@ -11,6 +11,8 @@ import { CoursesService } from '../../services/courses.service';
 import { dateFormatValidator } from '../../validators/date-validator';
 import { multiselectRequiredValidator } from '../../validators/multiselect-required-validator';
 import { numberFormatValidator } from '../../validators/number-validator';
+import { Subscription } from 'rxjs/Subscription';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-course',
@@ -18,11 +20,15 @@ import { numberFormatValidator } from '../../validators/number-validator';
   styleUrls: ['./course.component.css'],
 })
 
-export class CourseComponent implements OnInit {
+export class CourseComponent implements OnInit, OnDestroy {
+
   public courseForm: FormGroup;
-  private courseAuthors: AuthorReadItemDto[];
+  private courseAuthors: AuthorDto[];
   private editMode = false;
   private courseId = false;
+
+  private routeSubscription: Subscription;
+  private courseSubscription: Subscription;
 
   constructor(private location: Location,
     private formBuilder: FormBuilder,
@@ -45,10 +51,11 @@ export class CourseComponent implements OnInit {
 
     const id = +this.router.snapshot.paramMap.get('id');
     this.editMode = id && id > 0;
+
     if (this.editMode) {
-      this.router.params.subscribe(data => {
-        const resultId = +data['id'];
-        this.courseService.getCourse(resultId).subscribe(course => {
+      this.routeSubscription = this.router.params.subscribe(data => {
+        const courseId = +data['id'];
+        this.courseSubscription = this.courseService.getCourse(courseId).subscribe(course => {
           this.setValuesToTheForm(course);
           this.courseAuthors = course.authors;
 
@@ -70,6 +77,13 @@ export class CourseComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.editMode) {
+      this.courseSubscription.unsubscribe();
+      this.routeSubscription.unsubscribe();
+    }
+  }
+
   private setValuesToTheForm(course: Course) {
     this.courseForm.controls['title'].patchValue(course.title);
     this.courseForm.controls['date'].patchValue(this.datePipe.transform(course.creationDate, 'dd/MM/yyyy'));
@@ -87,6 +101,7 @@ export class CourseComponent implements OnInit {
     }
     return authors;
   }
+
 
   onCancel() {
     this.navigateRouter.navigate(['courses']);
@@ -118,7 +133,7 @@ export class CourseComponent implements OnInit {
 
     for (const author of formModel.authors) {
       if (author.isSelected) {
-        const authorDto = new AuthorReadItemDto(author.id);
+        const authorDto = new AuthorDto(author.id);
         course.authors.push(authorDto);
       }
     }

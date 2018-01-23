@@ -1,4 +1,4 @@
-<div class="course" appColoredborder [courseCreatedDate]="course.creationDate" [ngClass]="[course.topRated ? 'course__top-rated':'']">
+<div class="course" appColoredborder [courseCreatedDate]="course.creationDate" [class.course__top-rated]="course.topRated">
     <div class="course__info-panel">
         <div class="course__info">
             <span> {{course.title | uppercase}}</span>
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="course__actions">
-        <input type="button" value="Edit Course" class="button" routerLink="/courses/{{course.id}}">
+        <input type="button" value="Edit Course" class="button" [routerLink]="['/courses',course.id]">
         <input type="button" value="Delete" (click)="deleteCourse(course)" class="button">
     </div>
 </div>

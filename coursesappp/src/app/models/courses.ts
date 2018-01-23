@@ -1,4 +1,4 @@
-import { AuthorReadItemDto } from './author';
+import { AuthorDto } from './author';
 
 export class Course {
     id: number;
@@ -7,7 +7,7 @@ export class Course {
     description: string;
     duration: number;
     topRated: boolean;
-    authors: AuthorReadItemDto[];
+    authors: AuthorDto[];
 }
 
 export class CourseListModel {
@@ -36,7 +36,7 @@ export class CourseDto {
     description: string;
     duration: number;
     isTopRated: boolean;
-    authors: AuthorReadItemDto[];
+    authors: AuthorDto[];
 }
 
 export class CourseResponseDto {

@@ -34,6 +34,7 @@ import { SpinnerService } from './services/spinner.service';
 import { FooterComponent } from './shared-components/footer/footer.component';
 import { HeaderComponent } from './shared-components/header/header.component';
 import { SpinnerComponent } from './shared-components/spinner/spinner.component';
+import { AuthGuard } from './guards/auth-guard';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { SpinnerComponent } from './shared-components/spinner/spinner.component'
     SpinnerService,
     AuthorizationTokenService,
     AuthorsService,
-    DatePipe
+    DatePipe,
+    AuthGuard
   ],
   bootstrap: [AppComponent],
   entryComponents: [CourseDeleteOverlayComponent, SpinnerComponent]

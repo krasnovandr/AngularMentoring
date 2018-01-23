@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, forwardRef, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { AuthorsService } from '../../../services/authors.service';
-import { AuthorReadItemDto } from '../../../models/author';
+import { AuthorDto } from '../../../models/author';
 import { MultiselectModel } from '../../../models/multiselect';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { FormControl } from '@angular/forms';

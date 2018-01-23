@@ -1,4 +1,4 @@
-export class AuthorReadItemDto {
+export class AuthorDto {
     constructor(
         public id: number,
         public firstName?: string,

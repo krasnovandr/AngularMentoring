@@ -64,3 +64,16 @@ label.required:after {
     content: " *";
     color: red;
 }
+
+.course__form-input-number {
+    box-sizing: border-box;
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+}
+
+.course__form-info {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}

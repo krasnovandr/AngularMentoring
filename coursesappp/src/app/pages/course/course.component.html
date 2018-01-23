@@ -39,8 +39,10 @@
         <div class="course__form-element">
             <div class="course__form-control">
                 <label class="required">Duration</label>
-                <input type="text" class="course__form-input" formControlName="duration">
+                <input type="text" class="course__form-input-number" formControlName="duration">
+                <span class="course__form-info">{{courseForm.value.duration | duration}}</span>
             </div>
+
             <span class="course__form-control-error" *ngIf="courseForm.controls.duration.hasError('required') && courseForm.controls.duration.dirty">
                 Please specify the Duration
             </span>
