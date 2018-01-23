@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, SimpleChanges, Renderer, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer } from '@angular/core';
 
 @Directive({
   selector: '[appColoredborder]'

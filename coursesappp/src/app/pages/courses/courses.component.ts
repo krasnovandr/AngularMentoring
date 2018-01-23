@@ -1,11 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CoursesService } from '../../services/courses.service';
-import { Course, CourseDto, PagerOptions, FilterOptions } from '../../models/courses';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
-import { SpinnerService } from '../../services/spinner.service';
+import 'rxjs/add/operator/map';
+
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+
+import { Course, FilterOptions, PagerOptions } from '../../models/courses';
+import { CoursesService } from '../../services/courses.service';
+import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
   selector: 'app-courses',

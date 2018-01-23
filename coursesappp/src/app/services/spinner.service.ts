@@ -1,10 +1,11 @@
-import { Injectable, Injector, ComponentRef } from '@angular/core';
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { PortalInjector } from '@angular/cdk/portal';
-import { SpinnerOverlayRef } from '../shared-components/spinner/spinner.overlayref';
+import { ComponentRef, Injectable, Injector } from '@angular/core';
+
 import { SpinnerComponent } from '../shared-components/spinner/spinner.component';
+import { SpinnerOverlayRef } from '../shared-components/spinner/spinner.overlayref';
 
 interface SpinnerOverlayConfig {
   panelClass?: string;

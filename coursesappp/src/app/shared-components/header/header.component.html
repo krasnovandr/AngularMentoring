@@ -1,17 +1,17 @@
 <header class="page__header">
-  <div class="header">
-    <div class="header__logo">
-      <img src="assets/newlogo.png" alt="Logo" />
-    </div>
+    <div class="header">
+        <div class="header__logo">
+            <img src="assets/newlogo.png" alt="Logo" routerLink="/courses" />
+        </div>
 
-    <!-- <div class="header__breadcrump">Courses BreadCrump</div> -->
+        <!-- <div class="header__breadcrump">Courses BreadCrump</div> -->
 
-    <div class="header__userpanel">
-      <div *ngIf="isAuthenticated()">{{ userName}}</div>
-      <a *ngIf="!isAuthenticated()" class="header__userpanel_logoff-link" routerLink="/login">Login</a>
-      <a *ngIf="isAuthenticated()" class="header__userpanel_logoff-link" (click)="signOut()">
+        <div class="header__userpanel">
+            <div *ngIf="isAuthenticated()">{{ userName}}</div>
+            <a *ngIf="!isAuthenticated()" class="header__userpanel_logoff-link" routerLink="/login">Login</a>
+            <a *ngIf="isAuthenticated()" class="header__userpanel_logoff-link" (click)="signOut()">
         LogOff
       </a>
+        </div>
     </div>
-  </div>
 </header>

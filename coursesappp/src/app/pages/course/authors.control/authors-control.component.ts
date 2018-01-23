@@ -4,8 +4,8 @@ import { AuthorReadItemDto } from '../../../models/author';
 import { MultiselectModel } from '../../../models/multiselect';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { customRequiredValidator } from '../../../validators/customrequired-validator';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { multiselectRequiredValidator } from '../../../validators/multiselect-required-validator';
 
 @Component({
   selector: 'app-authors-control',
@@ -16,14 +16,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => AuthorsControlComponent),
     multi: true
-  },
-  {
-    provide: NG_VALIDATORS,
-    useValue: customRequiredValidator,
-    multi: true
   }]
 })
-export class AuthorsControlComponent implements  ControlValueAccessor {
+export class AuthorsControlComponent implements ControlValueAccessor {
   @Input() authors: MultiselectModel[] = [];
 
   propagateChange: any = () => { };
@@ -43,23 +38,13 @@ export class AuthorsControlComponent implements  ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void { }
 
 
-  constructor(private cd: ChangeDetectorRef) { 
-    
+  constructor(private cd: ChangeDetectorRef) {
+
   }
 
-  // ngOnChanges(inputs) {
-  //   if (inputs.authors) {
-  //     this.validateFn = customRequiredValidator();
-  //     this.propagateChange(this.authors);
-  //   }
-  // }
   update(value: MultiselectModel) {
     value.isSelected = !value.isSelected;
     this.propagateChange(this.authors);
     this.writeValue(this.authors);
   }
-
-  // validate(c: FormControl) {
-  //   return this.validateFn(c);
-  // }
 }

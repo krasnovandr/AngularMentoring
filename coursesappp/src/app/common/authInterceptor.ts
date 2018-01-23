@@ -1,7 +1,7 @@
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
-import { AuthorizationService } from '../services/authorization.service';
 import { Observable } from 'rxjs/Observable';
+
 import { AuthorizationTokenService } from '../services/authToken.service';
 
 @Injectable()

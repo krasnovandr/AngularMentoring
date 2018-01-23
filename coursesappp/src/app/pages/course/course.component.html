@@ -48,6 +48,7 @@
                 Invalid Format Please Use numbers
             </span>
         </div>
+
         <div class="course__form-element">
             <div class="course__form-control">
                 <label class="required">Authors</label>
@@ -57,6 +58,12 @@
                         && courseForm.controls.authors.dirty">
                 At least one item should be checked
             </span>
+        </div>
+        <div class="course__form-element">
+            <div class="course__form-control">
+                <label for="toprated">Top rated</label>
+                <input type="checkbox" class="course__form-input" formControlName="topRated" id="topRated">
+            </div>
         </div>
         <div class="course__form-actions">
             <input type="button" class="button" (click)="onCancel()" value="Cancel">

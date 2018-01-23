@@ -1,15 +1,17 @@
-import { Component, OnInit, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Location, DatePipe } from '@angular/common';
-import { FormGroup, FormControl, Validators, FormBuilder, ValidatorFn, AbstractControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { dateFormatValidator } from '../../validators/custom-validators';
-import { numberFormatValidator } from '../../validators/number-validator';
+import { DatePipe, Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { AuthorReadItemDto } from '../../models/author';
+import { Course, CourseDto } from '../../models/courses';
 import { MultiselectModel } from '../../models/multiselect';
 import { AuthorsService } from '../../services/authors.service';
-import { customRequiredValidator } from '../../validators/customrequired-validator';
 import { CoursesService } from '../../services/courses.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Course, CourseDto } from '../../models/courses';
+import { dateFormatValidator } from '../../validators/date-validator';
+import { multiselectRequiredValidator } from '../../validators/multiselect-required-validator';
+import { numberFormatValidator } from '../../validators/number-validator';
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -17,8 +19,10 @@ import { Course, CourseDto } from '../../models/courses';
 })
 
 export class CourseComponent implements OnInit {
-  courseForm: FormGroup;
+  private courseForm: FormGroup;
   private courseAuthors: AuthorReadItemDto[];
+  private editMode = false;
+  private courseId = false;
 
   constructor(private location: Location,
     private formBuilder: FormBuilder,
@@ -35,37 +39,53 @@ export class CourseComponent implements OnInit {
       date: ['', [Validators.required, dateFormatValidator()]],
       description: ['', [Validators.required, Validators.maxLength(500)]],
       duration: ['', [Validators.required, numberFormatValidator()]],
-      authors: [[], [customRequiredValidator()]]
+      authors: [[], [multiselectRequiredValidator()]],
+      topRated: false
     });
 
     const id = +this.router.snapshot.paramMap.get('id');
-    if (id && id > 0) {
-      this.router.paramMap.subscribe(data => {
-        const resultId = +data.get('id');
+    this.editMode = id && id > 0;
+    if (this.editMode) {
+      this.router.params.subscribe(data => {
+        const resultId = +data['id'];
         this.courseService.getCourse(resultId).subscribe(course => {
-          this.courseForm.controls['title'].patchValue(course.title);
-          this.courseForm.controls['date'].patchValue(this.datePipe.transform(course.creationDate, 'dd/MM/yyyy'));
-          this.courseForm.controls['description'].patchValue(course.description);
-          this.courseForm.controls['duration'].patchValue(course.duration);
+          this.setValuesToTheForm(course);
           this.courseAuthors = course.authors;
 
           this.authorsService.getAuthors()
             .subscribe(authors => {
-
-              for (const author of authors) {
-                const isExist = this.courseAuthors.some(auth => auth.id === author.id);
-                if (isExist) {
-                  author.isSelected = true;
-                }
-              }
+              this.markCheckedAuthors(authors);
               this.courseForm.controls['authors'].setValue(authors);
             });
-        });
+        }, (error) => {
+          if (error.status === 404) {
+            this.navigateRouter.navigate(['notfound']);
+          }
+        }
+        );
       });
     } else {
       this.authorsService.getAuthors()
         .subscribe(authors => this.courseForm.controls['authors'].setValue(authors));
     }
+  }
+
+  private setValuesToTheForm(course: Course) {
+    this.courseForm.controls['title'].patchValue(course.title);
+    this.courseForm.controls['date'].patchValue(this.datePipe.transform(course.creationDate, 'dd/MM/yyyy'));
+    this.courseForm.controls['description'].patchValue(course.description);
+    this.courseForm.controls['duration'].patchValue(course.duration);
+    this.courseForm.controls['topRated'].patchValue(course.topRated);
+  }
+
+  private markCheckedAuthors(authors: MultiselectModel[]) {
+    for (const author of authors) {
+      const isExist = this.courseAuthors.some(auth => auth.id === author.id);
+      if (isExist) {
+        author.isSelected = true;
+      }
+    }
+    return authors;
   }
 
   onCancel() {
@@ -74,25 +94,29 @@ export class CourseComponent implements OnInit {
 
   onSubmit(): void {
     const courseDto = this.prepareSaveCourse();
-
-    this.courseService.postCourse(courseDto).subscribe(
-      test => { }, err => { }
-    );
+    if (this.editMode) {
+      courseDto.id = +this.router.snapshot.paramMap.get('id');
+      this.courseService.updateCourse(courseDto).subscribe(
+        (_) => { this.navigateRouter.navigate(['courses']); }
+      );
+    } else {
+      this.courseService.createCourse(courseDto).subscribe(
+        (_) => { this.navigateRouter.navigate(['courses']); }
+      );
+    }
   }
   prepareSaveCourse(): CourseDto {
     const formModel = this.courseForm.value;
 
     const course: CourseDto = new CourseDto();
-    course.name = formModel.title as string;
-    debugger;
+    course.name = formModel.title;
     course.date = new Date(formModel.date);
-    course.description = formModel.description as string;
-    course.duration = formModel.duration as number;
-    course.isTopRated = false;
+    course.description = formModel.description;
+    course.duration = formModel.duration;
+    course.isTopRated = formModel.topRated;
     course.authors = [];
-    const formAuthors = formModel.authors as MultiselectModel[];
 
-    for (const author of formAuthors) {
+    for (const author of formModel.authors) {
       if (author.isSelected) {
         const authorDto = new AuthorReadItemDto(author.id);
         course.authors.push(authorDto);
