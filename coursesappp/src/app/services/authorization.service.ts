@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import { UserLogin, UserInfo, SignInResponse } from '../models/user';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
 import { environment } from '../../environments/environment';
+import { SignInResponse, UserInfo, UserLogin } from '../models/user';
 import { AuthorizationTokenService } from './authToken.service';
 
 @Injectable()

@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { AuthorizationService } from '../../services/authorization.service';
-import { Router } from '@angular/router';
-import { SpinnerService } from '../../services/spinner.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { map } from 'rxjs/operators/map';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthorizationService } from '../../services/authorization.service';
 import { AuthorizationTokenService } from '../../services/authToken.service';
+import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
   selector: 'app-login',

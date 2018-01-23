@@ -1,5 +1,5 @@
-import { Output, EventEmitter } from '@angular/core';
 import { OverlayRef } from '@angular/cdk/overlay';
+import { EventEmitter, Output } from '@angular/core';
 
 export class SpinnerOverlayRef {
     @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();

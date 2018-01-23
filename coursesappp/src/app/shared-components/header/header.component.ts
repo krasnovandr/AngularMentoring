@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { AuthorizationService } from '../../services/authorization.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { UserInfo } from '../../models/user';
 import { Subscription } from 'rxjs/Subscription';
+
+import { AuthorizationService } from '../../services/authorization.service';
 import { AuthorizationTokenService } from '../../services/authToken.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

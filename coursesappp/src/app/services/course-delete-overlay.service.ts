@@ -1,13 +1,14 @@
-import { Injectable, ComponentRef, Injector } from '@angular/core';
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
-import { InjectionToken } from '@angular/core';
-
 import { OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
+import { ComponentRef, Injectable, Injector } from '@angular/core';
+
 import { Course } from '../models/courses';
-import { CourseDetailOverlayRef } from '../pages/courses/components/course-delete-overlay/course-delete-overlayref';
-import { CourseDeleteOverlayComponent } from '../pages/courses/components/course-delete-overlay/course-delete-overlay.component';
 import { Course_Detail_Data } from '../pages/courses/components/course-delete-overlay/course-delete-overlay-data';
+import {
+  CourseDeleteOverlayComponent,
+} from '../pages/courses/components/course-delete-overlay/course-delete-overlay.component';
+import { CourseDetailOverlayRef } from '../pages/courses/components/course-delete-overlay/course-delete-overlayref';
 
 
 interface CourseDeleteOverlayConfig {
