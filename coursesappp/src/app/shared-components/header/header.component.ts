@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  private isAuthenticated() {
+  public isAuthenticated() {
     return this.tokenService.isAuthenticated();
   }
 

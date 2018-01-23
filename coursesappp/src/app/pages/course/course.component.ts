@@ -19,7 +19,7 @@ import { numberFormatValidator } from '../../validators/number-validator';
 })
 
 export class CourseComponent implements OnInit {
-  private courseForm: FormGroup;
+  public courseForm: FormGroup;
   private courseAuthors: AuthorReadItemDto[];
   private editMode = false;
   private courseId = false;
@@ -92,8 +92,8 @@ export class CourseComponent implements OnInit {
     this.navigateRouter.navigate(['courses']);
   }
 
-  onSubmit(): void {
-    const courseDto = this.prepareSaveCourse();
+  onSubmit(courseForm: FormGroup): void {
+    const courseDto = this.prepareSaveCourse(courseForm);
     if (this.editMode) {
       courseDto.id = +this.router.snapshot.paramMap.get('id');
       this.courseService.updateCourse(courseDto).subscribe(
@@ -105,8 +105,8 @@ export class CourseComponent implements OnInit {
       );
     }
   }
-  prepareSaveCourse(): CourseDto {
-    const formModel = this.courseForm.value;
+  prepareSaveCourse(courseForm: FormGroup): CourseDto {
+    const formModel = courseForm.value;
 
     const course: CourseDto = new CourseDto();
     course.name = formModel.title;

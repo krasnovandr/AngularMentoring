@@ -12,7 +12,7 @@ import { SpinnerService } from '../../services/spinner.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  private loginResult: string;
+  public loginResult: string;
 
   constructor(private authService: AuthorizationService,
     private tokenService: AuthorizationTokenService,

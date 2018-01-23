@@ -25,7 +25,7 @@
     <div class="pager__info">
         <div class="pager__view">
             <span>View:</span>
-            <select [(ngModel)]="recordsPerPage" (ngModelChange)="updateRecordPerPage($event)">
+            <select [(ngModel)]="recordsPerPage" (ngModelChange)="updateRecordPerPage()">
         <option *ngFor="let record of recordsPerPageVariants" [value]="record">{{record}}</option>
       </select>
         </div>

@@ -19,7 +19,7 @@ export class CoursesComponent implements OnInit {
   public defaulPagerOptions = this.getDefaultPageOptions();
 
   private subscription: Subscription;
-  private totalItems: number;
+  public totalItems: number;
 
   constructor(
     private coursesService: CoursesService,
