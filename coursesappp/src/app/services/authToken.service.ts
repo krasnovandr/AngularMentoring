@@ -24,7 +24,7 @@ export class AuthorizationTokenService {
     public isAuthenticated(): boolean {
         const reuslt = localStorage.getItem(this.storageKey);
 
-        return reuslt !== null ? true : false;
+        return reuslt !== null;
     }
 
 }

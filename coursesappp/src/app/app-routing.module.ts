@@ -8,9 +8,9 @@ import { PageNotFoundComponent } from './pages/notfound/page-not-found.component
 import { AuthGuard } from './guards/auth-guard';
 
 const routes: Routes = [
-    { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard] },
-    { path: 'courses/new', component: CourseComponent, canActivate: [AuthGuard] },
-    { path: 'courses/:id', component: CourseComponent, canActivate: [AuthGuard] },
+    { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard], data: { breadcrumb: '' } },
+    { path: 'courses/new', component: CourseComponent, canActivate: [AuthGuard], data: { breadcrumb: 'New Course' } },
+    { path: 'courses/:id', component: CourseComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Course' } },
     { path: 'login', component: LoginComponent },
 
     { path: 'notfound', component: PageNotFoundComponent },

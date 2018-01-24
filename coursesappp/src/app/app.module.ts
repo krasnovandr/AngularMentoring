@@ -35,6 +35,7 @@ import { FooterComponent } from './shared-components/footer/footer.component';
 import { HeaderComponent } from './shared-components/header/header.component';
 import { SpinnerComponent } from './shared-components/spinner/spinner.component';
 import { AuthGuard } from './guards/auth-guard';
+import { BreadcrumpComponent } from './shared-components/breadcrump/breadcrump.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AuthGuard } from './guards/auth-guard';
     CoursesListComponent,
     PagerComponent,
     AuthorsControlComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    BreadcrumpComponent
   ],
   imports: [
     BrowserModule,

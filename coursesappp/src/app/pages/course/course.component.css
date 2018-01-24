@@ -72,8 +72,14 @@ label.required:after {
     margin: 8px 0;
 }
 
-.course__form-info {
+.course__form-duration-info {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+}
+
+.course__form-duration {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }

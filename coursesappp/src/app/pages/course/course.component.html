@@ -38,9 +38,17 @@
         </div>
         <div class="course__form-element">
             <div class="course__form-control">
+                <label for="toprated">Top rated</label>
+                <input type="checkbox" class="course__form-input" formControlName="topRated" id="topRated">
+            </div>
+        </div>
+        <div class="course__form-element">
+            <div class="course__form-control">
                 <label class="required">Duration</label>
-                <input type="text" class="course__form-input-number" formControlName="duration">
-                <span class="course__form-info">{{courseForm.value.duration | duration}}</span>
+                <div class="course__form-duration">
+                    <input type="text" class="course__form-input-number" formControlName="duration">
+                    <span class="course__form-duration-info">{{courseForm.value.duration | duration}}</span>
+                </div>
             </div>
 
             <span class="course__form-control-error" *ngIf="courseForm.controls.duration.hasError('required') && courseForm.controls.duration.dirty">
@@ -61,12 +69,7 @@
                 At least one item should be checked
             </span>
         </div>
-        <div class="course__form-element">
-            <div class="course__form-control">
-                <label for="toprated">Top rated</label>
-                <input type="checkbox" class="course__form-input" formControlName="topRated" id="topRated">
-            </div>
-        </div>
+
         <div class="course__form-actions">
             <input type="button" class="button" (click)="onCancel()" value="Cancel">
             <input type="submit" class="button" value="Save" [disabled]="!courseForm.valid" [class.button-disabled]="!courseForm.valid" />
