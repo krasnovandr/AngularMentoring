@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AuthInterceptor } from './common/authInterceptor';
 import { ColoredborderDirective } from './directives/coloredborder.directive';
 import { AuthGuard } from './guards/auth-guard';
+import { UnsavedFormGuard } from './guards/unsaved-form.guard';
 import { AuthorsControlComponent } from './pages/course/authors.control/authors-control.component';
 import { CourseComponent } from './pages/course/course.component';
 import { CourseDetailComponent } from './pages/courses/components/course-detail/course-detail.component';
@@ -38,7 +39,6 @@ import { ConfirmationModalService } from './shared-components/confirmation-modal
 import { FooterComponent } from './shared-components/footer/footer.component';
 import { HeaderComponent } from './shared-components/header/header.component';
 import { SpinnerComponent } from './shared-components/spinner/spinner.component';
-import { UnsavedFormGuard } from './guards/unsaved-form.guard';
 
 @NgModule({
   declarations: [

@@ -1,10 +1,8 @@
-import { Component, OnInit, Input, ViewContainerRef, ViewChild, InjectionToken, Inject, Type, HostListener } from '@angular/core';
-import { BaseModalRemoteService } from './base-modal-remote.service';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { OverlayRef } from '@angular/cdk/overlay';
-import { BaseModalBodyLoaderService, IComponentInputParameters } from './base-modal-body-loader.service';
 import { ESCAPE } from '@angular/cdk/keycodes';
+import { Component, HostListener, Inject, InjectionToken, OnInit, Type, ViewChild, ViewContainerRef } from '@angular/core';
+
+import { BaseModalBodyLoaderService, IComponentInputParameters } from './base-modal-body-loader.service';
+import { BaseModalRemoteService } from './base-modal-remote.service';
 
 export const BODY_COMPONENT = new InjectionToken<Component>('bodyComponent');
 export const COMPONENT_INPUT_PARAMETERS = new InjectionToken<Component>('componentInputParameters');

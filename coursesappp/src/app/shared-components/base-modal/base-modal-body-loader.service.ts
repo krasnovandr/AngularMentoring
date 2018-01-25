@@ -1,11 +1,4 @@
-import {
-  ComponentFactoryResolver,
-  Injectable,
-  Inject,
-  ViewContainerRef,
-  Component,
-  Type
-} from '@angular/core';
+import { ComponentFactoryResolver, Injectable, Type, ViewContainerRef } from '@angular/core';
 
 export interface IComponentInputParameters {
   name: string;
