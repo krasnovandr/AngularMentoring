@@ -24,6 +24,11 @@ body {
     cursor: pointer;
 }
 
+.button-icon {
+    background: none;
+    border: none;
+}
+
 .button-disabled {
     background-color: #acdcee;
 }
@@ -70,6 +75,10 @@ body {
 
 .icon-chevron-right:before {
     content: "\e941";
+}
+
+.icon-cross:before {
+    content: "\e91a";
 }
 
 

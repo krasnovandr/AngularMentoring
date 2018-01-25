@@ -1,0 +1,7 @@
+<div class="confirmation-modal">
+    <div [innerHTML]="innerHtml" class="confirmation-modal__body"></div>
+    <div class="confirmation-modal__footer ">
+        <input class="button" type="button" value="No" (click)="close()">
+        <input class="button" type="button" value="Yes" (click)="ok()">
+    </div>
+</div>

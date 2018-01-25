@@ -1,18 +1,19 @@
 import { DatePipe, Location } from '@angular/common';
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthorDto } from '../../models/author';
 import { Course, CourseDto } from '../../models/courses';
 import { MultiselectModel } from '../../models/multiselect';
 import { AuthorsService } from '../../services/authors.service';
 import { CoursesService } from '../../services/courses.service';
+import { ConfirmationModalService } from '../../shared-components/confirmation-modal/confirmation-modal.service';
 import { dateFormatValidator } from '../../validators/date-validator';
 import { multiselectRequiredValidator } from '../../validators/multiselect-required-validator';
 import { numberFormatValidator } from '../../validators/number-validator';
-import { Subscription } from 'rxjs/Subscription';
-import { OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-course',
@@ -21,7 +22,6 @@ import { OnDestroy } from '@angular/core';
 })
 
 export class CourseComponent implements OnInit, OnDestroy {
-
   public courseForm: FormGroup;
   private courseAuthors: AuthorDto[];
   private editMode = false;
@@ -37,6 +37,7 @@ export class CourseComponent implements OnInit, OnDestroy {
     private courseService: CoursesService,
     private datePipe: DatePipe,
     private navigateRouter: Router,
+    private confirmationModalService: ConfirmationModalService
   ) { }
 
   ngOnInit() {
@@ -102,24 +103,25 @@ export class CourseComponent implements OnInit, OnDestroy {
     return authors;
   }
 
-
-  onCancel() {
-    this.navigateRouter.navigate(['courses']);
-  }
-
   onSubmit(courseForm: FormGroup): void {
     const courseDto = this.prepareSaveCourse(courseForm);
     if (this.editMode) {
       courseDto.id = +this.router.snapshot.paramMap.get('id');
       this.courseService.updateCourse(courseDto).subscribe(
-        (_) => { this.navigateRouter.navigate(['courses']); }
+
+        (_) => { this.redirectAction(); }
       );
     } else {
       this.courseService.createCourse(courseDto).subscribe(
-        (_) => { this.navigateRouter.navigate(['courses']); }
+        (_) => { this.redirectAction(); }
       );
     }
   }
+  private redirectAction() {
+    this.courseForm.reset();
+    this.navigateRouter.navigate(['courses']);
+  }
+
   prepareSaveCourse(courseForm: FormGroup): CourseDto {
     const formModel = courseForm.value;
 

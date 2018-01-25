@@ -67,8 +67,6 @@ export class CoursesComponent implements OnInit {
       });
   }
 
-
-
   private getDefaultPageOptions(): PagerOptions {
     const pagingOption = new PagerOptions(1, 5);
 

@@ -71,7 +71,7 @@
         </div>
 
         <div class="course__form-actions">
-            <input type="button" class="button" (click)="onCancel()" value="Cancel">
+            <input type="button" class="button" routerLink="/courses" value="Cancel">
             <input type="submit" class="button" value="Save" [disabled]="!courseForm.valid" [class.button-disabled]="!courseForm.valid" />
         </div>
         <!-- <p>Form status: {{ courseForm.value | json }}</p>

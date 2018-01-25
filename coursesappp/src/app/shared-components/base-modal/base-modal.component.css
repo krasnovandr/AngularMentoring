@@ -1,0 +1,17 @@
+.modal {
+    position: relative;
+    border-radius: 2px;
+    background-color: white;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+    padding: 16px;
+}
+
+.header {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close {
+    color: #01529D;
+}

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import { IBreadcrumb } from './breadcrump';

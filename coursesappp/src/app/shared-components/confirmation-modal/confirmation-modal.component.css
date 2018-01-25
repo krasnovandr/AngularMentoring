@@ -1,4 +1,4 @@
-.delete-dialog {
+.confirmation-modal {
     display: flex;
     flex-direction: column;
     width: 400px;
@@ -8,14 +8,11 @@
     padding: 20px;
 }
 
-.delete-dialog__header{
-    min-height: 10px;
-}
-.delete-dialog__body{
+.confirmation-modal__body {
     min-height: 40px;
 }
 
-.delete-dialog__footer {
+.confirmation-modal__footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
