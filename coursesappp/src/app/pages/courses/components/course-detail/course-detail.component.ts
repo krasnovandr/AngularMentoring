@@ -36,8 +36,10 @@ export class CourseDetailComponent implements OnInit, OnChanges {
 
     const result = this.confirmationModalService.open(`Do you really want to delete this course?.`);
 
-    result.subscribe(() => {
-      this.onDelete.emit(this.course);
+    result.subscribe((response) => {
+      if (response) {
+        this.onDelete.emit(this.course);
+      }
     });
   }
 }
