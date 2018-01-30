@@ -18,7 +18,7 @@ import {
     GetAuthorsSuccess,
     GetAuthorsSuccessFailed,
 } from './courses.actions';
-import { AppState } from './courses.model';
+import { AppState, MainState } from './courses.model';
 import { AuthorsService } from '../services/authors.service';
 
 @Injectable()
@@ -28,18 +28,17 @@ export class CoursesEffects {
         private actions: Actions,
         private coursesService: CoursesService,
         private authorsService: AuthorsService,
-        private store: Store<AppState>) { }
+        private store: Store<MainState>) { }
 
     @Effect()
     getCourses: Observable<Action> =
         this.actions.ofType(CoursesActionTypes.GET_COURSES, CoursesActionTypes.PAGE_CHANGED, CoursesActionTypes.SEARCH_TRIGGERED)
             .pipe(withLatestFrom(this.store),
             mergeMap(([action, state]) => {
-                const pager = state.courses.model && state.courses.model.data.length === 1
+                const pager = state.mainStore.coursesList && state.mainStore.coursesList.data.length === 1
                     ? PagerOptions.getDefaultOptions()
-                    : state.courses.pager;
-
-                return this.coursesService.getList(pager, state.courses.filter)
+                    : state.mainStore.pager;
+                return this.coursesService.getList(pager, state.mainStore.filter)
                     .pipe(
                     map((data) => new GetCoursesSuccess(data)),
                     catchError(e => of(new GetCoursesFailed())
@@ -52,6 +51,7 @@ export class CoursesEffects {
             .pipe(withLatestFrom(this.store),
             mergeMap(([action, state]) => {
                 const deleteAction = <DeleteCourse>action;
+                debugger;
                 return this.coursesService.removeCourse(deleteAction.courseId)
                     .pipe(
                     map((data) => new GetCourses()),

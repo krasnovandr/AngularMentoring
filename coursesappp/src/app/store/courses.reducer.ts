@@ -1,6 +1,6 @@
-import { CourseModel, AppState } from './courses.model';
 import { PagerOptions } from '../models/courses';
 import { CoursesActions, CoursesActionTypes } from './courses.actions';
+import { AppState } from './courses.model';
 
 export type Action = CoursesActions;
 
@@ -10,13 +10,11 @@ const newState = (state, newData) => {
 
 export const defaultCoursesState: AppState = {
     authors: null,
-    user: null,
     course: null,
-    courses: {
-        model: null,
-        filter: null,
-        pager: PagerOptions.getDefaultOptions()
-    }
+    coursesList: null,
+    filter: null,
+    pager: PagerOptions.getDefaultOptions()
+
 };
 
 export function coursesReducer(state: AppState = defaultCoursesState, action: Action) {
@@ -24,7 +22,7 @@ export function coursesReducer(state: AppState = defaultCoursesState, action: Ac
         case CoursesActionTypes.GET_COURSES:
             return state;
         case CoursesActionTypes.GET_COURSES_SUCCESS:
-            return newState(state, { model: action.courses });
+            return newState(state, { coursesList: action.courses });
         case CoursesActionTypes.PAGE_CHANGED:
             return newState(state, { pager: action.pagerOptions, filter: null });
         case CoursesActionTypes.SEARCH_TRIGGERED:

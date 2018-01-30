@@ -1,16 +1,16 @@
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Course, FilterOptions, PagerOptions } from '../../models/courses';
+import { Course, FilterOptions, PagerOptions, CourseListModel } from '../../models/courses';
 import { CoursesService } from '../../services/courses.service';
 import { SpinnerService } from '../../services/spinner.service';
-import { CourseModel, AppState, MainState } from '../../store/courses.model';
-import { Store, select } from '@ngrx/store';
-import { GetCourses, PageChanged, SearchTriggered, DeleteCourse } from '../../store/courses.actions';
-import { first } from 'rxjs/operators';
+import { DeleteCourse, GetCourses, PageChanged, SearchTriggered } from '../../store/courses.actions';
+import { AppState, MainState } from '../../store/courses.model';
+import { distinctUntilKeyChanged, pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses',
@@ -31,18 +31,20 @@ export class CoursesComponent implements OnInit {
     private store: Store<MainState>) { }
 
   ngOnInit() {
-    this.store.select(store => store.mainStore.courses).subscribe(value => {
-      if (value && value.model) {
-        this.courses = value.model.data;
-        this.totalItems = value.model.totalCount;
-      }
-    });
+    this.store.select(m => m.mainStore.coursesList)
+      .subscribe((value: CourseListModel) => {
+        if (value) {
+          this.courses = value.data;
+          this.totalItems = value.totalCount;
+        }
+      });
 
     this.store.dispatch(new GetCourses());
   }
 
   onDeleteEvent(course: Course) {
-    this.store.dispatch(new DeleteCourse(course.id));
+    debugger;
+     this.store.dispatch(new DeleteCourse(course.id));
     // const spinnerRef = this.spinner.start();
     // this.coursesService.removeCourse(course.id).subscribe((res) => {
     //   // this.getData();
@@ -57,10 +59,10 @@ export class CoursesComponent implements OnInit {
   }
 
   onSearch(courseName: string) {
-    this.store.dispatch(new SearchTriggered(this.getFilterOptions(courseName)));
+     this.store.dispatch(new SearchTriggered(this.getFilterOptions(courseName)));
   }
   onPageChanged(newPageOptions: PagerOptions) {
-    this.store.dispatch(new PageChanged(newPageOptions));
+     this.store.dispatch(new PageChanged(newPageOptions));
   }
 
   private getFilterOptions(query?: string): FilterOptions {

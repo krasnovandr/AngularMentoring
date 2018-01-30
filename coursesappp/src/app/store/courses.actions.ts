@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { CourseListModel, FilterOptions, PagerOptions } from '../models/courses';
 import { AuthorDto } from '../models/author';
+import { CourseListModel, FilterOptions, PagerOptions } from '../models/courses';
 
 export enum CoursesActionTypes {
     GET_COURSES = 'GET_COURSES',

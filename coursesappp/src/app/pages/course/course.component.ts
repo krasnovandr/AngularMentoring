@@ -81,7 +81,7 @@ export class CourseComponent implements OnInit, OnDestroy {
       //   .subscribe(authors => this.courseForm.controls['authors'].setValue(authors));
     }
 
-    this.store.select(store => store.courses)
+    this.store.select(store => store.authors)
       .subscribe(authors => {
         this.courseForm.controls['authors'].setValue(authors);
       });

@@ -6,6 +6,9 @@ import { Observable } from 'rxjs/Observable';
 import { CoursesService } from '../../../../services/courses.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../store/courses.model';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { skipUntil } from 'rxjs/operators/skipUntil';
+import { first } from 'rxjs/operators/first';
 
 @Component({
   selector: 'app-toolbox',
@@ -26,11 +29,11 @@ export class ToolboxComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select(store => store.courses).subscribe(value => {
-      if (value.filter == null) {
-        this.searchBar.reset();
-      }
-    });
+    // this.store.select(store => store.courses).pipe(distinctUntilChanged(), first(val => val != null)).subscribe(value => {
+    //   if (value == null) {
+    //     this.searchBar.reset();
+    //   }
+    // });
   }
 
   search(courseName: string) {
