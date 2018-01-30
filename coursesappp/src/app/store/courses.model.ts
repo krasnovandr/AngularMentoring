@@ -2,11 +2,14 @@ import { Course, PagerOptions, FilterOptions, CourseListModel } from '../models/
 import { AuthorDto } from '../models/author';
 
 
-export interface AppState {
-    courses: CourseModel;
+export class AppState{
     user: CourseModel;
     authors: AuthorDto[];
     course: Course;
+    courses: CourseModel;
+}
+export interface MainState {
+    mainStore: AppState;
 }
 
 

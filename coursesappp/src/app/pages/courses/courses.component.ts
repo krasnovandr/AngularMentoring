@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Course, FilterOptions, PagerOptions } from '../../models/courses';
 import { CoursesService } from '../../services/courses.service';
 import { SpinnerService } from '../../services/spinner.service';
-import { CourseModel, AppState } from '../../store/courses.model';
+import { CourseModel, AppState, MainState } from '../../store/courses.model';
 import { Store, select } from '@ngrx/store';
 import { GetCourses, PageChanged, SearchTriggered, DeleteCourse } from '../../store/courses.actions';
 import { first } from 'rxjs/operators';
@@ -28,11 +28,11 @@ export class CoursesComponent implements OnInit {
     private coursesService: CoursesService,
     private cd: ChangeDetectorRef,
     private spinner: SpinnerService,
-    private store: Store<AppState>) { }
+    private store: Store<MainState>) { }
 
   ngOnInit() {
-    this.store.select(store => store.courses).subscribe(value => {
-      if (value.model) {
+    this.store.select(store => store.mainStore.courses).subscribe(value => {
+      if (value && value.model) {
         this.courses = value.model.data;
         this.totalItems = value.model.totalCount;
       }

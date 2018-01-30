@@ -9,7 +9,7 @@ const newState = (state, newData) => {
 };
 
 export const defaultCoursesState: AppState = {
-    authors: [],
+    authors: null,
     user: null,
     course: null,
     courses: {

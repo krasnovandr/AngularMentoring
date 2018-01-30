@@ -78,7 +78,7 @@ import { coursesReducer } from './store/courses.reducer';
     ReactiveFormsModule,
     ReactiveFormsModule,
     StoreModule.forRoot({
-      courses: coursesReducer
+      mainStore: coursesReducer
     }),
     EffectsModule.forRoot([
       CoursesEffects

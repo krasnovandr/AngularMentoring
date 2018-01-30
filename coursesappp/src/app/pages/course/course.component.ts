@@ -76,13 +76,17 @@ export class CourseComponent implements OnInit, OnDestroy {
         });
       });
     } else {
-      this.store.dispatch(new GetAuthors());
+
       // this.authorsService.getAuthors()
       //   .subscribe(authors => this.courseForm.controls['authors'].setValue(authors));
     }
 
-    this.store.select(store => store.authors)
-      .subscribe(authors => this.courseForm.controls['authors'].setValue(authors));
+    this.store.select(store => store.courses)
+      .subscribe(authors => {
+        this.courseForm.controls['authors'].setValue(authors);
+      });
+    this.store.dispatch(new GetAuthors());
+
   }
 
   ngOnDestroy(): void {
