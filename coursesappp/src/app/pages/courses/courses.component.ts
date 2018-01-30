@@ -7,16 +7,19 @@ import { Subscription } from 'rxjs/Subscription';
 import { Course, FilterOptions, PagerOptions } from '../../models/courses';
 import { CoursesService } from '../../services/courses.service';
 import { SpinnerService } from '../../services/spinner.service';
+import { CourseModel, AppState } from '../../store/courses.model';
+import { Store, select } from '@ngrx/store';
+import { GetCourses, PageChanged, SearchTriggered, DeleteCourse } from '../../store/courses.actions';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesComponent implements OnInit {
   public courses: Course[] = [];
-  public defaulPagerOptions = this.getDefaultPageOptions();
+  public defaulPagerOptions: PagerOptions = PagerOptions.getDefaultOptions();
 
   private subscription: Subscription;
   public totalItems: number;
@@ -24,53 +27,40 @@ export class CoursesComponent implements OnInit {
   constructor(
     private coursesService: CoursesService,
     private cd: ChangeDetectorRef,
-    private spinner: SpinnerService) { }
+    private spinner: SpinnerService,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.getData();
+    this.store.select(store => store.courses).subscribe(value => {
+      if (value.model) {
+        this.courses = value.model.data;
+        this.totalItems = value.model.totalCount;
+      }
+    });
+
+    this.store.dispatch(new GetCourses());
   }
 
   onDeleteEvent(course: Course) {
-    const spinnerRef = this.spinner.start();
-
-    this.coursesService.removeCourse(course.id).subscribe((res) => {
-      this.getData();
-      spinnerRef.close();
-      this.cd.markForCheck();
-    },
-      (err) => {
-        console.log(err);
-        spinnerRef.close();
-      });
+    this.store.dispatch(new DeleteCourse(course.id));
+    // const spinnerRef = this.spinner.start();
+    // this.coursesService.removeCourse(course.id).subscribe((res) => {
+    //   // this.getData();
+    //   spinnerRef.close();
+    //   this.cd.markForCheck();
+    // },
+    //   (err) => {
+    //     console.log(err);
+    //     spinnerRef.close();
+    //   });
     console.log(`course ${course.id} with name ${course.title} marked as deleted`);
   }
 
   onSearch(courseName: string) {
-    this.getData(null, this.getFilterOptions(courseName));
+    this.store.dispatch(new SearchTriggered(this.getFilterOptions(courseName)));
   }
   onPageChanged(newPageOptions: PagerOptions) {
-    this.getData(newPageOptions, null);
-  }
-
-  private getData(pagerOptions?: PagerOptions, filterOptions?: FilterOptions) {
-    if (!pagerOptions) {
-      pagerOptions = this.getDefaultPageOptions();
-    }
-    this.coursesService.getList(pagerOptions, filterOptions)
-      .subscribe((coursesFromBackend) => {
-        this.courses = coursesFromBackend.data;
-        this.totalItems = coursesFromBackend.totalCount;
-        this.cd.markForCheck();
-        console.log('Next: ' + coursesFromBackend);
-      }, (err) => console.log('Error: ' + err), () => {
-        console.log('Completed');
-      });
-  }
-
-  private getDefaultPageOptions(): PagerOptions {
-    const pagingOption = new PagerOptions(1, 5);
-
-    return pagingOption;
+    this.store.dispatch(new PageChanged(newPageOptions));
   }
 
   private getFilterOptions(query?: string): FilterOptions {

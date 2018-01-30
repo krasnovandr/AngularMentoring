@@ -23,6 +23,10 @@ export class PagerOptions {
         this.itemsPerPage = itemsPerPage;
         this.pageIndex = pageIndex;
     }
+
+    static getDefaultOptions(): PagerOptions {
+        return new PagerOptions(1, 5);
+    }
 }
 
 export class FilterOptions {

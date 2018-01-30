@@ -5,6 +5,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +42,8 @@ import { ConfirmationModalService } from './shared-components/confirmation-modal
 import { FooterComponent } from './shared-components/footer/footer.component';
 import { HeaderComponent } from './shared-components/header/header.component';
 import { SpinnerComponent } from './shared-components/spinner/spinner.component';
+import { CoursesEffects } from './store/courses.effects';
+import { coursesReducer } from './store/courses.reducer';
 
 @NgModule({
   declarations: [
@@ -70,7 +75,18 @@ import { SpinnerComponent } from './shared-components/spinner/spinner.component'
     PortalModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot({
+      courses: coursesReducer
+    }),
+    EffectsModule.forRoot([
+      CoursesEffects
+    ]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 50
+    }),
+
   ],
   providers: [
     {

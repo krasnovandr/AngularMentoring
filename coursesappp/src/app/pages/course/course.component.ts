@@ -14,6 +14,9 @@ import { ConfirmationModalService } from '../../shared-components/confirmation-m
 import { dateFormatValidator } from '../../validators/date-validator';
 import { multiselectRequiredValidator } from '../../validators/multiselect-required-validator';
 import { numberFormatValidator } from '../../validators/number-validator';
+import { GetAuthors } from '../../store/courses.actions';
+import { AppState } from '../../store/courses.model';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-course',
@@ -37,7 +40,8 @@ export class CourseComponent implements OnInit, OnDestroy {
     private courseService: CoursesService,
     private datePipe: DatePipe,
     private navigateRouter: Router,
-    private confirmationModalService: ConfirmationModalService
+    private confirmationModalService: ConfirmationModalService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
@@ -69,13 +73,16 @@ export class CourseComponent implements OnInit, OnDestroy {
           if (error.status === 404) {
             this.navigateRouter.navigate(['notfound']);
           }
-        }
-        );
+        });
       });
     } else {
-      this.authorsService.getAuthors()
-        .subscribe(authors => this.courseForm.controls['authors'].setValue(authors));
+      this.store.dispatch(new GetAuthors());
+      // this.authorsService.getAuthors()
+      //   .subscribe(authors => this.courseForm.controls['authors'].setValue(authors));
     }
+
+    this.store.select(store => store.authors)
+      .subscribe(authors => this.courseForm.controls['authors'].setValue(authors));
   }
 
   ngOnDestroy(): void {

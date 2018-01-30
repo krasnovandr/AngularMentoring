@@ -24,7 +24,7 @@ export class CoursesService {
       .map((courseDto) => this.mapCourseEntity(courseDto));
   }
 
-  public getList(pagerOptions?: PagerOptions, filterOptions?: FilterOptions) {
+  public getList(pagerOptions?: PagerOptions, filterOptions?: FilterOptions): Observable<CourseListModel> {
 
     const params = this.buildParams(pagerOptions, filterOptions);
 
@@ -46,7 +46,7 @@ export class CoursesService {
   private buildParams(pagerOptions?: PagerOptions, filterOptions?: FilterOptions) {
     let params = new HttpParams();
     if (!pagerOptions) {
-      pagerOptions = this.getDefaultPageOptions();
+      pagerOptions = PagerOptions.getDefaultOptions();
     }
 
     params = params.append('pageIndex', pagerOptions.pageIndex.toString());
@@ -56,13 +56,6 @@ export class CoursesService {
       params = params.append('courseName', filterOptions.courseName);
     }
     return params;
-  }
-
-
-  getDefaultPageOptions(): PagerOptions {
-    const options = new PagerOptions(1, 25);
-
-    return options;
   }
 
   public removeCourse(id: number): Observable<Object> {

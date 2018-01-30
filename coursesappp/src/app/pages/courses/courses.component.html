@@ -1,5 +1,5 @@
 <div class="courses">
-  <app-toolbox (onSearch)="onSearch($event)"></app-toolbox>
-  <app-pager (onPageChanged)="onPageChanged($event)" [totalRecords]="totalItems" [recordsPerPage]="defaulPagerOptions.itemsPerPage"></app-pager>
-  <app-courses-list [courses]="courses" (onDeleteEvent)="onDeleteEvent($event)"></app-courses-list>
-  <div>
+    <app-toolbox (onSearch)="onSearch($event)"></app-toolbox>
+    <app-pager (onPageChanged)="onPageChanged($event)" [totalRecords]="totalItems" [recordsPerPage]="defaulPagerOptions?.itemsPerPage"></app-pager>
+    <app-courses-list [courses]="courses" (onDeleteEvent)="onDeleteEvent($event)"></app-courses-list>
+    <div>
