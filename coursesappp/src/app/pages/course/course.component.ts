@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthorDto } from '../../models/author';
@@ -11,12 +12,11 @@ import { MultiselectModel } from '../../models/multiselect';
 import { AuthorsService } from '../../services/authors.service';
 import { CoursesService } from '../../services/courses.service';
 import { ConfirmationModalService } from '../../shared-components/confirmation-modal/confirmation-modal.service';
+import { AddCourse, GetAuthors } from '../../store/courses.actions';
+import { MainState } from '../../store/courses.model';
 import { dateFormatValidator } from '../../validators/date-validator';
 import { multiselectRequiredValidator } from '../../validators/multiselect-required-validator';
 import { numberFormatValidator } from '../../validators/number-validator';
-import { GetAuthors } from '../../store/courses.actions';
-import { AppState } from '../../store/courses.model';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-course',
@@ -41,7 +41,7 @@ export class CourseComponent implements OnInit, OnDestroy {
     private datePipe: DatePipe,
     private navigateRouter: Router,
     private confirmationModalService: ConfirmationModalService,
-    private store: Store<AppState>
+    private store: Store<MainState>
   ) { }
 
   ngOnInit() {
@@ -76,17 +76,12 @@ export class CourseComponent implements OnInit, OnDestroy {
         });
       });
     } else {
-
-      // this.authorsService.getAuthors()
-      //   .subscribe(authors => this.courseForm.controls['authors'].setValue(authors));
+      this.store.select(store => store.mainStore.authors)
+        .subscribe(authors => {
+          this.courseForm.controls['authors'].setValue(authors);
+        });
+      this.store.dispatch(new GetAuthors());
     }
-
-    this.store.select(store => store.authors)
-      .subscribe(authors => {
-        this.courseForm.controls['authors'].setValue(authors);
-      });
-    this.store.dispatch(new GetAuthors());
-
   }
 
   ngOnDestroy(): void {
@@ -119,13 +114,10 @@ export class CourseComponent implements OnInit, OnDestroy {
     if (this.editMode) {
       courseDto.id = +this.router.snapshot.paramMap.get('id');
       this.courseService.updateCourse(courseDto).subscribe(
-
         (_) => { this.redirectAction(); }
       );
     } else {
-      this.courseService.createCourse(courseDto).subscribe(
-        (_) => { this.redirectAction(); }
-      );
+      this.store.dispatch(new AddCourse(courseDto, courseForm));
     }
   }
   private redirectAction() {

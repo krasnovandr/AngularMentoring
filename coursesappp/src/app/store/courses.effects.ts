@@ -17,6 +17,9 @@ import {
     GetCoursesSuccess,
     GetAuthorsSuccess,
     GetAuthorsSuccessFailed,
+    AddCourse,
+    AddCourseSuccess,
+    AddCourseFailed,
 } from './courses.actions';
 import { AppState, MainState } from './courses.model';
 import { AuthorsService } from '../services/authors.service';
@@ -51,7 +54,6 @@ export class CoursesEffects {
             .pipe(withLatestFrom(this.store),
             mergeMap(([action, state]) => {
                 const deleteAction = <DeleteCourse>action;
-                debugger;
                 return this.coursesService.removeCourse(deleteAction.courseId)
                     .pipe(
                     map((data) => new GetCourses()),
@@ -62,15 +64,26 @@ export class CoursesEffects {
 
     @Effect()
     addCourse: Observable<Action> =
-        this.actions.ofType(CoursesActionTypes.DELETE_COURSE)
+        this.actions.ofType(CoursesActionTypes.ADD_COURSE)
             .pipe(withLatestFrom(this.store),
             mergeMap(([action, state]) => {
-                const deleteAction = <DeleteCourse>action;
-                return this.coursesService.removeCourse(deleteAction.courseId)
+                const addAction = <AddCourse>action;
+                return this.coursesService.createCourse(addAction.courseDto)
                     .pipe(
-                    map((data) => new GetCourses()),
-                    catchError(e => of(new DeleteCourseFailed())
+                    map((data) => new AddCourseSuccess(addAction.courseForm)),
+                    catchError(e => of(new AddCourseFailed())
                     ));
+            }));
+
+    @Effect({ dispatch: false })
+    addCourseSuccess: Observable<Action> =
+        this.actions.ofType(CoursesActionTypes.ADD_COURSE_SUCCESS)
+            .pipe(withLatestFrom(this.store),
+            mergeMap(([action, state]) => {
+                const addAction = <AddCourseSuccess>action;
+                addAction.courseForm.reset();
+                this.router.navigate(['courses']);
+                return of();
             }));
 
     @Effect()

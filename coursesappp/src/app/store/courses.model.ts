@@ -5,7 +5,7 @@ import { AuthorDto } from '../models/author';
 export class AppState {
     // user: CourseModel;
     authors: AuthorDto[];
-    course: Course;
+     course: Course;
     coursesList: CourseListModel;
     pager: PagerOptions;
     filter: FilterOptions;

@@ -58,7 +58,7 @@ export class SearchTriggered implements Action {
 export class AddCourse implements Action {
     readonly type = CoursesActionTypes.ADD_COURSE;
 
-    constructor() { }
+    constructor(public courseDto, public courseForm) { }
 }
 
 export class AddCourseFailed implements Action {
@@ -70,7 +70,7 @@ export class AddCourseFailed implements Action {
 export class AddCourseSuccess implements Action {
     readonly type = CoursesActionTypes.ADD_COURSE_SUCCESS;
 
-    constructor() { }
+    constructor(public courseForm) { }
 }
 
 export class DeleteCourse implements Action {

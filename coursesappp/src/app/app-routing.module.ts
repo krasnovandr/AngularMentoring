@@ -28,7 +28,7 @@ const routes: Routes = [
         canDeactivate: [UnsavedFormGuard],
         data: { breadcrumb: 'Course' }
     },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', loadChildren: './pages/login/login.module#LoginModule' },
 
     { path: 'notfound', component: PageNotFoundComponent },
     { path: '', redirectTo: '/courses', pathMatch: 'full' },

@@ -22,7 +22,6 @@ import { CoursesListComponent } from './pages/courses/components/courses-list/co
 import { PagerComponent } from './pages/courses/components/pager/pager.component';
 import { ToolboxComponent } from './pages/courses/components/toolbox/toolbox.component';
 import { CoursesComponent } from './pages/courses/courses.component';
-import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/notfound/page-not-found.component';
 import { DurationPipe } from './pipes/duration.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
@@ -54,7 +53,6 @@ import { coursesReducer } from './store/courses.reducer';
     FooterComponent,
     ToolboxComponent,
     ConfirmationModalComponent,
-    LoginComponent,
     ColoredborderDirective,
     DurationPipe,
     OrderbyPipe,

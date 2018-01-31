@@ -5,12 +5,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Course, FilterOptions, PagerOptions, CourseListModel } from '../../models/courses';
+import { Course, CourseListModel, FilterOptions, PagerOptions } from '../../models/courses';
 import { CoursesService } from '../../services/courses.service';
 import { SpinnerService } from '../../services/spinner.service';
 import { DeleteCourse, GetCourses, PageChanged, SearchTriggered } from '../../store/courses.actions';
-import { AppState, MainState } from '../../store/courses.model';
-import { distinctUntilKeyChanged, pluck } from 'rxjs/operators';
+import { MainState } from '../../store/courses.model';
 
 @Component({
   selector: 'app-courses',
@@ -43,8 +42,7 @@ export class CoursesComponent implements OnInit {
   }
 
   onDeleteEvent(course: Course) {
-    debugger;
-     this.store.dispatch(new DeleteCourse(course.id));
+    this.store.dispatch(new DeleteCourse(course.id));
     // const spinnerRef = this.spinner.start();
     // this.coursesService.removeCourse(course.id).subscribe((res) => {
     //   // this.getData();
@@ -59,10 +57,10 @@ export class CoursesComponent implements OnInit {
   }
 
   onSearch(courseName: string) {
-     this.store.dispatch(new SearchTriggered(this.getFilterOptions(courseName)));
+    this.store.dispatch(new SearchTriggered(this.getFilterOptions(courseName)));
   }
   onPageChanged(newPageOptions: PagerOptions) {
-     this.store.dispatch(new PageChanged(newPageOptions));
+    this.store.dispatch(new PageChanged(newPageOptions));
   }
 
   private getFilterOptions(query?: string): FilterOptions {
