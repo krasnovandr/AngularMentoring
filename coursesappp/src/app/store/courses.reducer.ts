@@ -22,7 +22,18 @@ export function coursesReducer(state: AppState = defaultCoursesState, action: Ac
         case CoursesActionTypes.GET_COURSES:
             return state;
         case CoursesActionTypes.GET_COURSES_SUCCESS:
-            return newState(state, { coursesList: action.courses });
+            if (!state.coursesList) {
+                return newState(state, { coursesList: action.courses });
+            } else {
+                return newState(state, {
+                    coursesList: {
+                        data: state.coursesList.data.concat(action.courses.data),
+                        totalCount: action.courses.totalCount
+                    },
+                });
+            }
+
+
         case CoursesActionTypes.PAGE_CHANGED:
             return newState(state, { pager: action.pagerOptions, filter: null });
         case CoursesActionTypes.SEARCH_TRIGGERED:

@@ -30,15 +30,15 @@ export class CoursesComponent implements OnInit {
     private store: Store<MainState>) { }
 
   ngOnInit() {
-    this.store.select(m => m.mainStore.coursesList)
-      .subscribe((value: CourseListModel) => {
-        if (value) {
-          this.courses = value.data;
-          this.totalItems = value.totalCount;
-        }
-      });
+    // this.store.select(m => m.mainStore.coursesList)
+    //   .subscribe((value: CourseListModel) => {
+    //     if (value) {
+    //       this.courses = value.data;
+    //       this.totalItems = value.totalCount;
+    //     }
+    //   });
 
-    this.store.dispatch(new GetCourses());
+    // this.store.dispatch(new GetCourses());
   }
 
   onDeleteEvent(course: Course) {
@@ -59,9 +59,9 @@ export class CoursesComponent implements OnInit {
   onSearch(courseName: string) {
     this.store.dispatch(new SearchTriggered(this.getFilterOptions(courseName)));
   }
-  onPageChanged(newPageOptions: PagerOptions) {
-    this.store.dispatch(new PageChanged(newPageOptions));
-  }
+  // onPageChanged(newPageOptions: PagerOptions) {
+  //   this.store.dispatch(new PageChanged(newPageOptions));
+  // }
 
   private getFilterOptions(query?: string): FilterOptions {
     const filetrOption = new FilterOptions();

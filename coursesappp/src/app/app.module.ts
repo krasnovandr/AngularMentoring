@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './common/authInterceptor';
 import { ColoredborderDirective } from './directives/coloredborder.directive';
+import { InfiniteScrollerDirective } from './directives/infinitescroll.directive';
 import { AuthGuard } from './guards/auth-guard';
 import { UnsavedFormGuard } from './guards/unsaved-form.guard';
 import { AuthorsControlComponent } from './pages/course/authors.control/authors-control.component';
@@ -64,7 +65,8 @@ import { coursesReducer } from './store/courses.reducer';
     AuthorsControlComponent,
     PageNotFoundComponent,
     BreadcrumpComponent,
-    BaseModalComponent
+    BaseModalComponent,
+    InfiniteScrollerDirective
   ],
   imports: [
     BrowserModule,

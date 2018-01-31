@@ -38,10 +38,11 @@ export class CoursesEffects {
         this.actions.ofType(CoursesActionTypes.GET_COURSES, CoursesActionTypes.PAGE_CHANGED, CoursesActionTypes.SEARCH_TRIGGERED)
             .pipe(withLatestFrom(this.store),
             mergeMap(([action, state]) => {
-                const pager = state.mainStore.coursesList && state.mainStore.coursesList.data.length === 1
-                    ? PagerOptions.getDefaultOptions()
-                    : state.mainStore.pager;
-                return this.coursesService.getList(pager, state.mainStore.filter)
+                const getCourses = <GetCourses>action;
+                // const pager = state.mainStore.coursesList && state.mainStore.coursesList.data.length === 1
+                //     ? PagerOptions.getDefaultOptions()
+                //     : state.mainStore.pager;
+                return this.coursesService.getList(getCourses.pagerOptions, state.mainStore.filter)
                     .pipe(
                     map((data) => new GetCoursesSuccess(data)),
                     catchError(e => of(new GetCoursesFailed())

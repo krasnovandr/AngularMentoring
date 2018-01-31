@@ -1,7 +1,9 @@
-<div *ngIf="courses && courses.length > 0 else nodata">
-    <div *ngFor="let course of courses | orderby: 'creationDate' : 'desc'">
-        <app-course-detail (onDelete)="onDelete($event)" [course]="course"></app-course-detail>
-    </div>
+<div *ngIf="courses && courses.length > 0 else nodata" style="overflow: hidden">
+    <ul id="infinite-scroller" appInfiniteScroller scrollPerecnt="80" [immediateCallback]="false" [scrollCallback]="scrollCallback">
+        <li *ngFor="let course of courses" >
+            <app-course-detail (onDelete)="onDelete($event)" [course]="course"></app-course-detail>
+        </li>
+    </ul>
 </div>
 <ng-template #nodata>
     <div class="courses__nodata">

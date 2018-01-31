@@ -1,4 +1,4 @@
-.courses__nodata{
+.courses__nodata {
     padding: 20px;
     justify-content: space-around;
     flex-direction: row;
@@ -8,3 +8,14 @@
     border: 1px solid rgb(67, 67, 85);
     border-radius: 1px;
 }
+
+#infinite-scroller {
+    /* height: 500px;
+    width: 700px; */
+    /* border: 1px solid #f5ad7c; */
+    overflow: scroll;
+    padding: 0;
+    list-style: none;
+    height: 800px;
+}
+
