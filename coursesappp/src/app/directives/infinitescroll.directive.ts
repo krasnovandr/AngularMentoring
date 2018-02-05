@@ -76,7 +76,7 @@ export class InfiniteScrollerDirective implements AfterViewInit {
     private requestCallbackOnScroll() {
         this.requestOnScroll = this.userScrolledDown;
 
-        if (this.immediateCallback) {
+         if (this.immediateCallback) {
             this.requestOnScroll = this.requestOnScroll
                 .startWith([DEFAULT_SCROLL_POSITION, DEFAULT_SCROLL_POSITION]);
         }
@@ -86,7 +86,8 @@ export class InfiniteScrollerDirective implements AfterViewInit {
                 return this.scrollCallback();
             })
             .subscribe((data) => {
-                // debugger;
+                
+                 debugger;
                 // console.log(data);
             }, (err) => {
                 // debugger;

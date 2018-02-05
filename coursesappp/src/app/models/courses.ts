@@ -11,21 +11,25 @@ export class Course {
 }
 
 export class CourseListModel {
-    data: Course[];
+    data: Course[] = [];
     totalCount: number;
+
+    constructor() {
+
+    }
 }
 
 export class PagerOptions {
     pageIndex: number;
     itemsPerPage: number;
 
-    constructor(pageIndex, itemsPerPage) {
+    constructor(pageIndex, itemsPerPage = 5) {
         this.itemsPerPage = itemsPerPage;
         this.pageIndex = pageIndex;
     }
 
     static getDefaultOptions(): PagerOptions {
-        return new PagerOptions(1, 5);
+        return new PagerOptions(1);
     }
 }
 
