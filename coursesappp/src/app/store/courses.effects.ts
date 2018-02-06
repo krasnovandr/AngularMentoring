@@ -162,7 +162,6 @@ export class CoursesEffects {
     .pipe(
       withLatestFrom(this.store),
       mergeMap(([action, state]) => {
-
         this.tokenService.setAuthorizationToken(state.mainStore.userToken);
         this.router.navigate(["/courses"]);
         return of();

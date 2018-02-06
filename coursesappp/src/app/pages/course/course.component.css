@@ -1,6 +1,9 @@
 .course {
     flex-wrap: wrap;
-    max-width: 950px;
+    /* max-width: 950px; */
+    width:850px;
+    /* height: 70%; */
+    /* height: 820px; */
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -14,7 +17,7 @@
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 10px;
-    width: 60%;
+    width: 75%;
 }
 
 .course__form-control {

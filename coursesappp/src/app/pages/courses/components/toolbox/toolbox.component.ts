@@ -4,7 +4,8 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnInit
+  OnInit,
+  Injector
 } from "@angular/core";
 import {
   Course,
@@ -21,6 +22,9 @@ import { distinctUntilChanged } from "rxjs/operators";
 import { skipUntil } from "rxjs/operators/skipUntil";
 import { first } from "rxjs/operators/first";
 import { asTextData } from "@angular/core/src/view";
+import { BaseModalBodyLoaderService } from "../../../../shared-components/base-modal/base-modal-body-loader.service";
+import { BaseModalService } from "../../../../shared-components/base-modal/base-modal.service";
+import { CourseComponent } from "../../../course/course.component";
 
 @Component({
   selector: "app-toolbox",
@@ -33,7 +37,11 @@ export class ToolboxComponent implements OnInit {
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(
+    private cd: ChangeDetectorRef,
+    private baseModalService: BaseModalService,
+    private injector: Injector
+  ) {
     this.searchBar = new FormControl("", []);
   }
 
@@ -47,5 +55,10 @@ export class ToolboxComponent implements OnInit {
 
   search(courseName: string) {
     this.onSearch.emit(courseName.toLocaleLowerCase());
+  }
+  openAddCourse() {
+    this.baseModalService.open(CourseComponent, {
+      modalInjector: this.injector
+    });
   }
 }

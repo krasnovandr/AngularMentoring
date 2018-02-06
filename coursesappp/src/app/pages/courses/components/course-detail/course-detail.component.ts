@@ -1,23 +1,35 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { OnChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+  Injector
+} from "@angular/core";
+import { OnChanges } from "@angular/core";
 
-import { Course } from '../../../../models/courses';
-import { ConfirmationModalService } from '../../../../shared-components/confirmation-modal/confirmation-modal.service';
+import { Course } from "../../../../models/courses";
+import { ConfirmationModalService } from "../../../../shared-components/confirmation-modal/confirmation-modal.service";
+import { BaseModalService } from "../../../../shared-components/base-modal/base-modal.service";
+import { CourseComponent } from "../../../course/course.component";
 
 @Component({
-  selector: 'app-course-detail',
-  templateUrl: './course-detail.component.html',
-  styleUrls: ['./course-detail.component.css'],
+  selector: "app-course-detail",
+  templateUrl: "./course-detail.component.html",
+  styleUrls: ["./course-detail.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseDetailComponent implements OnInit, OnChanges {
-
   @Input() course: Course;
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private confirmationModalService: ConfirmationModalService,
-  ) { }
+    private baseModalService: BaseModalService,
+    private injector: Injector
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
@@ -29,17 +41,29 @@ export class CourseDetailComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   deleteCourse(course: Course) {
+    const result = this.confirmationModalService.open(
+      `Do you really want to delete this course?.`
+    );
 
-    const result = this.confirmationModalService.open(`Do you really want to delete this course?.`);
-
-    result.subscribe((response) => {
+    result.subscribe(response => {
       if (response) {
         this.onDelete.emit(this.course);
       }
+    });
+  }
+
+  editCourse(courseId: number) {
+    this.baseModalService.open(CourseComponent, {
+      componentInputParameters: [
+        {
+          name: "courseId",
+          value: courseId
+        }
+      ],
+      modalInjector: this.injector
     });
   }
 }
