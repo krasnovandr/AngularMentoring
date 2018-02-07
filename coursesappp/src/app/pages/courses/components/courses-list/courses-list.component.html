@@ -1,6 +1,6 @@
 <div *ngIf="courses && courses.length > 0 else nodata" style="overflow: hidden">
     <ul id="infinite-scroller" appInfiniteScroller scrollPerecnt="70" [immediateCallback]="false" [scrollCallback]="scrollCallback">
-        <li *ngFor="let course of courses" >
+        <li *ngFor="let course of courses | orderby: 'creationDate' : 'desc'" >
             <app-course-detail (onDelete)="onDelete($event)" [course]="course"></app-course-detail>
         </li>
     </ul>

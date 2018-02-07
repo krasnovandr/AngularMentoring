@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, Effect } from "@ngrx/effects";
 import { Action, Store } from "@ngrx/store";
@@ -28,11 +28,18 @@ import {
   LoginFailed,
   GetUserInfo,
   GetUserInfoSuccess,
-  GetUserInfoFailed
+  GetUserInfoFailed,
+  PageChanged,
+  EditCourseSuccess,
+  EditCourseFailed,
+  EditCourse
 } from "./courses.actions";
 import { MainState } from "./courses.model";
 import { AuthorizationService } from "../services/authorization.service";
 import { AuthorizationTokenService } from "../services/authToken.service";
+import { REMOTE_SERVICE } from "../shared-components/base-modal/base-modal.component";
+import { BaseModalRemoteService } from "../shared-components/base-modal/base-modal-remote.service";
+import { PagerOptions } from "../models/courses";
 
 @Injectable()
 export class CoursesEffects {
@@ -44,7 +51,8 @@ export class CoursesEffects {
     private authorizationService: AuthorizationService,
     private tokenService: AuthorizationTokenService,
     private store: Store<MainState>
-  ) {}
+  ) // @Inject(REMOTE_SERVICE) private baseModalRemoteService: BaseModalRemoteService
+  {}
 
   @Effect()
   getCourses: Observable<Action> = this.actions
@@ -91,8 +99,24 @@ export class CoursesEffects {
         return this.coursesService
           .createCourse(addAction.courseDto)
           .pipe(
-            map(data => new AddCourseSuccess(addAction.courseForm)),
+            map(data => new AddCourseSuccess(data)),
             catchError(e => of(new AddCourseFailed()))
+          );
+      })
+    );
+
+  @Effect()
+  editCourse: Observable<Action> = this.actions
+    .ofType(CoursesActionTypes.EDIT_COURSE)
+    .pipe(
+      withLatestFrom(this.store),
+      mergeMap(([action, state]) => {
+        const addAction = <EditCourse>action;
+        return this.coursesService
+          .updateCourse(addAction.courseDto)
+          .pipe(
+            map(data => new EditCourseSuccess(data)),
+            catchError(e => of(new EditCourseFailed()))
           );
       })
     );
@@ -103,10 +127,11 @@ export class CoursesEffects {
     .pipe(
       withLatestFrom(this.store),
       mergeMap(([action, state]) => {
-        const addAction = <AddCourseSuccess>action;
-        addAction.courseForm.reset();
-        this.router.navigate(["courses"]);
-        return of();
+        // this.baseModalRemoteService.close();
+        // const addAction = <AddCourseSuccess>action;
+        // addAction.courseForm.reset();
+        // this.router.navigate(["courses"]);
+        return of(new PageChanged(PagerOptions.getDefaultOptions()));
       })
     );
 

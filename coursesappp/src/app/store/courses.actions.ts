@@ -17,6 +17,8 @@ export enum CoursesActionTypes {
   SEARCH_SUCCESS = "SEARCH_SUCCESS",
   SEARCH_FAILED = "SEARCH_FAILED",
   EDIT_COURSE = "EDIT_COURSE",
+  EDIT_COURSE_SUCCESS = "EDIT_COURSE_SUCCESS",
+  EDIT_COURSE_FAILED = "EDIT_COURSE_FAILED",
   DELETE_COURSE = "DELETE_COURSE",
   DELETE_COURSE_SUCCESS = "DELETE_COURSE_SUCCESS",
   DELETE_COURSE_FAILED = "DELETE_COURSE_FAILED",
@@ -123,7 +125,7 @@ export class SearchFailed implements Action {
 export class AddCourse implements Action {
   readonly type = CoursesActionTypes.ADD_COURSE;
 
-  constructor(public courseDto, public courseForm) {}
+  constructor(public courseDto) {}
 }
 
 export class AddCourseFailed implements Action {
@@ -135,7 +137,7 @@ export class AddCourseFailed implements Action {
 export class AddCourseSuccess implements Action {
   readonly type = CoursesActionTypes.ADD_COURSE_SUCCESS;
 
-  constructor(public courseForm) {}
+  constructor(public course) {}
 }
 
 export class DeleteCourse implements Action {
@@ -147,7 +149,19 @@ export class DeleteCourse implements Action {
 export class EditCourse implements Action {
   readonly type = CoursesActionTypes.EDIT_COURSE;
 
+  constructor(public courseDto) {}
+}
+
+export class EditCourseFailed implements Action {
+  readonly type = CoursesActionTypes.EDIT_COURSE_FAILED;
+
   constructor() {}
+}
+
+export class EditCourseSuccess implements Action {
+  readonly type = CoursesActionTypes.EDIT_COURSE_SUCCESS;
+
+  constructor(public course) {}
 }
 
 export class DeleteCourseSuccess implements Action {
@@ -203,4 +217,6 @@ export type CoursesActions =
   | GetUserInfoFailed
   | GetUserInfoSuccess
   | Logout
+  | EditCourseFailed
+  | EditCourseSuccess
   | EditCourse;

@@ -1,28 +1,24 @@
-import { DatePipe, Location } from "@angular/common";
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  SimpleChanges
-} from "@angular/core";
-import { OnDestroy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Store } from "@ngrx/store";
-import { Subscription } from "rxjs/Subscription";
+import { DatePipe, Location } from '@angular/common';
+import { OnDestroy } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
-import { AuthorDto } from "../../models/author";
-import { Course, CourseDto } from "../../models/courses";
-import { MultiselectModel } from "../../models/multiselect";
-import { AuthorsService } from "../../services/authors.service";
-import { CoursesService } from "../../services/courses.service";
-import { ConfirmationModalService } from "../../shared-components/confirmation-modal/confirmation-modal.service";
-import { AddCourse, GetAuthors } from "../../store/courses.actions";
-import { MainState } from "../../store/courses.model";
-import { dateFormatValidator } from "../../validators/date-validator";
-import { multiselectRequiredValidator } from "../../validators/multiselect-required-validator";
-import { numberFormatValidator } from "../../validators/number-validator";
+import { AuthorDto } from '../../models/author';
+import { Course, CourseDto } from '../../models/courses';
+import { MultiselectModel } from '../../models/multiselect';
+import { AuthorsService } from '../../services/authors.service';
+import { CoursesService } from '../../services/courses.service';
+import { BaseModalRemoteService } from '../../shared-components/base-modal/base-modal-remote.service';
+import { REMOTE_SERVICE } from '../../shared-components/base-modal/base-modal.component';
+import { ConfirmationModalService } from '../../shared-components/confirmation-modal/confirmation-modal.service';
+import { AddCourse, EditCourse, GetAuthors } from '../../store/courses.actions';
+import { MainState } from '../../store/courses.model';
+import { dateFormatValidator } from '../../validators/date-validator';
+import { multiselectRequiredValidator } from '../../validators/multiselect-required-validator';
+import { numberFormatValidator } from '../../validators/number-validator';
 
 @Component({
   selector: "app-course",
@@ -33,10 +29,7 @@ export class CourseComponent implements OnInit, OnDestroy {
   @Input() courseId?: number;
   public courseForm: FormGroup;
   private courseAuthors: AuthorDto[];
-  private editMode = false;
-  // private courseId = false;
 
-  private routeSubscription: Subscription;
   private courseSubscription: Subscription;
 
   constructor(
@@ -48,7 +41,9 @@ export class CourseComponent implements OnInit, OnDestroy {
     private datePipe: DatePipe,
     private navigateRouter: Router,
     private confirmationModalService: ConfirmationModalService,
-    private store: Store<MainState>
+    private store: Store<MainState>,
+    @Inject(REMOTE_SERVICE)
+    private baseModalRemoteService: BaseModalRemoteService
   ) {}
 
   ngOnInit() {
@@ -61,28 +56,26 @@ export class CourseComponent implements OnInit, OnDestroy {
       topRated: false
     });
 
-    debugger;
     if (this.courseId && this.courseId > 0) {
-      this.routeSubscription = this.router.params.subscribe(data => {
-        this.courseSubscription = this.courseService
-          .getCourse(this.courseId)
-          .subscribe(
-            course => {
-              this.setValuesToTheForm(course);
-              this.courseAuthors = course.authors;
+      this.courseSubscription = this.courseService
+        .getCourse(this.courseId)
+        .subscribe(
+          course => {
+            this.setValuesToTheForm(course);
+            this.courseAuthors = course.authors;
 
-              this.authorsService.getAuthors().subscribe(authors => {
-                this.markCheckedAuthors(authors);
-                this.courseForm.controls["authors"].setValue(authors);
-              });
-            },
-            error => {
-              if (error.status === 404) {
-                this.navigateRouter.navigate(["notfound"]);
-              }
+            this.authorsService.getAuthors().subscribe(authors => {
+              debugger;
+              this.markCheckedAuthors(authors);
+              this.courseForm.controls["authors"].setValue(authors);
+            });
+          },
+          error => {
+            if (error.status === 404) {
+              this.navigateRouter.navigate(["notfound"]);
             }
-          );
-      });
+          }
+        );
     } else {
       this.store.select(store => store.mainStore.authors).subscribe(authors => {
         this.courseForm.controls["authors"].setValue(authors);
@@ -91,10 +84,13 @@ export class CourseComponent implements OnInit, OnDestroy {
     }
   }
 
+  onCancel() {
+    this.baseModalRemoteService.close();
+  }
+
   ngOnDestroy(): void {
-    if (this.editMode) {
+    if (this.courseId && this.courseId > 0) {
       this.courseSubscription.unsubscribe();
-      this.routeSubscription.unsubscribe();
     }
   }
 
@@ -120,23 +116,17 @@ export class CourseComponent implements OnInit, OnDestroy {
 
   onSubmit(courseForm: FormGroup): void {
     const courseDto = this.prepareSaveCourse(courseForm);
-    if (this.editMode) {
-      courseDto.id = +this.router.snapshot.paramMap.get("id");
-      this.courseService.updateCourse(courseDto).subscribe(_ => {
-        this.redirectAction();
-      });
+    if (this.courseId && this.courseId > 0) {
+      courseDto.id = this.courseId;
+      this.store.dispatch(new EditCourse(courseDto));
+      this.baseModalRemoteService.close();
     } else {
-      this.store.dispatch(new AddCourse(courseDto, courseForm));
+      this.store.dispatch(new AddCourse(courseDto));
+      this.baseModalRemoteService.close();
     }
   }
-  private redirectAction() {
-    this.courseForm.reset();
-    this.navigateRouter.navigate(["courses"]);
-  }
-
   prepareSaveCourse(courseForm: FormGroup): CourseDto {
     const formModel = courseForm.value;
-
     const course: CourseDto = new CourseDto();
     course.name = formModel.title;
     course.date = new Date(formModel.date);

@@ -64,6 +64,36 @@ export function coursesReducer(
       return newState(state, { userToken: action.result.token });
     case CoursesActionTypes.GET_USER_INFO_SUCCESS:
       return newState(state, { userInfo: action.userInfo });
+    case CoursesActionTypes.ADD_COURSE_SUCCESS:
+      return newState(state, {
+        coursesList: {
+          data: state.coursesList.data.concat(action.course),
+          totalCount: state.coursesList.totalCount
+        }
+      });
+    case CoursesActionTypes.EDIT_COURSE_SUCCESS:
+      let index = state.coursesList.data
+        .map(value => value.id)
+        .indexOf(action.course.id);
+        debugger;
+      return newState(state, {
+        coursesList: {
+          data: [
+            ...state.coursesList.data.slice(0, index),
+            Object.assign({}, state.coursesList.data[index], action.course),
+            ...state.coursesList.data.slice(index + 1)
+          ],
+          totalCount: state.coursesList.totalCount
+        }
+      });
+
+    // return newState(state, {
+    //   coursesList: {
+    //     data: state.coursesList.data.concat(action.course),
+    //     totalCount: state.coursesList.totalCount
+    //   }
+    // });
+
     default:
       return state;
   }
