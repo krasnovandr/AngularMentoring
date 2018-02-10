@@ -1,7 +1,7 @@
-import { PagerOptions, CourseListModel } from "../models/courses";
-import { CoursesActions, CoursesActionTypes } from "./courses.actions";
-import { AppState } from "./courses.model";
-import { AuthorizationTokenService } from "../services/authToken.service";
+import { CourseListModel, PagerOptions } from '../models/courses';
+import { AuthorizationTokenService } from '../services/authToken.service';
+import { CoursesActions, CoursesActionTypes } from './courses.actions';
+import { AppState } from './courses.model';
 
 export type Action = CoursesActions;
 
@@ -72,10 +72,7 @@ export function coursesReducer(
         }
       });
     case CoursesActionTypes.EDIT_COURSE_SUCCESS:
-      let index = state.coursesList.data
-        .map(value => value.id)
-        .indexOf(action.course.id);
-        debugger;
+      const index = state.coursesList.data.map(value => value.id).indexOf(action.course.id);
       return newState(state, {
         coursesList: {
           data: [
@@ -86,14 +83,8 @@ export function coursesReducer(
           totalCount: state.coursesList.totalCount
         }
       });
-
-    // return newState(state, {
-    //   coursesList: {
-    //     data: state.coursesList.data.concat(action.course),
-    //     totalCount: state.coursesList.totalCount
-    //   }
-    // });
-
+    case CoursesActionTypes.LOGOUT:
+      return newState(state, { userInfo: null, userToken: null });
     default:
       return state;
   }

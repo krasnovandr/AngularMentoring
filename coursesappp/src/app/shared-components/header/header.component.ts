@@ -1,18 +1,16 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
-import { AuthorizationService } from "../../services/authorization.service";
-import { AuthorizationTokenService } from "../../services/authToken.service";
-import { Store } from "@ngrx/store";
-import { MainState } from "../../store/courses.model";
-import { GetUserInfo, Logout } from "../../store/courses.actions";
+import { AuthorizationTokenService } from '../../services/authToken.service';
+import { GetUserInfo, Logout } from '../../store/courses.actions';
+import { MainState } from '../../store/courses.model';
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.css"]
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private userName: string;
@@ -23,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private tokenService: AuthorizationTokenService,
     private router: Router,
     private cd: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subscription = this.store
@@ -54,13 +52,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public isAuthenticated() {
     return this.tokenService.isAuthenticated();
   }
-
-  // private getUser() {
-  //   this.authService.getUserInfo().subscribe(userInfo => {
-  //     this.userName = userInfo
-  //       ? `${userInfo.name.first} ${userInfo.name.last}`
-  //       : "";
-  //     this.cd.markForCheck();
-  //   });
-  // }
 }
