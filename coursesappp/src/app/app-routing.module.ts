@@ -14,20 +14,20 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { breadcrumb: '' }
     },
-    {
-        path: 'courses/new',
-        component: CourseComponent,
-        data: { breadcrumb: 'New Course' },
-        canActivate: [AuthGuard],
-        canDeactivate: [UnsavedFormGuard]
-    },
-    {
-        path: 'courses/:id',
-        component: CourseComponent,
-        canActivate: [AuthGuard],
-        canDeactivate: [UnsavedFormGuard],
-        data: { breadcrumb: 'Course' }
-    },
+    // {
+    //     path: 'courses/new',
+    //     component: CourseComponent,
+    //     data: { breadcrumb: 'New Course' },
+    //     canActivate: [AuthGuard],
+    //     canDeactivate: [UnsavedFormGuard]
+    // },
+    // {
+    //     path: 'courses/:id',
+    //     component: CourseComponent,
+    //     canActivate: [AuthGuard],
+    //     canDeactivate: [UnsavedFormGuard],
+    //     data: { breadcrumb: 'Course' }
+    // },
     { path: 'login', loadChildren: './pages/login/login.module#LoginModule' },
 
     { path: 'notfound', component: PageNotFoundComponent },

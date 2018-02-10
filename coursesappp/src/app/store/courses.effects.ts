@@ -1,13 +1,16 @@
-import { Injectable, Inject } from "@angular/core";
-import { Router } from "@angular/router";
-import { Actions, Effect } from "@ngrx/effects";
-import { Action, Store } from "@ngrx/store";
-import { Observable } from "rxjs/Observable";
-import { of } from "rxjs/observable/of";
-import { catchError, map, mergeMap, withLatestFrom } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Actions, Effect } from '@ngrx/effects';
+import { Action, Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
-import { AuthorsService } from "../services/authors.service";
-import { CoursesService } from "../services/courses.service";
+import { PagerOptions } from '../models/courses';
+import { AuthorizationService } from '../services/authorization.service';
+import { AuthorsService } from '../services/authors.service';
+import { AuthorizationTokenService } from '../services/authToken.service';
+import { CoursesService } from '../services/courses.service';
 import {
   AddCourse,
   AddCourseFailed,
@@ -16,30 +19,25 @@ import {
   DeleteCourse,
   DeleteCourseFailed,
   DeleteCourseSuccess,
+  EditCourse,
+  EditCourseFailed,
+  EditCourseSuccess,
   GetAuthorsSuccess,
   GetAuthorsSuccessFailed,
   GetCourses,
   GetCoursesFailed,
   GetCoursesSuccess,
+  GetUserInfo,
+  GetUserInfoFailed,
+  GetUserInfoSuccess,
+  Login,
+  LoginFailed,
+  LoginSuccess,
+  PageChanged,
   SearchFailed,
   SearchSuccess,
-  Login,
-  LoginSuccess,
-  LoginFailed,
-  GetUserInfo,
-  GetUserInfoSuccess,
-  GetUserInfoFailed,
-  PageChanged,
-  EditCourseSuccess,
-  EditCourseFailed,
-  EditCourse
-} from "./courses.actions";
-import { MainState } from "./courses.model";
-import { AuthorizationService } from "../services/authorization.service";
-import { AuthorizationTokenService } from "../services/authToken.service";
-import { REMOTE_SERVICE } from "../shared-components/base-modal/base-modal.component";
-import { BaseModalRemoteService } from "../shared-components/base-modal/base-modal-remote.service";
-import { PagerOptions } from "../models/courses";
+} from './courses.actions';
+import { MainState } from './courses.model';
 
 @Injectable()
 export class CoursesEffects {
@@ -51,8 +49,7 @@ export class CoursesEffects {
     private authorizationService: AuthorizationService,
     private tokenService: AuthorizationTokenService,
     private store: Store<MainState>
-  ) // @Inject(REMOTE_SERVICE) private baseModalRemoteService: BaseModalRemoteService
-  {}
+  ) { }
 
   @Effect()
   getCourses: Observable<Action> = this.actions
@@ -61,9 +58,6 @@ export class CoursesEffects {
       withLatestFrom(this.store),
       mergeMap(([action, state]) => {
         const getCourses = <GetCourses>action;
-        // const pager = state.mainStore.coursesList && state.mainStore.coursesList.data.length === 1
-        //     ? PagerOptions.getDefaultOptions()
-        //     : state.mainStore.pager;
         return this.coursesService
           .getList(state.mainStore.pager, state.mainStore.filter)
           .pipe(
@@ -127,10 +121,6 @@ export class CoursesEffects {
     .pipe(
       withLatestFrom(this.store),
       mergeMap(([action, state]) => {
-        // this.baseModalRemoteService.close();
-        // const addAction = <AddCourseSuccess>action;
-        // addAction.courseForm.reset();
-        // this.router.navigate(["courses"]);
         return of(new PageChanged(PagerOptions.getDefaultOptions()));
       })
     );
@@ -188,7 +178,7 @@ export class CoursesEffects {
       withLatestFrom(this.store),
       mergeMap(([action, state]) => {
         this.tokenService.setAuthorizationToken(state.mainStore.userToken);
-        this.router.navigate(["/courses"]);
+        this.router.navigate(['/courses']);
         return of();
       })
     );
@@ -216,19 +206,8 @@ export class CoursesEffects {
       withLatestFrom(this.store),
       mergeMap(([action, state]) => {
         this.authorizationService.logout();
-        this.router.navigate(["/login"]);
+        this.router.navigate(['/login']);
         return of();
       })
     );
-
-  // this.authService.login(loginForm.login, loginForm.password)
-  // .map(response => response.token).subscribe(token => {
-  //   this.tokenService.setAuthorizationToken(token);
-  //   spinnerRef.close();
-  //   this.router.navigate(['courses']);
-  // }, (error: HttpErrorResponse) => {
-  //   this.loginResult = error.error;
-  //   spinnerRef.close();
-  //   this.cd.markForCheck();
-  // });
 }

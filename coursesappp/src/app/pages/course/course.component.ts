@@ -1,8 +1,7 @@
-import { DatePipe, Location } from '@angular/common';
-import { OnDestroy } from '@angular/core';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -21,9 +20,9 @@ import { multiselectRequiredValidator } from '../../validators/multiselect-requi
 import { numberFormatValidator } from '../../validators/number-validator';
 
 @Component({
-  selector: "app-course",
-  templateUrl: "./course.component.html",
-  styleUrls: ["./course.component.css"]
+  selector: 'app-course',
+  templateUrl: './course.component.html',
+  styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit, OnDestroy {
   @Input() courseId?: number;
@@ -33,10 +32,8 @@ export class CourseComponent implements OnInit, OnDestroy {
   private courseSubscription: Subscription;
 
   constructor(
-    private location: Location,
     private formBuilder: FormBuilder,
     private authorsService: AuthorsService,
-    private router: ActivatedRoute,
     private courseService: CoursesService,
     private datePipe: DatePipe,
     private navigateRouter: Router,
@@ -44,14 +41,14 @@ export class CourseComponent implements OnInit, OnDestroy {
     private store: Store<MainState>,
     @Inject(REMOTE_SERVICE)
     private baseModalRemoteService: BaseModalRemoteService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.courseForm = this.formBuilder.group({
-      title: ["", [Validators.maxLength(50), Validators.required]],
-      date: ["", [Validators.required, dateFormatValidator()]],
-      description: ["", [Validators.required, Validators.maxLength(500)]],
-      duration: ["", [Validators.required, numberFormatValidator()]],
+      title: ['', [Validators.maxLength(50), Validators.required]],
+      date: ['', [Validators.required, dateFormatValidator()]],
+      description: ['', [Validators.required, Validators.maxLength(500)]],
+      duration: ['', [Validators.required, numberFormatValidator()]],
       authors: [[], [multiselectRequiredValidator()]],
       topRated: false
     });
@@ -65,20 +62,19 @@ export class CourseComponent implements OnInit, OnDestroy {
             this.courseAuthors = course.authors;
 
             this.authorsService.getAuthors().subscribe(authors => {
-              debugger;
               this.markCheckedAuthors(authors);
-              this.courseForm.controls["authors"].setValue(authors);
+              this.courseForm.controls['authors'].setValue(authors);
             });
           },
           error => {
             if (error.status === 404) {
-              this.navigateRouter.navigate(["notfound"]);
+              this.navigateRouter.navigate(['notfound']);
             }
           }
         );
     } else {
       this.store.select(store => store.mainStore.authors).subscribe(authors => {
-        this.courseForm.controls["authors"].setValue(authors);
+        this.courseForm.controls['authors'].setValue(authors);
       });
       this.store.dispatch(new GetAuthors());
     }
@@ -95,13 +91,13 @@ export class CourseComponent implements OnInit, OnDestroy {
   }
 
   private setValuesToTheForm(course: Course) {
-    this.courseForm.controls["title"].patchValue(course.title);
-    this.courseForm.controls["date"].patchValue(
-      this.datePipe.transform(course.creationDate, "dd/MM/yyyy")
+    this.courseForm.controls['title'].patchValue(course.title);
+    this.courseForm.controls['date'].patchValue(
+      this.datePipe.transform(course.creationDate, 'dd/MM/yyyy')
     );
-    this.courseForm.controls["description"].patchValue(course.description);
-    this.courseForm.controls["duration"].patchValue(course.duration);
-    this.courseForm.controls["topRated"].patchValue(course.topRated);
+    this.courseForm.controls['description'].patchValue(course.description);
+    this.courseForm.controls['duration'].patchValue(course.duration);
+    this.courseForm.controls['topRated'].patchValue(course.topRated);
   }
 
   private markCheckedAuthors(authors: MultiselectModel[]) {
@@ -129,7 +125,10 @@ export class CourseComponent implements OnInit, OnDestroy {
     const formModel = courseForm.value;
     const course: CourseDto = new CourseDto();
     course.name = formModel.title;
-    course.date = new Date(formModel.date);
+    // New Date don't support dd/mm/yyyy out of the box
+    const dateParts = formModel.date.split('/');
+    course.date = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+
     course.description = formModel.description;
     course.duration = formModel.duration;
     course.isTopRated = formModel.topRated;

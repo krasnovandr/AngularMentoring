@@ -1,25 +1,17 @@
-import "rxjs/add/observable/of";
-import "rxjs/add/operator/map";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs/observable/of';
+import { Subscription } from 'rxjs/Subscription';
 
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { of } from "rxjs/observable/of";
-import { Subscription } from "rxjs/Subscription";
-
-import { Course, FilterOptions, PagerOptions } from "../../models/courses";
-import { SpinnerService } from "../../services/spinner.service";
-import {
-  DeleteCourse,
-  GetCourses,
-  PageChanged,
-  SearchTriggered
-} from "../../store/courses.actions";
-import { MainState } from "../../store/courses.model";
+import { Course, FilterOptions, PagerOptions } from '../../models/courses';
+import { SpinnerService } from '../../services/spinner.service';
+import { DeleteCourse, GetCourses, PageChanged, SearchTriggered } from '../../store/courses.actions';
+import { MainState } from '../../store/courses.model';
 
 @Component({
-  selector: "app-courses",
-  templateUrl: "./courses.component.html",
-  styleUrls: ["./courses.component.css"]
+  selector: 'app-courses',
+  templateUrl: './courses.component.html',
+  styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
   public courses: Course[] = [];
@@ -31,7 +23,7 @@ export class CoursesComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private spinner: SpinnerService,
     private store: Store<MainState>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.store.select(stor => stor.mainStore).subscribe(value => {

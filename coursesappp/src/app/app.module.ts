@@ -109,6 +109,6 @@ import { coursesReducer } from './store/courses.reducer';
     ConfirmationModalService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmationModalComponent, SpinnerComponent, BaseModalComponent]
+  entryComponents: [ConfirmationModalComponent, SpinnerComponent, BaseModalComponent, CourseComponent]
 })
 export class AppModule { }

@@ -2,23 +2,23 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Injector,
   Input,
+  OnChanges,
   OnInit,
   Output,
   SimpleChanges,
-  Injector
-} from "@angular/core";
-import { OnChanges } from "@angular/core";
+} from '@angular/core';
 
-import { Course } from "../../../../models/courses";
-import { ConfirmationModalService } from "../../../../shared-components/confirmation-modal/confirmation-modal.service";
-import { BaseModalService } from "../../../../shared-components/base-modal/base-modal.service";
-import { CourseComponent } from "../../../course/course.component";
+import { Course } from '../../../../models/courses';
+import { BaseModalService } from '../../../../shared-components/base-modal/base-modal.service';
+import { ConfirmationModalService } from '../../../../shared-components/confirmation-modal/confirmation-modal.service';
+import { CourseComponent } from '../../../course/course.component';
 
 @Component({
-  selector: "app-course-detail",
-  templateUrl: "./course-detail.component.html",
-  styleUrls: ["./course-detail.component.css"],
+  selector: 'app-course-detail',
+  templateUrl: './course-detail.component.html',
+  styleUrls: ['./course-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseDetailComponent implements OnInit, OnChanges {
@@ -29,7 +29,7 @@ export class CourseDetailComponent implements OnInit, OnChanges {
     private confirmationModalService: ConfirmationModalService,
     private baseModalService: BaseModalService,
     private injector: Injector
-  ) {}
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
@@ -41,7 +41,7 @@ export class CourseDetailComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   deleteCourse(course: Course) {
     const result = this.confirmationModalService.open(
@@ -59,7 +59,7 @@ export class CourseDetailComponent implements OnInit, OnChanges {
     this.baseModalService.open(CourseComponent, {
       componentInputParameters: [
         {
-          name: "courseId",
+          name: 'courseId',
           value: courseId
         }
       ],

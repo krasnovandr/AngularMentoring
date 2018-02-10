@@ -1,196 +1,192 @@
-import { Action } from "@ngrx/store";
+import { Action } from '@ngrx/store';
 
-import { AuthorDto } from "../models/author";
-import {
-  CourseListModel,
-  FilterOptions,
-  PagerOptions
-} from "../models/courses";
-import { SignInResponse, UserInfo } from "../models/user";
+import { AuthorDto } from '../models/author';
+import { CourseListModel, FilterOptions, PagerOptions } from '../models/courses';
+import { SignInResponse, UserInfo } from '../models/user';
 
 export enum CoursesActionTypes {
-  GET_COURSES = "GET_COURSES",
-  GET_COURSES_SUCCESS = "GET_COURSES_SUCCESS",
-  GET_COURSES_FAILED = "GET_COURSES_FAILED",
-  PAGE_CHANGED = "PAGE_CHANGED",
-  SEARCH_TRIGGERED = "SEARCH_TRIGGERED",
-  SEARCH_SUCCESS = "SEARCH_SUCCESS",
-  SEARCH_FAILED = "SEARCH_FAILED",
-  EDIT_COURSE = "EDIT_COURSE",
-  EDIT_COURSE_SUCCESS = "EDIT_COURSE_SUCCESS",
-  EDIT_COURSE_FAILED = "EDIT_COURSE_FAILED",
-  DELETE_COURSE = "DELETE_COURSE",
-  DELETE_COURSE_SUCCESS = "DELETE_COURSE_SUCCESS",
-  DELETE_COURSE_FAILED = "DELETE_COURSE_FAILED",
-  ADD_COURSE = "ADD_COURSE",
-  ADD_COURSE_FAILED = "ADD_COURSE_FAILED",
-  ADD_COURSE_SUCCESS = "ADD_COURSE_SUCCESS",
-  GET_AUTHORS = "GET_AUTHORS",
-  GET_AUTHORS_SUCCESS = "GET_AUTHORS_SUCCESS",
-  GET_AUTHORS_FAILED = "GET_AUTHORS_FAILED",
-  GET_SINGLE_COURSE = "GET_SINGLE_COURSE",
-  GET_SINGLE_COURSE_SUCCESS = "GET_SINGLE_COURSE_SUCCESS",
-  LOGIN = "LOGIN",
-  LOGIN_SUCCESS = "LOGIN_SUCCESS",
-  LOGIN_FAILED = "LOGIN_FAILED",
-  LOGOUT = "LOGOUT",
-  GET_USER_INFO = "GET_USER_INFO",
-  GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS",
-  GET_USER_INFO_FAILED = "GET_USER_INFO_FAILED"
+  GET_COURSES = 'GET_COURSES',
+  GET_COURSES_SUCCESS = 'GET_COURSES_SUCCESS',
+  GET_COURSES_FAILED = 'GET_COURSES_FAILED',
+  PAGE_CHANGED = 'PAGE_CHANGED',
+  SEARCH_TRIGGERED = 'SEARCH_TRIGGERED',
+  SEARCH_SUCCESS = 'SEARCH_SUCCESS',
+  SEARCH_FAILED = 'SEARCH_FAILED',
+  EDIT_COURSE = 'EDIT_COURSE',
+  EDIT_COURSE_SUCCESS = 'EDIT_COURSE_SUCCESS',
+  EDIT_COURSE_FAILED = 'EDIT_COURSE_FAILED',
+  DELETE_COURSE = 'DELETE_COURSE',
+  DELETE_COURSE_SUCCESS = 'DELETE_COURSE_SUCCESS',
+  DELETE_COURSE_FAILED = 'DELETE_COURSE_FAILED',
+  ADD_COURSE = 'ADD_COURSE',
+  ADD_COURSE_FAILED = 'ADD_COURSE_FAILED',
+  ADD_COURSE_SUCCESS = 'ADD_COURSE_SUCCESS',
+  GET_AUTHORS = 'GET_AUTHORS',
+  GET_AUTHORS_SUCCESS = 'GET_AUTHORS_SUCCESS',
+  GET_AUTHORS_FAILED = 'GET_AUTHORS_FAILED',
+  GET_SINGLE_COURSE = 'GET_SINGLE_COURSE',
+  GET_SINGLE_COURSE_SUCCESS = 'GET_SINGLE_COURSE_SUCCESS',
+  LOGIN = 'LOGIN',
+  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
+  LOGIN_FAILED = 'LOGIN_FAILED',
+  LOGOUT = 'LOGOUT',
+  GET_USER_INFO = 'GET_USER_INFO',
+  GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS',
+  GET_USER_INFO_FAILED = 'GET_USER_INFO_FAILED'
 }
 
 export class Logout implements Action {
   readonly type = CoursesActionTypes.LOGOUT;
 
-  constructor() {}
+  constructor() { }
 }
 
 export class GetUserInfo implements Action {
   readonly type = CoursesActionTypes.GET_USER_INFO;
 
-  constructor(public token: string) {}
+  constructor(public token: string) { }
 }
 
 export class GetUserInfoSuccess implements Action {
   readonly type = CoursesActionTypes.GET_USER_INFO_SUCCESS;
 
-  constructor(public userInfo: UserInfo) {}
+  constructor(public userInfo: UserInfo) { }
 }
 
 export class GetUserInfoFailed implements Action {
   readonly type = CoursesActionTypes.GET_USER_INFO_FAILED;
 
-  constructor() {}
+  constructor() { }
 }
 
 export class Login implements Action {
   readonly type = CoursesActionTypes.LOGIN;
 
-  constructor(public name: string, public password: string) {}
+  constructor(public name: string, public password: string) { }
 }
 
 export class LoginSuccess implements Action {
   readonly type = CoursesActionTypes.LOGIN_SUCCESS;
 
-  constructor(public result: SignInResponse) {}
+  constructor(public result: SignInResponse) { }
 }
 
 export class LoginFailed implements Action {
   readonly type = CoursesActionTypes.LOGIN_FAILED;
 
-  constructor() {}
+  constructor() { }
 }
 export class GetCourses implements Action {
   readonly type = CoursesActionTypes.GET_COURSES;
 
-  constructor(public pagerOptions?, public filterOptions?) {}
+  constructor(public pagerOptions?, public filterOptions?) { }
 }
 
 export class GetCoursesSuccess implements Action {
   readonly type = CoursesActionTypes.GET_COURSES_SUCCESS;
 
-  constructor(public courses: CourseListModel) {}
+  constructor(public courses: CourseListModel) { }
 }
 
 export class GetCoursesFailed implements Action {
   readonly type = CoursesActionTypes.GET_COURSES_FAILED;
 
-  constructor() {}
+  constructor() { }
 }
 
 export class PageChanged implements Action {
   readonly type = CoursesActionTypes.PAGE_CHANGED;
 
-  constructor(public pagerOptions: PagerOptions) {}
+  constructor(public pagerOptions: PagerOptions) { }
 }
 
 export class SearchTriggered implements Action {
   readonly type = CoursesActionTypes.SEARCH_TRIGGERED;
 
-  constructor(public filterOptions?: FilterOptions) {}
+  constructor(public filterOptions?: FilterOptions) { }
 }
 
 export class SearchSuccess implements Action {
   readonly type = CoursesActionTypes.SEARCH_SUCCESS;
 
-  constructor(public courses: CourseListModel) {}
+  constructor(public courses: CourseListModel) { }
 }
 
 export class SearchFailed implements Action {
   readonly type = CoursesActionTypes.SEARCH_FAILED;
 
-  constructor() {}
+  constructor() { }
 }
 
 export class AddCourse implements Action {
   readonly type = CoursesActionTypes.ADD_COURSE;
 
-  constructor(public courseDto) {}
+  constructor(public courseDto) { }
 }
 
 export class AddCourseFailed implements Action {
   readonly type = CoursesActionTypes.ADD_COURSE_FAILED;
 
-  constructor() {}
+  constructor() { }
 }
 
 export class AddCourseSuccess implements Action {
   readonly type = CoursesActionTypes.ADD_COURSE_SUCCESS;
 
-  constructor(public course) {}
+  constructor(public course) { }
 }
 
 export class DeleteCourse implements Action {
   readonly type = CoursesActionTypes.DELETE_COURSE;
 
-  constructor(public courseId: number) {}
+  constructor(public courseId: number) { }
 }
 
 export class EditCourse implements Action {
   readonly type = CoursesActionTypes.EDIT_COURSE;
 
-  constructor(public courseDto) {}
+  constructor(public courseDto) { }
 }
 
 export class EditCourseFailed implements Action {
   readonly type = CoursesActionTypes.EDIT_COURSE_FAILED;
 
-  constructor() {}
+  constructor() { }
 }
 
 export class EditCourseSuccess implements Action {
   readonly type = CoursesActionTypes.EDIT_COURSE_SUCCESS;
 
-  constructor(public course) {}
+  constructor(public course) { }
 }
 
 export class DeleteCourseSuccess implements Action {
   readonly type = CoursesActionTypes.DELETE_COURSE_SUCCESS;
 
-  constructor(public courseId: number) {}
+  constructor(public courseId: number) { }
 }
 
 export class DeleteCourseFailed implements Action {
   readonly type = CoursesActionTypes.DELETE_COURSE_FAILED;
 
-  constructor() {}
+  constructor() { }
 }
 
 export class GetAuthors implements Action {
   readonly type = CoursesActionTypes.GET_AUTHORS;
 
-  constructor() {}
+  constructor() { }
 }
 
 export class GetAuthorsSuccess implements Action {
   readonly type = CoursesActionTypes.GET_AUTHORS_SUCCESS;
 
-  constructor(public authors: AuthorDto[]) {}
+  constructor(public authors: AuthorDto[]) { }
 }
 export class GetAuthorsSuccessFailed implements Action {
   readonly type = CoursesActionTypes.GET_AUTHORS_FAILED;
 
-  constructor() {}
+  constructor() { }
 }
 
 export type CoursesActions =
