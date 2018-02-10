@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
+
 import { IBreadcrumb } from './breadcrump';
 
 @Component({
