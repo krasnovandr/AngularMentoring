@@ -40,7 +40,9 @@ export class ToolboxComponent implements OnInit {
   }
 
   search(courseName: string) {
-    this.onSearch.emit(courseName.toLocaleLowerCase());
+    if (courseName !== '') {
+      this.onSearch.emit(courseName.toLocaleLowerCase());
+    }
   }
   openAddCourse() {
     this.baseModalService.open(CourseComponent, {
