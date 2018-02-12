@@ -76,7 +76,6 @@ import { coursesReducer } from './store/courses.reducer';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ReactiveFormsModule,
     StoreModule.forRoot({
       mainStore: coursesReducer
     }),

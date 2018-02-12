@@ -24,7 +24,6 @@ export class ToolboxComponent implements OnInit {
   @Output() onSearch: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private cd: ChangeDetectorRef,
     private baseModalService: BaseModalService,
     private injector: Injector
   ) {

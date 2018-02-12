@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AuthorDto } from '../models/author';
 import { MultiselectModel } from '../models/multiselect';
-
+import 'rxjs/operator/map';
 @Injectable()
 export class AuthorsService {
 

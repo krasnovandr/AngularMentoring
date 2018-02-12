@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToolboxComponent } from './toolbox.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BaseModalService } from '../../../../shared-components/base-modal/base-modal.service';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { BaseModalBodyLoaderService } from '../../../../shared-components/base-modal/base-modal-body-loader.service';
 
 describe('ToolboxComponent', () => {
   let component: ToolboxComponent;
@@ -8,9 +12,11 @@ describe('ToolboxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToolboxComponent ]
+      imports: [ReactiveFormsModule, FormsModule, OverlayModule],
+      providers: [BaseModalService, BaseModalBodyLoaderService],
+      declarations: [ToolboxComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +27,9 @@ describe('ToolboxComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should initialize search form control', () => {
+    expect(component.searchBar.value).toEqual('');
   });
 });
