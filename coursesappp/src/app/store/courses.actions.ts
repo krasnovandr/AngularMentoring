@@ -32,7 +32,8 @@ export enum CoursesActionTypes {
   LOGOUT = 'LOGOUT',
   GET_USER_INFO = 'GET_USER_INFO',
   GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS',
-  GET_USER_INFO_FAILED = 'GET_USER_INFO_FAILED'
+  GET_USER_INFO_FAILED = 'GET_USER_INFO_FAILED',
+  EMPTY_ACTION = 'EMPTY_ACTION'
 }
 
 export class Logout implements Action {
@@ -189,6 +190,12 @@ export class GetAuthorsSuccessFailed implements Action {
   constructor() { }
 }
 
+export class EmptyAction implements Action {
+  readonly type = CoursesActionTypes.EMPTY_ACTION;
+
+  constructor() { }
+}
+
 export type CoursesActions =
   | GetCourses
   | GetCoursesSuccess
@@ -215,4 +222,5 @@ export type CoursesActions =
   | Logout
   | EditCourseFailed
   | EditCourseSuccess
-  | EditCourse;
+  | EditCourse
+  | EmptyAction;

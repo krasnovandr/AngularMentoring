@@ -26,10 +26,16 @@ export class CoursesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.select(stor => stor.mainStore).subscribe(value => {
-      if (value && value.coursesList) {
-        this.courses = value.coursesList.data;
-        this.totalCount = value.coursesList.totalCount;
+    this.store.select(stor => stor.mainStore.coursesList).subscribe(st => {
+      if (st) {
+        this.courses = st.data;
+        this.totalCount = st.totalCount;
+      }
+    });
+
+    this.store.select(stor => stor.mainStore.pager).subscribe(value => {
+      if (value) {
+        this.currentPage = value.pageIndex;
       }
     });
 

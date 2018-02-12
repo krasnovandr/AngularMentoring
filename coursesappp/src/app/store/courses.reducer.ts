@@ -33,7 +33,6 @@ export function coursesReducer(
           totalCount: action.courses.totalCount
         }
       });
-
     case CoursesActionTypes.PAGE_CHANGED:
       return newState(state, { pager: action.pagerOptions, filter: null });
     case CoursesActionTypes.SEARCH_TRIGGERED:
@@ -42,24 +41,16 @@ export function coursesReducer(
         filter: action.filterOptions
       });
     case CoursesActionTypes.SEARCH_SUCCESS:
-      return newState(state, { coursesList: action.courses });
+      return newState(state, { coursesList: action.courses, pager: PagerOptions.getDefaultOptions() });
     case CoursesActionTypes.DELETE_COURSE_SUCCESS:
       return newState(state, {
         coursesList: {
           data: state.coursesList.data.filter(v => v.id !== action.courseId),
-          totalCount: state.coursesList.totalCount
+          totalCount: state.coursesList.totalCount - 1
         }
       });
     case CoursesActionTypes.GET_AUTHORS_SUCCESS:
       return newState(state, { authors: action.authors });
-    case CoursesActionTypes.DELETE_COURSE_SUCCESS:
-      return newState(state, {
-        coursesList: {
-          data: state.coursesList.data.filter(v => v.id !== action.courseId),
-          totalCount: state.coursesList.totalCount
-        }
-      });
-
     case CoursesActionTypes.LOGIN_SUCCESS:
       return newState(state, { userToken: action.result.token });
     case CoursesActionTypes.GET_USER_INFO_SUCCESS:
@@ -68,7 +59,7 @@ export function coursesReducer(
       return newState(state, {
         coursesList: {
           data: state.coursesList.data.concat(action.course),
-          totalCount: state.coursesList.totalCount
+          totalCount: state.coursesList.totalCount + 1
         }
       });
     case CoursesActionTypes.EDIT_COURSE_SUCCESS:

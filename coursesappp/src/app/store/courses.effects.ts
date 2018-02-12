@@ -36,6 +36,7 @@ import {
   PageChanged,
   SearchFailed,
   SearchSuccess,
+  EmptyAction,
 } from './courses.actions';
 import { MainState } from './courses.model';
 
@@ -80,6 +81,21 @@ export class CoursesEffects {
             map(data => new DeleteCourseSuccess(deleteAction.courseId)),
             catchError(e => of(new DeleteCourseFailed()))
           );
+      })
+    );
+
+
+  @Effect()
+  deleteCourseSucess: Observable<Action> = this.actions
+    .ofType(CoursesActionTypes.DELETE_COURSE_SUCCESS)
+    .pipe(
+      withLatestFrom(this.store),
+      map(([action, state]) => {
+        const deleteAction = <DeleteCourse>action;
+        if (state.mainStore.coursesList.data.length < state.mainStore.pager.itemsPerPage) {
+          return new GetCourses();
+        }
+        return new EmptyAction();
       })
     );
 
