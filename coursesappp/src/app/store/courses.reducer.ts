@@ -24,6 +24,13 @@ export function coursesReducer(
   action: Action
 ) {
   switch (action.type) {
+    case CoursesActionTypes.REFRESH_COURSES_SUCCESS:
+      return newState(state, {
+        coursesList: {
+          data: action.courses.data,
+          totalCount: action.courses.totalCount
+        }
+      });
     case CoursesActionTypes.GET_COURSES:
       return state;
     case CoursesActionTypes.GET_COURSES_SUCCESS:

@@ -37,6 +37,9 @@ import {
   SearchFailed,
   SearchSuccess,
   EmptyAction,
+  RefreshCoursesSuccess,
+  RefreshCoursesFailed,
+  RefreshCourses,
 } from './courses.actions';
 import { MainState } from './courses.model';
 
@@ -51,6 +54,22 @@ export class CoursesEffects {
     private tokenService: AuthorizationTokenService,
     private store: Store<MainState>
   ) { }
+
+  @Effect()
+  refreshCourses: Observable<Action> = this.actions
+    .ofType(CoursesActionTypes.REFRESH_COURSES)
+    .pipe(
+      withLatestFrom(this.store),
+      mergeMap(([action, state]) => {
+        const getCourses = <GetCourses>action;
+        return this.coursesService
+          .getList(state.mainStore.pager, state.mainStore.filter)
+          .pipe(
+            map(data => new RefreshCoursesSuccess(data)),
+            catchError(e => of(new RefreshCoursesFailed()))
+          );
+      })
+    );
 
   @Effect()
   getCourses: Observable<Action> = this.actions
@@ -93,7 +112,7 @@ export class CoursesEffects {
       map(([action, state]) => {
         const deleteAction = <DeleteCourse>action;
         if (state.mainStore.coursesList.data.length < state.mainStore.pager.itemsPerPage) {
-          return new GetCourses();
+          return new RefreshCourses();
         }
         return new EmptyAction();
       })

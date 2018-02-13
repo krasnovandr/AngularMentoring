@@ -33,7 +33,10 @@ export enum CoursesActionTypes {
   GET_USER_INFO = 'GET_USER_INFO',
   GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS',
   GET_USER_INFO_FAILED = 'GET_USER_INFO_FAILED',
-  EMPTY_ACTION = 'EMPTY_ACTION'
+  EMPTY_ACTION = 'EMPTY_ACTION',
+  REFRESH_COURSES = 'REFRESH_COURSES',
+  REFRESH_COURSES_SUCCESS = 'REFRESH_COURSES_SUCCESS',
+  REFRESH_COURSES_FAILED = 'REFRESH_COURSES_FAILED'
 }
 
 export class Logout implements Action {
@@ -42,6 +45,23 @@ export class Logout implements Action {
   constructor() { }
 }
 
+export class RefreshCourses implements Action {
+  readonly type = CoursesActionTypes.REFRESH_COURSES;
+
+  constructor() { }
+}
+
+export class RefreshCoursesSuccess implements Action {
+  readonly type = CoursesActionTypes.REFRESH_COURSES_SUCCESS;
+
+  constructor(public courses: CourseListModel) { }
+}
+
+export class RefreshCoursesFailed implements Action {
+  readonly type = CoursesActionTypes.REFRESH_COURSES_FAILED;
+
+  constructor() { }
+}
 export class GetUserInfo implements Action {
   readonly type = CoursesActionTypes.GET_USER_INFO;
 
@@ -223,4 +243,7 @@ export type CoursesActions =
   | EditCourseFailed
   | EditCourseSuccess
   | EditCourse
+  | RefreshCourses
+  | RefreshCoursesFailed
+  | RefreshCoursesSuccess
   | EmptyAction;

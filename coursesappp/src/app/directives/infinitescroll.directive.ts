@@ -1,12 +1,12 @@
-import { Directive, AfterViewInit, ElementRef, Input } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs/Rx';
 import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/pairwise';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/pairwise';
 import 'rxjs/add/operator/startWith';
+
+import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 interface ScrollPosition {
     sH: number;
