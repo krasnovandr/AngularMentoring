@@ -18,6 +18,7 @@ import { MainState } from '../../store/courses.model';
 import { dateFormatValidator } from '../../validators/date-validator';
 import { multiselectRequiredValidator } from '../../validators/multiselect-required-validator';
 import { numberFormatValidator } from '../../validators/number-validator';
+import { BaseModalService } from '../../shared-components/base-modal/base-modal.service';
 
 @Component({
   selector: 'app-course',
@@ -37,10 +38,8 @@ export class CourseComponent implements OnInit, OnDestroy {
     private courseService: CoursesService,
     private datePipe: DatePipe,
     private navigateRouter: Router,
-    private confirmationModalService: ConfirmationModalService,
     private store: Store<MainState>,
-    @Inject(REMOTE_SERVICE)
-    private baseModalRemoteService: BaseModalRemoteService
+    private baseModalRemoteService: BaseModalService
   ) { }
 
   ngOnInit() {

@@ -14,13 +14,7 @@ import { MainState } from '../../store/courses.model';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  public loginResult: string;
-
-  constructor(private authService: AuthorizationService,
-    private tokenService: AuthorizationTokenService,
-    private router: Router,
-    private spinner: SpinnerService,
-    private cd: ChangeDetectorRef,
+  constructor(
     private store: Store<MainState>) { }
   ngOnInit() {
   }
