@@ -9,15 +9,13 @@ import { coursesReducer } from '../../store/courses.reducer';
 describe('LoginComponent', () => {
     let component: LoginComponent;
     let fixture: ComponentFixture<LoginComponent>;
-
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [LoginComponent],
             imports: [ReactiveFormsModule, FormsModule, StoreModule.forRoot({
                 mainStore: coursesReducer
             })],
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -29,4 +27,13 @@ describe('LoginComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+    // it('should have valid login form', () => {
+    // });
+    // it('should raise event when login button was clicked', () => {
+    //     // let selectedHero: Hero;
+    //     // comp.selected.subscribe((hero: Hero) => selectedHero = hero);
+    //     let heroEl = fixture.debugElement.query(By.css('.ngForm'));
+    //     heroEl.triggerEventHandler('click', null);
+    //     expect(selectedHero).toBe(expectedHero);
+    // });
 });

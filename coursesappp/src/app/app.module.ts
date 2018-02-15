@@ -1,6 +1,6 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,6 +44,7 @@ import { HeaderComponent } from './shared-components/header/header.component';
 import { SpinnerComponent } from './shared-components/spinner/spinner.component';
 import { CoursesEffects } from './store/courses.effects';
 import { coursesReducer } from './store/courses.reducer';
+import { CommonPipesModule } from './pipes/common.pipes.module';
 
 @NgModule({
   declarations: [
@@ -55,9 +56,9 @@ import { coursesReducer } from './store/courses.reducer';
     ToolboxComponent,
     ConfirmationModalComponent,
     ColoredborderDirective,
-    DurationPipe,
-    OrderbyPipe,
-    FilterPipe,
+    // DurationPipe,
+    // OrderbyPipe,
+    // FilterPipe,
     SpinnerComponent,
     CourseComponent,
     CoursesListComponent,
@@ -76,6 +77,7 @@ import { coursesReducer } from './store/courses.reducer';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    CommonPipesModule,
     StoreModule.forRoot({
       mainStore: coursesReducer
     }),

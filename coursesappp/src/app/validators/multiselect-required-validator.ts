@@ -10,5 +10,7 @@ export function multiselectRequiredValidator(): ValidatorFn {
 
             return isSelected ? null : { 'customRequired': { value: control.value } };
         }
+
+        return { 'customRequired': { value: control.value } };
     };
 }

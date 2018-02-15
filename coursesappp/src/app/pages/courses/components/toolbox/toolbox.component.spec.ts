@@ -15,8 +15,7 @@ describe('ToolboxComponent', () => {
       imports: [ReactiveFormsModule, FormsModule, OverlayModule],
       providers: [BaseModalService, BaseModalBodyLoaderService],
       declarations: [ToolboxComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -25,7 +24,7 @@ describe('ToolboxComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 

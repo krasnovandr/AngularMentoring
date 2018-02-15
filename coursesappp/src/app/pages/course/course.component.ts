@@ -39,7 +39,7 @@ export class CourseComponent implements OnInit, OnDestroy {
     private datePipe: DatePipe,
     private navigateRouter: Router,
     private store: Store<MainState>,
-    private baseModalRemoteService: BaseModalService
+    private baseModalService: BaseModalService
   ) { }
 
   ngOnInit() {
@@ -75,12 +75,12 @@ export class CourseComponent implements OnInit, OnDestroy {
       this.store.select(store => store.mainStore.authors).subscribe(authors => {
         this.courseForm.controls['authors'].setValue(authors);
       });
-      this.store.dispatch(new GetAuthors());
+       this.store.dispatch(new GetAuthors());
     }
   }
 
   onCancel() {
-    this.baseModalRemoteService.close();
+    this.baseModalService.close();
   }
 
   ngOnDestroy(): void {
@@ -114,13 +114,14 @@ export class CourseComponent implements OnInit, OnDestroy {
     if (this.courseId && this.courseId > 0) {
       courseDto.id = this.courseId;
       this.store.dispatch(new EditCourse(courseDto));
-      this.baseModalRemoteService.close();
+      this.baseModalService.close();
     } else {
       this.store.dispatch(new AddCourse(courseDto));
-      this.baseModalRemoteService.close();
+      this.baseModalService.close();
     }
   }
-  prepareSaveCourse(courseForm: FormGroup): CourseDto {
+
+  private prepareSaveCourse(courseForm: FormGroup): CourseDto {
     const formModel = courseForm.value;
     const course: CourseDto = new CourseDto();
     course.name = formModel.title;

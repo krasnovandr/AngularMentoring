@@ -1,5 +1,6 @@
 import 'rxjs/add/observable/from';
-import 'rxjs/operator/map';
+// import 'rxjs/operator/map';
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -15,12 +16,12 @@ export class CoursesService {
 
   public createCourse(course: CourseDto) {
     return this.http.post<CourseDto>(`${environment.apiEndpoints.apiUrl}/${this.coursesUrl}`, course)
-      .map((courseDto) => this.mapCourseEntity(courseDto));
+      .pipe(map((courseDto) => this.mapCourseEntity(courseDto)));
   }
 
   public updateCourse(course: CourseDto) {
     return this.http.put<CourseDto>(`${environment.apiEndpoints.apiUrl}/${this.coursesUrl}/${course.id}`, course)
-      .map((courseDto) => this.mapCourseEntity(courseDto));
+      .pipe(map((courseDto) => this.mapCourseEntity(courseDto)));
   }
 
   public getList(pagerOptions?: PagerOptions, filterOptions?: FilterOptions): Observable<CourseListModel> {
@@ -28,17 +29,17 @@ export class CoursesService {
     const params = this.buildParams(pagerOptions, filterOptions);
 
     return this.http.get<CourseResponseDto>(`${environment.apiEndpoints.apiUrl}/${this.coursesUrl}`, { params: params })
-      .map((response) => {
+      .pipe(map((response) => {
         const result = new CourseListModel();
         result.totalCount = response.totalCount;
         result.data = response.data.map((backendCourse) => this.mapCourseEntity(backendCourse));
         return result;
-      });
+      }));
   }
 
   public getCourse(id: number) {
     return this.http.get<CourseDto>(`${environment.apiEndpoints.apiUrl}/${this.coursesUrl}/${id}`)
-      .map((courseDto) => this.mapCourseEntity(courseDto));
+    .pipe(map((courseDto) => this.mapCourseEntity(courseDto)));
   }
 
 

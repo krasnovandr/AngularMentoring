@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { AuthorDto } from '../models/author';
-import { CourseListModel, FilterOptions, PagerOptions } from '../models/courses';
+import { CourseListModel, FilterOptions, PagerOptions, CourseDto } from '../models/courses';
 import { SignInResponse, UserInfo } from '../models/user';
 
 export enum CoursesActionTypes {
@@ -142,7 +142,7 @@ export class SearchFailed implements Action {
 export class AddCourse implements Action {
   readonly type = CoursesActionTypes.ADD_COURSE;
 
-  constructor(public courseDto) { }
+  constructor(public courseDto: CourseDto) { }
 }
 
 export class AddCourseFailed implements Action {
