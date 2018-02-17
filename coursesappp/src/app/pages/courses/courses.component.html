@@ -1,6 +1,4 @@
 <div class="courses">
     <app-toolbox (onSearch)="onSearch($event)"></app-toolbox>
-    <app-courses-list [courses]="courses" 
-    (onScrollEvent)="onScrollEvent($event)" 
-    (onDeleteEvent)="onDeleteEvent($event)"></app-courses-list>
+    <app-courses-list [courses]="courses" (onScrollEvent)="onScrollEvent()" (onDeleteEvent)="onDeleteEvent($event)"></app-courses-list>
 </div>

@@ -75,7 +75,7 @@ export class CourseComponent implements OnInit, OnDestroy {
       this.store.select(store => store.mainStore.authors).subscribe(authors => {
         this.courseForm.controls['authors'].setValue(authors);
       });
-       this.store.dispatch(new GetAuthors());
+      this.store.dispatch(new GetAuthors());
     }
   }
 

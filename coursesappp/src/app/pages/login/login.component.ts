@@ -1,10 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AuthorizationService } from '../../services/authorization.service';
-import { AuthorizationTokenService } from '../../services/authToken.service';
-import { SpinnerService } from '../../services/spinner.service';
 import { Login } from '../../store/courses.actions';
 import { MainState } from '../../store/courses.model';
 

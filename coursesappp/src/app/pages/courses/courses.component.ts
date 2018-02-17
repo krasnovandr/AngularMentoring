@@ -20,8 +20,6 @@ export class CoursesComponent implements OnInit {
   totalCount = 0;
 
   constructor(
-    private cd: ChangeDetectorRef,
-    private spinner: SpinnerService,
     private store: Store<MainState>
   ) { }
 
@@ -42,7 +40,7 @@ export class CoursesComponent implements OnInit {
     this.store.dispatch(new GetCourses());
   }
 
-  onDeleteEvent(course: Course) {
+  public onDeleteEvent(course: Course) {
     this.store.dispatch(new DeleteCourse(course.id));
 
     console.log(
@@ -50,7 +48,7 @@ export class CoursesComponent implements OnInit {
     );
   }
 
-  onSearch(courseName: string) {
+  public onSearch(courseName: string) {
     this.store.dispatch(new SearchTriggered(this.getFilterOptions(courseName)));
   }
 
@@ -61,7 +59,7 @@ export class CoursesComponent implements OnInit {
     return filetrOption;
   }
 
-  onScrollEvent(value: any) {
+  public onScrollEvent() {
     if (this.courses.length < this.totalCount) {
       return of(
         this.store.dispatch(

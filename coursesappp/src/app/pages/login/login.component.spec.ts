@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Store, StoreModule } from '@ngrx/store';
 
-import { LoginComponent } from './login.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { StoreModule } from '@ngrx/store';
+import { Login } from '../../store/courses.actions';
+import { MainState } from '../../store/courses.model';
 import { coursesReducer } from '../../store/courses.reducer';
+import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
     let fixture: ComponentFixture<LoginComponent>;
+    let store: Store<MainState>;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [LoginComponent],
@@ -22,18 +24,22 @@ describe('LoginComponent', () => {
         fixture = TestBed.createComponent(LoginComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+
+        store = TestBed.get(Store);
+        spyOn(store, 'dispatch').and.callThrough();
     });
 
-    it('should create', () => {
+    it('should create component succesgully ', () => {
         expect(component).toBeTruthy();
     });
-    // it('should have valid login form', () => {
-    // });
-    // it('should raise event when login button was clicked', () => {
-    //     // let selectedHero: Hero;
-    //     // comp.selected.subscribe((hero: Hero) => selectedHero = hero);
-    //     let heroEl = fixture.debugElement.query(By.css('.ngForm'));
-    //     heroEl.triggerEventHandler('click', null);
-    //     expect(selectedHero).toBe(expectedHero);
-    // });
+
+    it('should dispatch logon action when login button was clicked', () => {
+        const login = 'userName';
+        const password = 'userName';
+        const action = new Login(login, password);
+
+        component.onLogin({ login, password });
+
+        expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
 });
