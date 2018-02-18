@@ -14,7 +14,7 @@ export class ConfirmationModalComponent implements OnInit {
   @Input()
   confirmationText: string;
   @Input()
-  response: EventEmitter<boolean>;
+  response: Subject<boolean>;
 
   innerHtml: SafeHtml;
 
@@ -27,12 +27,12 @@ export class ConfirmationModalComponent implements OnInit {
   }
 
   close() {
-    this.response.emit(false);
+    this.response.next(false);
     this.baseModalRemoteService.close();
   }
 
   ok() {
-    this.response.emit(true);
+    this.response.next(true);
     this.baseModalRemoteService.close();
   }
 }

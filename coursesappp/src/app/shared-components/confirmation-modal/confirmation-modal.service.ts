@@ -1,5 +1,6 @@
-import { Injector, Injectable, EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable, Injector } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+
 import { BaseModalService } from '../base-modal/base-modal.service';
 import { ConfirmationModalComponent } from './confirmation-modal.component';
 import { Subject } from 'rxjs/Subject';
@@ -11,7 +12,7 @@ export class ConfirmationModalService {
         private injector: Injector) { }
 
     public open(confirmationText: string) {
-        const result = new EventEmitter<boolean>();
+        const result = new Subject<boolean>();
 
         this.baseModalService.open(ConfirmationModalComponent, {
             componentInputParameters: [{

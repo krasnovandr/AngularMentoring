@@ -1,5 +1,6 @@
-import { CanDeactivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { CanDeactivate, Router } from '@angular/router';
+
 import { CourseComponent } from '../pages/course/course.component';
 import { ConfirmationModalService } from '../shared-components/confirmation-modal/confirmation-modal.service';
 

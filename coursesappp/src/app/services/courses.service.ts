@@ -10,26 +10,26 @@ import { environment } from '../../environments/environment';
 import { Course, CourseDto, CourseListModel, CourseResponseDto, FilterOptions, PagerOptions } from '../models/courses';
 @Injectable()
 export class CoursesService {
-  private coursesUrl = 'courses';
+  public baseUrl = environment.apiEndpoints.apiUrl;
+  public coursesUrl = 'courses';
   constructor(private http: HttpClient) {
   }
 
   public createCourse(course: CourseDto) {
-    return this.http.post<CourseDto>(`${environment.apiEndpoints.apiUrl}/${this.coursesUrl}`, course)
-      .pipe(map((courseDto) => this.mapCourseEntity(courseDto)));
+    return this.http.post(`${this.baseUrl}/${this.coursesUrl}`, course)
+      .pipe(map((courseDto: CourseDto) => this.mapCourseEntity(courseDto)));
   }
 
   public updateCourse(course: CourseDto) {
-    return this.http.put<CourseDto>(`${environment.apiEndpoints.apiUrl}/${this.coursesUrl}/${course.id}`, course)
-      .pipe(map((courseDto) => this.mapCourseEntity(courseDto)));
+    return this.http.put(`${this.baseUrl}/${this.coursesUrl}/${course.id}`, course)
+      .pipe(map((courseDto: CourseDto) => this.mapCourseEntity(courseDto)));
   }
 
   public getList(pagerOptions?: PagerOptions, filterOptions?: FilterOptions): Observable<CourseListModel> {
-
     const params = this.buildParams(pagerOptions, filterOptions);
 
-    return this.http.get<CourseResponseDto>(`${environment.apiEndpoints.apiUrl}/${this.coursesUrl}`, { params: params })
-      .pipe(map((response) => {
+    return this.http.get(`${this.baseUrl}/${this.coursesUrl}`, { params: params })
+      .pipe(map((response: CourseResponseDto) => {
         const result = new CourseListModel();
         result.totalCount = response.totalCount;
         result.data = response.data.map((backendCourse) => this.mapCourseEntity(backendCourse));
@@ -38,8 +38,8 @@ export class CoursesService {
   }
 
   public getCourse(id: number) {
-    return this.http.get<CourseDto>(`${environment.apiEndpoints.apiUrl}/${this.coursesUrl}/${id}`)
-    .pipe(map((courseDto) => this.mapCourseEntity(courseDto)));
+    return this.http.get(`${this.baseUrl}/${this.coursesUrl}/${id}`)
+      .pipe(map((courseDto: CourseDto) => this.mapCourseEntity(courseDto)));
   }
 
 
@@ -60,7 +60,7 @@ export class CoursesService {
 
   public removeCourse(id: number): Observable<Object> {
     const coursesUrl = 'courses';
-    return this.http.delete(`${environment.apiEndpoints.apiUrl}/${coursesUrl}/${id}`);
+    return this.http.delete(`${this.baseUrl}/${coursesUrl}/${id}`);
   }
 
   private mapCourseEntity(backendCourse: CourseDto): Course {

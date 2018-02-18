@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { Course } from '../models/courses';
 
 @Pipe({
@@ -6,7 +7,7 @@ import { Course } from '../models/courses';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(courses: Course[], title: string): any {
+  transform(courses: Course[], title: string): Course[] {
     return courses.filter(value =>
       value.title.toLocaleLowerCase().indexOf(title.toLocaleLowerCase()) !== -1);
   }

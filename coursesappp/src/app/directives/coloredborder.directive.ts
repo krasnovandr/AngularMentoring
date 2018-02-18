@@ -11,7 +11,6 @@ export class ColoredborderDirective implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     const currentDate = new Date();
     const freshBaseLineDate = new Date();
     freshBaseLineDate.setDate(freshBaseLineDate.getDate() - 14);

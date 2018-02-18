@@ -5,7 +5,7 @@ import { AuthGuard } from './guards/auth-guard';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { PageNotFoundComponent } from './pages/notfound/page-not-found.component';
 
-const routes: Routes = [
+export const routes: Routes = [
     {
         path: 'courses', component: CoursesComponent,
         canActivate: [AuthGuard],

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -10,15 +10,12 @@ import { Course, CourseDto } from '../../models/courses';
 import { MultiselectModel } from '../../models/multiselect';
 import { AuthorsService } from '../../services/authors.service';
 import { CoursesService } from '../../services/courses.service';
-import { BaseModalRemoteService } from '../../shared-components/base-modal/base-modal-remote.service';
-import { REMOTE_SERVICE } from '../../shared-components/base-modal/base-modal.component';
-import { ConfirmationModalService } from '../../shared-components/confirmation-modal/confirmation-modal.service';
+import { BaseModalService } from '../../shared-components/base-modal/base-modal.service';
 import { AddCourse, EditCourse, GetAuthors } from '../../store/courses.actions';
 import { MainState } from '../../store/courses.model';
 import { dateFormatValidator } from '../../validators/date-validator';
 import { multiselectRequiredValidator } from '../../validators/multiselect-required-validator';
 import { numberFormatValidator } from '../../validators/number-validator';
-import { BaseModalService } from '../../shared-components/base-modal/base-modal.service';
 
 @Component({
   selector: 'app-course',

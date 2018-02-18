@@ -22,9 +22,15 @@ describe('ColoredborderDirective', () => {
     inputEl = fixture.debugElement.query(By.css('div'));
   });
 
-  it('should create an instance', () => {
+  it('should set blue border color for future date', () => {
     component.testDate = new Date('12/12/2019');
     fixture.detectChanges();
     expect(inputEl.nativeElement.style.borderColor).toBe('blue');
+  });
+  it('should set green border color for future date', () => {
+    component.testDate = new Date();
+    component.testDate.setDate(new Date().getDate() - 7);
+    fixture.detectChanges();
+    expect(inputEl.nativeElement.style.borderColor).toBe('green');
   });
 });

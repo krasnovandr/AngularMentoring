@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { Course } from '../models/courses';
 
 @Pipe({
@@ -6,7 +7,7 @@ import { Course } from '../models/courses';
 })
 export class OrderbyPipe implements PipeTransform {
 
-  transform(courses: Course[], sortField: string, order: string = 'asc'): any {
+  transform(courses: Course[], sortField: string, order: string = 'asc'): Course[] {
     if (sortField === 'creationDate') {
       courses.sort((course1, course2) => {
         return order === 'asc' ?
