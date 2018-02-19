@@ -13,14 +13,12 @@ import { MainState } from '../../store/courses.model';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  private userName: string;
+  public userName: string;
   private subscription: Subscription;
 
   constructor(
     private store: Store<MainState>,
     private tokenService: AuthorizationTokenService,
-    private router: Router,
-    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -45,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  private signOut() {
+  public signOut() {
     this.store.dispatch(new Logout());
   }
 

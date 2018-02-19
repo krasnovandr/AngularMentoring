@@ -9,6 +9,7 @@ import { BaseModalService } from '../shared-components/base-modal/base-modal.ser
 import { ConfirmationModalService } from '../shared-components/confirmation-modal/confirmation-modal.service';
 import { UnsavedFormGuard } from './unsaved-form.guard';
 import { EventEmitter } from 'protractor';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 describe('Unsaved Form Guard', () => {
     let unsavedFormGuard: UnsavedFormGuard;
@@ -45,12 +46,14 @@ describe('Unsaved Form Guard', () => {
     });
     it('should open confirmation modal when the form is dirty and in case of positive result allow deactivate', () => {
         courseComponent.courseForm.markAsDirty();
-        spyOn(confirmationModalService, 'open').and.returnValue(of(true));
-        expect(unsavedFormGuard.canDeactivate(courseComponent)).toEqual(of(true));
+        let deleteModalResult = new BehaviorSubject<boolean>(true);
+        spyOn(confirmationModalService, 'open').and.returnValue(deleteModalResult);
+        expect(unsavedFormGuard.canDeactivate(courseComponent)).toEqual(deleteModalResult);
     });
     it('should open confirmation modal when the form is dirty and in case of negative result not allow deactivate', () => {
         courseComponent.courseForm.markAsDirty();
-        spyOn(confirmationModalService, 'open').and.returnValue(of(false));
-        expect(unsavedFormGuard.canDeactivate(courseComponent)).toEqual(of(false));
+        let deleteModalResult = new BehaviorSubject<boolean>(false);
+        spyOn(confirmationModalService, 'open').and.returnValue(deleteModalResult);
+        expect(unsavedFormGuard.canDeactivate(courseComponent)).toEqual(deleteModalResult);
     });
 });

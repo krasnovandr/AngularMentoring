@@ -1,10 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs/observable/of';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Course, FilterOptions, PagerOptions } from '../../models/courses';
-import { SpinnerService } from '../../services/spinner.service';
 import { DeleteCourse, GetCourses, PageChanged, SearchTriggered } from '../../store/courses.actions';
 import { MainState } from '../../store/courses.model';
 
@@ -42,10 +41,6 @@ export class CoursesComponent implements OnInit {
 
   public onDeleteEvent(course: Course) {
     this.store.dispatch(new DeleteCourse(course.id));
-
-    console.log(
-      `course ${course.id} with name ${course.title} marked as deleted`
-    );
   }
 
   public onSearch(courseName: string) {

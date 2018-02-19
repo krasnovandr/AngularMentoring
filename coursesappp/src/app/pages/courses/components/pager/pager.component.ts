@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { PagerOptions } from '../../../../models/courses';
 
@@ -7,7 +7,7 @@ import { PagerOptions } from '../../../../models/courses';
   templateUrl: './pager.component.html',
   styleUrls: ['./pager.component.css']
 })
-export class PagerComponent implements OnInit, OnChanges {
+export class PagerComponent {
   @Input() public totalRecords: number;
   @Input() public recordsPerPage: number;
   @Output() onPageChanged: EventEmitter<any> = new EventEmitter<any>();
@@ -16,12 +16,6 @@ export class PagerComponent implements OnInit, OnChanges {
   currentPage = 1;
   currentPageInput = this.currentPage;
   constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnChanges() {
-  }
 
   public nextPage(): void {
     if (this.isNextAvailable()) {
@@ -83,11 +77,12 @@ export class PagerComponent implements OnInit, OnChanges {
     return `${start} - ${end} of ${totalRecords}`;
   }
 
-  updateRecordPerPage() {
+  public updateRecordPerPage() {
     this.setCurrentPage(1);
     this.onPageChanged.emit(new PagerOptions(this.currentPage, this.recordsPerPage));
   }
-  cuurentPageChanged() {
+
+  public curentPageChanged() {
     if (this.currentPageInput < 1) {
       this.setCurrentPage(1);
       return;

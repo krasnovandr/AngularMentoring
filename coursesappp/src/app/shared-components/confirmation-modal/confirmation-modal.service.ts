@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { BaseModalService } from '../base-modal/base-modal.service';
 import { ConfirmationModalComponent } from './confirmation-modal.component';
 import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ConfirmationModalService {
@@ -12,7 +13,7 @@ export class ConfirmationModalService {
         private injector: Injector) { }
 
     public open(confirmationText: string) {
-        const result = new Subject<boolean>();
+        const result = new BehaviorSubject<boolean>(false);
 
         this.baseModalService.open(ConfirmationModalComponent, {
             componentInputParameters: [{

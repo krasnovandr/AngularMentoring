@@ -10,18 +10,14 @@ import { MainState } from '../../../../store/courses.model';
   templateUrl: './courses-list.component.html',
   styleUrls: ['./courses-list.component.css']
 })
-export class CoursesListComponent implements OnInit {
+export class CoursesListComponent {
   @Input() public courses: Course[];
-  @Output() onDeleteEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onDeleteEvent: EventEmitter<Course> = new EventEmitter<Course>();
   @Output() onScrollEvent: EventEmitter<any> = new EventEmitter<any>();
 
   scrollCallback: any;
-  constructor(private store: Store<MainState>) {
+  constructor() {
     this.scrollCallback = this.onScroll.bind(this);
-  }
-
-  ngOnInit() {
-
   }
 
   onDelete(course: Course) {

@@ -8,13 +8,16 @@ import { AuthorizationTokenService } from './authToken.service';
 
 @Injectable()
 export class AuthorizationService {
+    public apiUrl = environment.apiEndpoints.apiUrl;
+    public loginUrl = 'auth/login';
+    public userInfoUrl = 'auth/userInfo';
     constructor(private http: HttpClient, private tokenService: AuthorizationTokenService) {
     }
 
     login(login: string, password: string): Observable<SignInResponse> {
         const user = new UserLogin(login, password);
-        const loginUrl = 'auth/login';
-        return this.http.post<SignInResponse>(`${environment.apiEndpoints.apiUrl}/${loginUrl}`, user);
+
+        return this.http.post<SignInResponse>(`${this.apiUrl}/${this.loginUrl}`, user);
     }
 
     logout() {
@@ -22,7 +25,6 @@ export class AuthorizationService {
     }
 
     public getUserInfo(): Observable<UserInfo> {
-        const userInfoUrl = 'auth/userInfo';
-        return this.http.get<UserInfo>(`${environment.apiEndpoints.apiUrl}/${userInfoUrl}`);
+        return this.http.get<UserInfo>(`${this.apiUrl}/${this.userInfoUrl}`);
     }
 }

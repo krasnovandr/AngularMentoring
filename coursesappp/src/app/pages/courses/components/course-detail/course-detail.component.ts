@@ -21,7 +21,7 @@ import { CourseComponent } from '../../../course/course.component';
   styleUrls: ['./course-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseDetailComponent implements OnInit, OnChanges {
+export class CourseDetailComponent {
   @Input() course: Course;
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,17 +31,15 @@ export class CourseDetailComponent implements OnInit, OnChanges {
     private injector: Injector
   ) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    for (const propName in changes) {
-      if (changes.hasOwnProperty(propName)) {
-        const chng = changes[propName];
-        const cur = JSON.stringify(chng.currentValue);
-        const prev = JSON.stringify(chng.previousValue);
-      }
-    }
-  }
-
-  ngOnInit() { }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   for (const propName in changes) {
+  //     if (changes.hasOwnProperty(propName)) {
+  //       const chng = changes[propName];
+  //       const cur = JSON.stringify(chng.currentValue);
+  //       const prev = JSON.stringify(chng.previousValue);
+  //     }
+  //   }
+  // }
 
   deleteCourse(course: Course) {
     const result = this.confirmationModalService.open(
@@ -50,7 +48,7 @@ export class CourseDetailComponent implements OnInit, OnChanges {
 
     result.subscribe(response => {
       if (response) {
-        this.onDelete.emit(this.course);
+        this.onDelete.emit(course);
       }
     });
   }

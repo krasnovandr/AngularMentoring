@@ -19,10 +19,7 @@ export const defaultCoursesState: AppState = {
   pager: PagerOptions.getDefaultOptions()
 };
 
-export function coursesReducer(
-  state: AppState = defaultCoursesState,
-  action: Action
-) {
+export function coursesReducer(state: AppState = defaultCoursesState, action: Action) {
   switch (action.type) {
     case CoursesActionTypes.REFRESH_COURSES_SUCCESS:
       return newState(state, {
