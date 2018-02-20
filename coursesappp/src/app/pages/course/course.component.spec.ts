@@ -31,6 +31,7 @@ describe('CourseComponent', () => {
     let store: Store<MainState>;
     let modalService: BaseModalService;
     let stubbedCourse: Course;
+    let storeSpy: any;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ReactiveFormsModule,
@@ -64,7 +65,7 @@ describe('CourseComponent', () => {
         authorsStub = [];
         authorsService = TestBed.get(AuthorsService);
         coursesService = TestBed.get(CoursesService);
-        spyOn(store, 'dispatch').and.callThrough();
+        storeSpy = spyOn(store, 'dispatch').and.callThrough();
         spyOn(modalService, 'close');
 
         stubbedCourse = new Course();
@@ -126,16 +127,17 @@ describe('CourseComponent', () => {
             component.courseForm.controls['topRated'].patchValue(expectedCourseDto.isTopRated);
             component.courseForm.controls['authors'].patchValue(authorsStub);
 
-            component.onSubmit(component.courseForm);
+
             authorsStub.forEach(value => {
                 expectedCourseDto.authors.push(new AuthorDto(value.id));
             });
             const addCourse = new AddCourse(expectedCourseDto);
             const getAuthors = new GetAuthors();
-            expect(store.dispatch).toHaveBeenCalledTimes(2);
-            expect(modalService.close).toHaveBeenCalled();
             // no idea why it fails
-            // expect(store.dispatch).toHaveBeenCalledWith(getAuthors, addCourse);
+            storeSpy.calls.reset();
+            component.onSubmit(component.courseForm);
+            expect(store.dispatch).toHaveBeenCalledWith(addCourse);
+            expect(modalService.close).toHaveBeenCalled();
         }));
     });
     describe('Edit  Mode', () => {
